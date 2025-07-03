@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, Users, LogOut } from 'lucide-react'
+import { LayoutDashboard, Users, Calendar, AlertTriangle, FileText, LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/auth-context'
 import { toast } from 'sonner'
@@ -15,6 +15,9 @@ export default function Navigation() {
   const navItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/users', label: 'Users', icon: Users },
+    { href: '/schedules', label: 'Schedules', icon: Calendar },
+    { href: '/monitoring', label: 'Monitoring', icon: AlertTriangle },
+    { href: '/reports', label: 'Reports', icon: FileText },
   ]
 
   const handleLogout = async () => {
