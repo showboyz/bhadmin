@@ -7,8 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Calendar } from '@/components/ui/calendar'
 import { Badge } from '@/components/ui/badge'
 import { ArrowLeft, User } from 'lucide-react'
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts'
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
+import { BarChart, Bar, XAxis, YAxis } from 'recharts'
 
 // 더미 데이터
 const userData = {
@@ -77,6 +77,18 @@ const activities = [
     status: 'In Progress'
   }
 ]
+
+// 차트 설정
+const chartConfig = {
+  physical: {
+    label: 'Physical Exercise',
+    color: '#9ca3af',
+  },
+  cognitive: {
+    label: 'Cognitive Training',
+    color: '#374151',
+  },
+} satisfies ChartConfig
 
 export default function UserDetailPage() {
   const params = useParams()
@@ -194,17 +206,15 @@ export default function UserDetailPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={monthlyData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                      <XAxis dataKey="month" stroke="#6b7280" fontSize={12} />
-                      <YAxis stroke="#6b7280" fontSize={12} />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <Bar dataKey="physical" fill="#9ca3af" stackId="a" />
-                      <Bar dataKey="cognitive" fill="#374151" stackId="a" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
+                <ChartContainer config={chartConfig} className="h-64">
+                  <BarChart data={monthlyData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                    <XAxis dataKey="month" stroke="#6b7280" fontSize={12} />
+                    <YAxis stroke="#6b7280" fontSize={12} />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Bar dataKey="physical" fill="#9ca3af" stackId="a" />
+                    <Bar dataKey="cognitive" fill="#374151" stackId="a" />
+                  </BarChart>
+                </ChartContainer>
               </CardContent>
             </Card>
 
