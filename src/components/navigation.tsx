@@ -33,7 +33,14 @@ export default function Navigation() {
   return (
     <nav className="bg-[#111] text-white h-screen w-64 fixed left-0 top-0 p-4">
       <div className="mb-8">
-        <h1 className="text-xl font-bold">Brain Health Admin</h1>
+        <div className="flex items-center gap-3 mb-2">
+          <img 
+            src="https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true" 
+            alt="Brain Health Playground" 
+            className="h-8 w-auto"
+          />
+        </div>
+        <h1 className="text-lg font-bold">Brain Health Admin</h1>
         {user && (
           <p className="text-sm text-gray-300 mt-2 truncate">
             {user.email}

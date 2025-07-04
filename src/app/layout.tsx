@@ -16,8 +16,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Brain Health Admin",
-  description: "Admin console for Brain Health Playground",
+  title: "Brain Health Admin Console",
+  description: "시니어 인지 및 운동 훈련 프로그램 관리 시스템 - Brain Health Playground",
+  icons: {
+    icon: "https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true",
+  },
 };
 
 export default function RootLayout({

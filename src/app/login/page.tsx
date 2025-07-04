@@ -76,6 +76,13 @@ export default function LoginPage() {
     <div className="min-h-screen bg-white flex items-center justify-center">
       <Card className="w-full max-w-md">
         <CardHeader>
+          <div className="text-center mb-4">
+            <img 
+              src="https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true" 
+              alt="Brain Health Playground" 
+              className="h-12 w-auto mx-auto mb-4"
+            />
+          </div>
           <CardTitle className="text-2xl font-bold text-[#111] text-center">
             Brain Health Admin
           </CardTitle>
