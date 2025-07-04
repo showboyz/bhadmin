@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Search, Filter, Plus, Video, MessageSquare, Trash2 } from 'lucide-react'
+import Link from 'next/link'
 
 // 더미 데이터
 const dummyUsers = [
@@ -168,7 +169,11 @@ export default function UsersPage() {
                           className="h-10 w-10 rounded-full mr-3"
                         />
                         <div>
-                          <div className="text-sm font-medium text-gray-900">{user.name}</div>
+                          <Link href={`/users/${user.id}`}>
+                            <div className="text-sm font-medium text-gray-900 hover:text-gray-700 cursor-pointer">
+                              {user.name}
+                            </div>
+                          </Link>
                           <div className="text-sm text-gray-500">{user.phone}</div>
                         </div>
                       </div>
