@@ -3,436 +3,257 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Label } from '@/components/ui/label'
-import { Plus, Search, Download, Edit, Trash2, Eye } from 'lucide-react'
-import { useSeniors } from '@/hooks/use-seniors'
-import { toast } from 'sonner'
+import { Badge } from '@/components/ui/badge'
+import { Search, Filter, Plus, Video, MessageSquare, Trash2 } from 'lucide-react'
+
+// 더미 데이터
+const dummyUsers = [
+  {
+    id: 1,
+    name: 'Marilou Kirn',
+    phone: '+1-328-857-2537',
+    age: 66,
+    currentWeek: 12,
+    progress: 65,
+    status: 'Active',
+    avatar: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=60&h=60&fit=crop&crop=face'
+  },
+  {
+    id: 2,
+    name: 'Kathlyn Karl',
+    phone: '+1-523-317-7761',
+    age: 55,
+    currentWeek: 1,
+    progress: 0,
+    status: 'Suspended',
+    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b739fcae?w=60&h=60&fit=crop&crop=face'
+  },
+  {
+    id: 3,
+    name: 'Rosemary Mckune',
+    phone: '+1-369-441-8619',
+    age: 67,
+    currentWeek: 34,
+    progress: 65,
+    status: 'Active',
+    avatar: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?w=60&h=60&fit=crop&crop=face'
+  },
+  {
+    id: 4,
+    name: 'Yelena Heywood',
+    phone: '+1-636-613-5429',
+    age: 58,
+    currentWeek: 23,
+    progress: 65,
+    status: 'Inactive',
+    avatar: 'https://images.unsplash.com/photo-1554151228-14d9def656e4?w=60&h=60&fit=crop&crop=face'
+  },
+  {
+    id: 5,
+    name: 'Dorotha Northum',
+    phone: '+1-547-538-9848',
+    age: 76,
+    currentWeek: 5,
+    progress: 65,
+    status: 'Active',
+    avatar: 'https://images.unsplash.com/photo-1566753323558-f4e0952af115?w=60&h=60&fit=crop&crop=face'
+  },
+  {
+    id: 6,
+    name: 'Buford Banuelos',
+    phone: '+1-557-680-6290',
+    age: 77,
+    currentWeek: 2,
+    progress: 65,
+    status: 'Active',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face'
+  },
+  {
+    id: 7,
+    name: 'Yelena Fannell',
+    phone: '+1-547-538-9848',
+    age: 73,
+    currentWeek: 10,
+    progress: 65,
+    status: 'Active',
+    avatar: 'https://images.unsplash.com/photo-1595152452543-e5fc28ebc2b8?w=60&h=60&fit=crop&crop=face'
+  },
+  {
+    id: 8,
+    name: 'Alfred Mallin',
+    phone: '+1-404-724-1937',
+    age: 70,
+    currentWeek: null,
+    progress: 65,
+    status: 'Pending',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face'
+  }
+]
 
 export default function UsersPage() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
-  const [editingSenior, setEditingSenior] = useState<any>(null)
-  const [isEditing, setIsEditing] = useState(false)
-  const [formData, setFormData] = useState({
-    name: '',
-    gender_enum: 'M' as 'M' | 'F',
-    birth: '',
-    eduyear: null as any,
-    phone: '',
-    guardian_phone: '',
-    address: '',
-    note: ''
-  })
+  const [currentPage, setCurrentPage] = useState(1)
 
-  const { seniors, loading, error, createSenior, updateSenior, deleteSenior } = useSeniors()
-
-  const resetForm = () => {
-    setFormData({
-      name: '',
-      gender_enum: 'M',
-      birth: '',
-      eduyear: null,
-      phone: '',
-      guardian_phone: '',
-      address: '',
-      note: ''
-    })
-  }
-
-  const handleCreateSubmit = async () => {
-    try {
-      // Get organization ID (for now, use the first org from sample data)
-      const orgId = '550e8400-e29b-41d4-a716-446655440000'
-      
-      const { error } = await createSenior({
-        ...formData,
-        org_id: orgId,
-        guardian_phone: formData.guardian_phone || null,
-        phone: formData.phone || null,
-        note: formData.note || null,
-        eduyear: formData.eduyear || null
-      })
-
-      if (error) {
-        toast.error(error)
-      } else {
-        toast.success('Senior created successfully')
-        setIsCreateDialogOpen(false)
-        resetForm()
-      }
-    } catch (error) {
-      toast.error('Failed to create senior')
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Active':
+        return 'bg-green-100 text-green-800 hover:bg-green-200'
+      case 'Inactive':
+        return 'bg-red-100 text-red-800 hover:bg-red-200'
+      case 'Suspended':
+        return 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+      case 'Pending':
+        return 'bg-blue-100 text-blue-800 hover:bg-blue-200'
+      default:
+        return 'bg-gray-100 text-gray-800 hover:bg-gray-200'
     }
   }
 
-  const handleEditSubmit = async () => {
-    if (!editingSenior) return
-
-    try {
-      const { error } = await updateSenior(editingSenior.id, {
-        ...formData,
-        guardian_phone: formData.guardian_phone || null,
-        phone: formData.phone || null,
-        note: formData.note || null,
-        eduyear: formData.eduyear || null
-      })
-
-      if (error) {
-        toast.error(error)
-      } else {
-        toast.success('Senior updated successfully')
-        setIsEditing(false)
-        setEditingSenior(null)
-        resetForm()
-      }
-    } catch (error) {
-      toast.error('Failed to update senior')
-    }
-  }
-
-  const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Are you sure you want to delete ${name}?`)) return
-
-    try {
-      const { error } = await deleteSenior(id)
-      if (error) {
-        toast.error(error)
-      } else {
-        toast.success('Senior deleted successfully')
-      }
-    } catch (error) {
-      toast.error('Failed to delete senior')
-    }
-  }
-
-  const openEditDialog = (senior: any) => {
-    setEditingSenior(senior)
-    setFormData({
-      name: senior.name,
-      gender_enum: senior.gender_enum,
-      birth: senior.birth,
-      eduyear: senior.eduyear,
-      phone: senior.phone || '',
-      guardian_phone: senior.guardian_phone || '',
-      address: senior.address || '',
-      note: senior.note || ''
-    })
-    setIsEditing(true)
-  }
-
-  const calculateAge = (birthDate: string) => {
-    const today = new Date()
-    const birth = new Date(birthDate)
-    let age = today.getFullYear() - birth.getFullYear()
-    const monthDiff = today.getMonth() - birth.getMonth()
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-      age--
-    }
-    return age
-  }
-
-  const filteredSeniors = seniors.filter(senior =>
-    senior.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (senior.phone && senior.phone.includes(searchTerm))
+  const filteredUsers = dummyUsers.filter(user =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.phone.includes(searchTerm)
   )
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#111] mx-auto"></div>
-          <p className="mt-2 text-[#555]">Loading seniors...</p>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-[#111]">User Management</h1>
-          <div className="flex gap-4">
-            <Button variant="outline" className="flex items-center gap-2">
-              <Download className="h-4 w-4" />
-              Export CSV
-            </Button>
-            <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-              <DialogTrigger asChild>
-                <Button className="bg-[#111] hover:bg-[#222] text-white flex items-center gap-2">
-                  <Plus className="h-4 w-4" />
-                  Add Senior
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-md">
-                <DialogHeader>
-                  <DialogTitle>Add New Senior</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="gender">Gender</Label>
-                    <select
-                      id="gender"
-                      value={formData.gender_enum}
-                      onChange={(e) => setFormData({...formData, gender_enum: e.target.value as 'M' | 'F'})}
-                      className="w-full px-3 py-2 border rounded-md"
-                    >
-                      <option value="M">Male</option>
-                      <option value="F">Female</option>
-                    </select>
-                  </div>
-                  <div>
-                    <Label htmlFor="birth">Birth Date</Label>
-                    <Input
-                      id="birth"
-                      type="date"
-                      value={formData.birth}
-                      onChange={(e) => setFormData({...formData, birth: e.target.value})}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="eduyear">Education Level</Label>
-                    <select
-                      id="eduyear"
-                      value={formData.eduyear || ''}
-                      onChange={(e) => setFormData({...formData, eduyear: e.target.value || null})}
-                      className="w-full px-3 py-2 border rounded-md"
-                    >
-                      <option value="">Select level</option>
-                      <option value="none">No formal education</option>
-                      <option value="elementary">Elementary</option>
-                      <option value="middle">Middle school</option>
-                      <option value="high">High school</option>
-                      <option value="college">College</option>
-                    </select>
-                  </div>
-                  <div>
-                    <Label htmlFor="phone">Phone</Label>
-                    <Input
-                      id="phone"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                      placeholder="010-XXXX-XXXX"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="guardianPhone">Guardian Phone</Label>
-                    <Input
-                      id="guardianPhone"
-                      value={formData.guardian_phone}
-                      onChange={(e) => setFormData({...formData, guardian_phone: e.target.value})}
-                      placeholder="010-XXXX-XXXX"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="note">Note</Label>
-                    <textarea
-                      id="note"
-                      value={formData.note}
-                      onChange={(e) => setFormData({...formData, note: e.target.value})}
-                      className="w-full px-3 py-2 border rounded-md"
-                      rows={3}
-                      placeholder="Additional notes..."
-                    />
-                  </div>
-                  <Button 
-                    onClick={handleCreateSubmit}
-                    className="w-full bg-[#111] hover:bg-[#222] text-white"
-                  >
-                    Create Senior
-                  </Button>
-                </div>
-              </DialogContent>
-            </Dialog>
-          </div>
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-semibold text-gray-900">User Management</h1>
+          <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+            <Plus className="h-4 w-4 mr-2" />
+            Add User
+          </Button>
         </div>
 
-        {/* Search */}
-        <Card className="mb-6">
-          <CardContent className="pt-6">
-            <div className="relative">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-[#555]" />
-              <Input
-                placeholder="Search by name or phone number..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8"
-              />
-            </div>
-          </CardContent>
-        </Card>
+        {/* Search and Filters */}
+        <div className="flex gap-4 mb-6">
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Input
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 bg-white border-gray-300"
+            />
+          </div>
+          <Button variant="outline" className="bg-white border-gray-300">
+            <Filter className="h-4 w-4 mr-2" />
+            Filters
+          </Button>
+        </div>
 
-        {/* Error message */}
-        {error && (
-          <Card className="mb-6 border-red-200">
-            <CardContent className="pt-6">
-              <p className="text-red-600">Error: {error}</p>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Users Table */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-[#111]">Seniors ({filteredSeniors.length})</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Age</TableHead>
-                  <TableHead>Gender</TableHead>
-                  <TableHead>Phone</TableHead>
-                  <TableHead>Guardian Phone</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredSeniors.map((senior) => (
-                  <TableRow key={senior.id}>
-                    <TableCell className="font-medium">{senior.name}</TableCell>
-                    <TableCell>{calculateAge(senior.birth)}</TableCell>
-                    <TableCell>{senior.gender_enum === 'M' ? 'Male' : 'Female'}</TableCell>
-                    <TableCell>{senior.phone || '-'}</TableCell>
-                    <TableCell>{senior.guardian_phone || '-'}</TableCell>
-                    <TableCell>
-                      <div className="flex gap-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => openEditDialog(senior)}
-                        >
-                          <Edit className="h-4 w-4" />
+        {/* User Table */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50 border-b border-gray-200">
+                <tr>
+                  <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">NAME</th>
+                  <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">AGE</th>
+                  <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">CURRENT</th>
+                  <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">PROGRESS</th>
+                  <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">STATUS</th>
+                  <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {filteredUsers.map((user) => (
+                  <tr key={user.id} className="hover:bg-gray-50">
+                    <td className="py-4 px-6">
+                      <div className="flex items-center">
+                        <img
+                          src={user.avatar}
+                          alt={user.name}
+                          className="h-10 w-10 rounded-full mr-3"
+                        />
+                        <div>
+                          <div className="text-sm font-medium text-gray-900">{user.name}</div>
+                          <div className="text-sm text-gray-500">{user.phone}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-4 px-6 text-sm text-gray-900">{user.age}</td>
+                    <td className="py-4 px-6">
+                      <div className="text-sm text-gray-900">
+                        {user.currentWeek ? (
+                          <>
+                            <span className="font-medium">{user.currentWeek}</span>
+                            <span className="text-gray-500 ml-1">week</span>
+                          </>
+                        ) : (
+                          <span className="text-gray-400">N/A</span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="py-4 px-6">
+                      <div className="flex items-center">
+                        <div className="w-32 bg-gray-200 rounded-full h-2 mr-3">
+                          <div
+                            className="bg-gray-700 h-2 rounded-full"
+                            style={{ width: `${user.progress}%` }}
+                          ></div>
+                        </div>
+                        <span className="text-sm font-medium text-gray-900">{user.progress}%</span>
+                      </div>
+                    </td>
+                    <td className="py-4 px-6">
+                      <Badge className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(user.status)}`}>
+                        {user.status}
+                      </Badge>
+                    </td>
+                    <td className="py-4 px-6">
+                      <div className="flex space-x-2">
+                        <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
+                          <Video className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => handleDelete(senior.id, senior.name)}
-                          className="text-red-600 hover:text-red-700"
-                        >
+                        <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
+                          <MessageSquare className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
-                    </TableCell>
-                  </TableRow>
+                    </td>
+                  </tr>
                 ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+              </tbody>
+            </table>
+          </div>
 
-        {/* Edit Dialog */}
-        <Dialog open={isEditing} onOpenChange={(open) => {
-          setIsEditing(open)
-          if (!open) {
-            setEditingSenior(null)
-            resetForm()
-          }
-        }}>
-          <DialogContent className="max-w-md">
-            <DialogHeader>
-              <DialogTitle>Edit Senior</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="edit-name">Full Name</Label>
-                <Input
-                  id="edit-name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="edit-gender">Gender</Label>
-                <select
-                  id="edit-gender"
-                  value={formData.gender_enum}
-                  onChange={(e) => setFormData({...formData, gender_enum: e.target.value as 'M' | 'F'})}
-                  className="w-full px-3 py-2 border rounded-md"
-                >
-                  <option value="M">Male</option>
-                  <option value="F">Female</option>
-                </select>
-              </div>
-              <div>
-                <Label htmlFor="edit-birth">Birth Date</Label>
-                <Input
-                  id="edit-birth"
-                  type="date"
-                  value={formData.birth}
-                  onChange={(e) => setFormData({...formData, birth: e.target.value})}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="edit-eduyear">Education Level</Label>
-                <select
-                  id="edit-eduyear"
-                  value={formData.eduyear || ''}
-                  onChange={(e) => setFormData({...formData, eduyear: e.target.value || null})}
-                  className="w-full px-3 py-2 border rounded-md"
-                >
-                  <option value="">Select level</option>
-                  <option value="none">No formal education</option>
-                  <option value="elementary">Elementary</option>
-                  <option value="middle">Middle school</option>
-                  <option value="high">High school</option>
-                  <option value="college">College</option>
-                </select>
-              </div>
-              <div>
-                <Label htmlFor="edit-phone">Phone</Label>
-                <Input
-                  id="edit-phone"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  placeholder="010-XXXX-XXXX"
-                />
-              </div>
-              <div>
-                <Label htmlFor="edit-guardianPhone">Guardian Phone</Label>
-                <Input
-                  id="edit-guardianPhone"
-                  value={formData.guardian_phone}
-                  onChange={(e) => setFormData({...formData, guardian_phone: e.target.value})}
-                  placeholder="010-XXXX-XXXX"
-                />
-              </div>
-              <div>
-                <Label htmlFor="edit-note">Note</Label>
-                <textarea
-                  id="edit-note"
-                  value={formData.note}
-                  onChange={(e) => setFormData({...formData, note: e.target.value})}
-                  className="w-full px-3 py-2 border rounded-md"
-                  rows={3}
-                  placeholder="Additional notes..."
-                />
-              </div>
-              <Button 
-                onClick={handleEditSubmit}
-                className="w-full bg-[#111] hover:bg-[#222] text-white"
-              >
-                Update Senior
+          {/* Pagination */}
+          <div className="flex items-center justify-center px-6 py-4 border-t border-gray-200">
+            <div className="flex items-center space-x-2">
+              <Button variant="ghost" size="sm" className="text-gray-500">
+                &lt;
+              </Button>
+              <Button variant="ghost" size="sm" className="bg-gray-900 text-white hover:bg-gray-800">
+                1
+              </Button>
+              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
+                2
+              </Button>
+              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
+                3
+              </Button>
+              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
+                4
+              </Button>
+              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
+                5
+              </Button>
+              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
+                6
+              </Button>
+              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
+                7
+              </Button>
+              <Button variant="ghost" size="sm" className="text-gray-500">
+                &gt;
               </Button>
             </div>
-          </DialogContent>
-        </Dialog>
+          </div>
+        </div>
       </div>
     </div>
   )

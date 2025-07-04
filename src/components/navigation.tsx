@@ -38,7 +38,7 @@ export default function Navigation() {
           <img 
             src="https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true" 
             alt="Brain Health Playground" 
-            className="h-10 w-auto"
+            className="h-16 w-auto"
           />
         </div>
       </div>
