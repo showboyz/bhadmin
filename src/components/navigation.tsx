@@ -31,7 +31,7 @@ export default function Navigation() {
   }
 
   return (
-    <nav className="bg-[#111] text-white h-screen w-64 fixed left-0 top-0 p-4">
+    <nav className="bg-gray-900 text-white h-screen w-64 fixed left-0 top-0 p-4">
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-4">
           <img 
@@ -56,8 +56,8 @@ export default function Navigation() {
             <Link key={item.href} href={item.href}>
               <div className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
                 isActive 
-                  ? 'bg-[#222] text-white' 
-                  : 'text-gray-300 hover:bg-[#222] hover:text-white'
+                  ? 'bg-gray-700 text-white' 
+                  : 'text-gray-300 hover:bg-gray-800 hover:text-white'
               }`}>
                 <Icon className="h-5 w-5" />
                 <span>{item.label}</span>
@@ -70,7 +70,7 @@ export default function Navigation() {
       <div className="absolute bottom-4 left-4 right-4">
         <Button 
           variant="ghost" 
-          className="w-full flex items-center gap-3 text-gray-300 hover:text-white hover:bg-[#222]"
+          className="w-full flex items-center gap-3 text-gray-300 hover:text-white hover:bg-gray-800"
           onClick={handleLogout}
         >
           <LogOut className="h-5 w-5" />
