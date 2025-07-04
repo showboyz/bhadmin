@@ -120,7 +120,7 @@ export default function UsersPage() {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-semibold text-gray-900">User Management</h1>
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+          <Button className="bg-gray-900 hover:bg-gray-800 text-white">
             <Plus className="h-4 w-4 mr-2" />
             Add User
           </Button>
@@ -152,7 +152,7 @@ export default function UsersPage() {
                   <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">NAME</th>
                   <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">AGE</th>
                   <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">CURRENT</th>
-                  <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">PROGRESS</th>
+                  <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">IN PROGRESS</th>
                   <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">STATUS</th>
                   <th className="text-left py-4 px-6 font-medium text-gray-700 uppercase tracking-wider text-sm">ACTIONS</th>
                 </tr>
@@ -187,14 +187,14 @@ export default function UsersPage() {
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <div className="flex items-center">
-                        <div className="w-32 bg-gray-200 rounded-full h-2 mr-3">
-                          <div
-                            className="bg-gray-700 h-2 rounded-full"
-                            style={{ width: `${user.progress}%` }}
-                          ></div>
-                        </div>
-                        <span className="text-sm font-medium text-gray-900">{user.progress}%</span>
+                      <div className="w-32 bg-gray-200 rounded-full h-6 relative">
+                        <div
+                          className="bg-gray-700 h-6 rounded-full transition-all duration-300"
+                          style={{ width: `${user.progress}%` }}
+                        ></div>
+                        <span className="absolute inset-0 flex items-center justify-center text-xs font-medium text-white">
+                          {user.progress}%
+                        </span>
                       </div>
                     </td>
                     <td className="py-4 px-6">
