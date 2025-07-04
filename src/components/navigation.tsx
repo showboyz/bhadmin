@@ -31,17 +31,17 @@ export default function Navigation() {
   }
 
   return (
-    <nav className="bg-gray-600 text-white h-screen w-64 fixed left-0 top-0 p-4">
+    <nav className="bg-gray-100 text-gray-800 h-screen w-64 fixed left-0 top-0 p-4 border-r border-gray-300">
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-4">
           <img 
             src="https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true" 
             alt="Brain Health Playground" 
-            className="h-8 w-auto"
+            className="h-16 w-auto"
           />
         </div>
         {user && (
-          <p className="text-sm text-gray-200 truncate">
+          <p className="text-sm text-gray-600 truncate">
             {user.email}
           </p>
         )}
@@ -56,8 +56,8 @@ export default function Navigation() {
             <Link key={item.href} href={item.href}>
               <div className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
                 isActive 
-                  ? 'bg-gray-500 text-white' 
-                  : 'text-gray-200 hover:bg-gray-500 hover:text-white'
+                  ? 'bg-gray-800 text-white' 
+                  : 'text-gray-700 hover:bg-gray-300 hover:text-gray-900'
               }`}>
                 <Icon className="h-5 w-5" />
                 <span>{item.label}</span>
@@ -70,7 +70,7 @@ export default function Navigation() {
       <div className="absolute bottom-4 left-4 right-4">
         <Button 
           variant="ghost" 
-          className="w-full flex items-center gap-3 text-gray-200 hover:text-white hover:bg-gray-500"
+          className="w-full flex items-center gap-3 text-gray-700 hover:text-gray-900 hover:bg-gray-300"
           onClick={handleLogout}
         >
           <LogOut className="h-5 w-5" />

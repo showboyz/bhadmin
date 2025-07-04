@@ -5,9 +5,73 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Button } from '@/components/ui/button'
 import { RefreshCw, TrendingUp, TrendingDown, Minus } from 'lucide-react'
 import { useDashboard } from '@/hooks/use-dashboard'
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
+import { PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts'
 
 export default function DashboardPage() {
   const { kpi, userProgress, inactiveUsers, loading, error, refetch } = useDashboard()
+
+  // Gender Distribution Data
+  const genderData = [
+    { name: 'Male', value: 45, fill: '#374151' },
+    { name: 'Female', value: 55, fill: '#6b7280' }
+  ]
+
+  const genderConfig = {
+    male: {
+      label: 'Male',
+      color: '#374151',
+    },
+    female: {
+      label: 'Female',
+      color: '#6b7280',
+    },
+  } satisfies ChartConfig
+
+  // Daily Activity Data
+  const dailyActivityData = [
+    { day: 'Mon', sessions: 12 },
+    { day: 'Tue', sessions: 19 },
+    { day: 'Wed', sessions: 15 },
+    { day: 'Thu', sessions: 22 },
+    { day: 'Fri', sessions: 18 },
+    { day: 'Sat', sessions: 25 },
+    { day: 'Sun', sessions: 16 }
+  ]
+
+  const activityConfig = {
+    sessions: {
+      label: 'Sessions',
+      color: '#374151',
+    },
+  } satisfies ChartConfig
+
+  // Health Status Distribution Data
+  const healthStatusData = [
+    { name: 'Excellent', value: 25, fill: '#111827' },
+    { name: 'Good', value: 40, fill: '#374151' },
+    { name: 'Fair', value: 25, fill: '#6b7280' },
+    { name: 'Poor', value: 10, fill: '#9ca3af' }
+  ]
+
+  const healthConfig = {
+    excellent: {
+      label: 'Excellent',
+      color: '#111827',
+    },
+    good: {
+      label: 'Good', 
+      color: '#374151',
+    },
+    fair: {
+      label: 'Fair',
+      color: '#6b7280',
+    },
+    poor: {
+      label: 'Poor',
+      color: '#9ca3af',
+    },
+  } satisfies ChartConfig
 
   const kpiData = [
     { 
@@ -125,6 +189,87 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* Charts Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+          {/* Gender Distribution Pie Chart */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-[#111]">Gender Distribution</CardTitle>
+            </CardHeader>
+            <CardContent className="flex justify-center">
+              <ChartContainer config={genderConfig} className="w-full h-[250px]">
+                <PieChart width={300} height={250}>
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Pie
+                    data={genderData}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={70}
+                    dataKey="value"
+                    label={({ name, value }) => `${name}: ${value}%`}
+                  >
+                    {genderData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+
+          {/* Daily Activity Line Chart */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-[#111]">Daily Activity</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ChartContainer config={activityConfig} className="w-full h-[250px]">
+                <LineChart width={350} height={250} data={dailyActivityData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <XAxis dataKey="day" stroke="#6b7280" />
+                  <YAxis stroke="#6b7280" />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Line 
+                    type="monotone" 
+                    dataKey="sessions" 
+                    stroke="#374151" 
+                    strokeWidth={2}
+                    dot={{ fill: '#374151', r: 4 }}
+                  />
+                </LineChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+
+          {/* Health Status Donut Chart */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-[#111]">Health Status Distribution</CardTitle>
+            </CardHeader>
+            <CardContent className="flex justify-center">
+              <ChartContainer config={healthConfig} className="w-full h-[250px]">
+                <PieChart width={300} height={250}>
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Pie
+                    data={healthStatusData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={40}
+                    outerRadius={70}
+                    paddingAngle={2}
+                    dataKey="value"
+                    label={({ name, value }) => `${name}: ${value}%`}
+                  >
+                    {healthStatusData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Progress Table */}
