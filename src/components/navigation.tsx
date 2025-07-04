@@ -14,10 +14,10 @@ export default function Navigation() {
   
   const navItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/users', label: 'Users', icon: Users },
+    { href: '/users', label: 'User', icon: Users },
+    { href: '/reports', label: 'Report', icon: FileText },
     { href: '/schedules', label: 'Schedules', icon: Calendar },
     { href: '/monitoring', label: 'Monitoring', icon: AlertTriangle },
-    { href: '/reports', label: 'Reports', icon: FileText },
   ]
 
   const handleLogout = async () => {
@@ -31,50 +31,57 @@ export default function Navigation() {
   }
 
   return (
-    <nav className="bg-gray-100 text-gray-800 h-screen w-64 fixed left-0 top-0 p-4 border-r border-gray-300">
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
+    <nav className="bg-white text-gray-800 h-screen w-64 fixed left-0 top-0 border-r border-gray-200">
+      {/* Logo Section */}
+      <div className="p-6 border-b border-gray-100">
+        <div className="flex items-center gap-3">
           <img 
             src="https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true" 
             alt="Brain Health Playground" 
-            className="h-16 w-auto"
+            className="h-10 w-auto"
           />
         </div>
+      </div>
+
+      {/* Navigation Items */}
+      <div className="px-4 py-6">
+        <div className="space-y-1">
+          {navItems.map((item) => {
+            const Icon = item.icon
+            const isActive = pathname === item.href
+            
+            return (
+              <Link key={item.href} href={item.href}>
+                <div className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${
+                  isActive 
+                    ? 'bg-gray-100 text-gray-900 font-medium' 
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                }`}>
+                  <Icon className="h-5 w-5" />
+                  <span className="text-sm">{item.label}</span>
+                </div>
+              </Link>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* User Info & Logout */}
+      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100">
         {user && (
-          <p className="text-sm text-gray-600 truncate">
-            {user.email}
-          </p>
+          <div className="mb-3 px-3">
+            <p className="text-xs text-gray-500 truncate">
+              {user.email}
+            </p>
+          </div>
         )}
-      </div>
-      
-      <div className="space-y-2">
-        {navItems.map((item) => {
-          const Icon = item.icon
-          const isActive = pathname === item.href
-          
-          return (
-            <Link key={item.href} href={item.href}>
-              <div className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
-                isActive 
-                  ? 'bg-gray-800 text-white' 
-                  : 'text-gray-700 hover:bg-gray-300 hover:text-gray-900'
-              }`}>
-                <Icon className="h-5 w-5" />
-                <span>{item.label}</span>
-              </div>
-            </Link>
-          )
-        })}
-      </div>
-      
-      <div className="absolute bottom-4 left-4 right-4">
         <Button 
           variant="ghost" 
-          className="w-full flex items-center gap-3 text-gray-700 hover:text-gray-900 hover:bg-gray-300"
+          className="w-full flex items-center gap-3 px-3 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all duration-200"
           onClick={handleLogout}
         >
           <LogOut className="h-5 w-5" />
-          <span>Logout</span>
+          <span className="text-sm">Log out</span>
         </Button>
       </div>
     </nav>
