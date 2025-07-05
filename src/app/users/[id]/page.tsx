@@ -8,7 +8,7 @@ import { Calendar } from '@/components/ui/calendar'
 import { Badge } from '@/components/ui/badge'
 import { ArrowLeft, User } from 'lucide-react'
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
-import { BarChart, Bar, XAxis, YAxis } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts'
 
 // 더미 데이터
 const userData = {
@@ -206,24 +206,25 @@ export default function UserDetailPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <ChartContainer config={chartConfig} className="h-64">
-                  <BarChart 
-                    data={monthlyData} 
-                    margin={{ top: 20, right: 40, left: 40, bottom: 5 }}
-                    barCategoryGap="30%"
-                    maxBarSize={60}
-                  >
-                    <XAxis 
-                      dataKey="month" 
-                      stroke="#6b7280" 
-                      fontSize={12}
-                      interval={0}
-                    />
-                    <YAxis stroke="#6b7280" fontSize={12} />
-                    <ChartTooltip content={<ChartTooltipContent />} />
-                    <Bar dataKey="physical" fill="#3D3D3D" stackId="a" radius={[0, 0, 0, 0]} />
-                    <Bar dataKey="cognitive" fill="#D8D8D8" stackId="a" radius={[2, 2, 0, 0]} />
-                  </BarChart>
+                <ChartContainer config={chartConfig} className="h-64 w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart 
+                      data={monthlyData} 
+                      margin={{ top: 20, right: 20, left: 20, bottom: 5 }}
+                      barCategoryGap="20%"
+                    >
+                      <XAxis 
+                        dataKey="month" 
+                        stroke="#6b7280" 
+                        fontSize={12}
+                        interval={0}
+                      />
+                      <YAxis stroke="#6b7280" fontSize={12} />
+                      <ChartTooltip content={<ChartTooltipContent />} />
+                      <Bar dataKey="physical" fill="#3D3D3D" stackId="a" radius={[0, 0, 0, 0]} />
+                      <Bar dataKey="cognitive" fill="#D8D8D8" stackId="a" radius={[2, 2, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </ChartContainer>
               </CardContent>
             </Card>
