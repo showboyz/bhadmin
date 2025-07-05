@@ -209,8 +209,9 @@ export default function UserDetailPage() {
                 <ChartContainer config={chartConfig} className="h-64">
                   <BarChart 
                     data={monthlyData} 
-                    margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                    barCategoryGap="20%"
+                    margin={{ top: 20, right: 40, left: 40, bottom: 5 }}
+                    barCategoryGap="30%"
+                    maxBarSize={60}
                   >
                     <XAxis 
                       dataKey="month" 
@@ -220,8 +221,8 @@ export default function UserDetailPage() {
                     />
                     <YAxis stroke="#6b7280" fontSize={12} />
                     <ChartTooltip content={<ChartTooltipContent />} />
-                    <Bar dataKey="physical" fill="#3D3D3D" stackId="a" />
-                    <Bar dataKey="cognitive" fill="#D8D8D8" stackId="a" />
+                    <Bar dataKey="physical" fill="#3D3D3D" stackId="a" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="cognitive" fill="#D8D8D8" stackId="a" radius={[2, 2, 0, 0]} />
                   </BarChart>
                 </ChartContainer>
               </CardContent>
