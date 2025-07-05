@@ -13,18 +13,18 @@ export default function DashboardPage() {
 
   // Gender Distribution Data
   const genderData = [
-    { name: 'Male', value: 45, fill: '#374151' },
-    { name: 'Female', value: 55, fill: '#6b7280' }
+    { name: 'Male', value: 45, count: 156, fill: '#3D3D3D' },
+    { name: 'Female', value: 55, count: 191, fill: '#D8D8D8' }
   ]
 
   const genderConfig = {
     male: {
       label: 'Male',
-      color: '#374151',
+      color: '#3D3D3D',
     },
     female: {
       label: 'Female',
-      color: '#6b7280',
+      color: '#D8D8D8',
     },
   } satisfies ChartConfig
 
@@ -149,7 +149,10 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-[#111]">Dashboard</h1>
+          <div>
+            <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
+            <p className="text-gray-600">Overview of system metrics and user activity analytics</p>
+          </div>
           <Button 
             variant="outline" 
             onClick={refetch}
@@ -173,13 +176,13 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {kpiData.map((kpiItem, index) => (
             <Card key={index} className="bg-[#F7F7F7]">
-              <CardHeader className="pb-2">
+              <CardHeader className="pb-1 pt-3">
                 <CardTitle className="text-sm font-medium text-[#555]">
                   {kpiItem.title}
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-[#111]">{kpiItem.value}</div>
+              <CardContent className="pt-1 pb-3">
+                <div className="text-xl font-bold text-[#111]">{kpiItem.value}</div>
                 <div className="flex items-center mt-1">
                   {getTrendIcon(kpiItem.trend)}
                   <p className={`text-xs ml-1 ${getTrendColor(kpiItem.trend)}`}>
@@ -208,7 +211,7 @@ export default function DashboardPage() {
                     cy="50%"
                     outerRadius={70}
                     dataKey="value"
-                    label={({ name, value }) => `${name}: ${value}%`}
+                    label={({ name, value, count }) => `${name}: ${count} (${value}%)`}
                   >
                     {genderData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.fill} />

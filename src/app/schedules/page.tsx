@@ -142,7 +142,10 @@ export default function SchedulesPage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-[#111]">Program Scheduler</h1>
+          <div>
+            <h1 className="text-2xl font-semibold text-gray-900">Program Scheduler</h1>
+            <p className="text-gray-600">Create and manage training program schedules for users</p>
+          </div>
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
               <Button className="bg-[#111] hover:bg-[#222] text-white flex items-center gap-2">

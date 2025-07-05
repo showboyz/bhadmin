@@ -49,8 +49,8 @@ export default function MonitoringPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-[#111]">Session Monitoring</h1>
-            <p className="text-[#555] mt-1">Track missed sessions and inactive seniors</p>
+            <h1 className="text-2xl font-semibold text-gray-900">Session Monitoring</h1>
+            <p className="text-gray-600">Track missed sessions and inactive users</p>
           </div>
           <Button 
             variant="outline" 

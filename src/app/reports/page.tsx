@@ -177,8 +177,8 @@ export default function ReportsPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-[#111]">Training Reports</h1>
-            <p className="text-[#555] mt-1">Generated reports from training sessions</p>
+            <h1 className="text-2xl font-semibold text-gray-900">Training Reports</h1>
+            <p className="text-gray-600">Generated reports from training sessions and analytics</p>
           </div>
           <div className="flex gap-4">
             <Button 

@@ -8,14 +8,14 @@ export default function Home() {
           style={{ height: '60px', width: 'auto', marginBottom: '20px' }}
         />
       </div>
-      <h1 style={{ fontSize: '32px', marginBottom: '16px', color: '#111' }}>
+      <h1 style={{ fontSize: '28px', marginBottom: '16px', color: '#111827', fontWeight: '600' }}>
         Brain Health Admin Console
       </h1>
-      <p style={{ fontSize: '18px', color: '#666', marginBottom: '30px' }}>
-        시니어 인지 및 운동 훈련 프로그램 관리 시스템
+      <p style={{ fontSize: '16px', color: '#6b7280', marginBottom: '30px' }}>
+        Senior cognitive and physical training program management system
       </p>
-      <p style={{ fontSize: '16px', color: '#888', marginBottom: '30px' }}>
-        애플리케이션이 정상적으로 실행되고 있습니다.
+      <p style={{ fontSize: '14px', color: '#9ca3af', marginBottom: '30px' }}>
+        Application is running successfully and ready for use.
       </p>
       <a 
         href="/login" 
@@ -30,7 +30,7 @@ export default function Home() {
           fontWeight: '500'
         }}
       >
-        로그인 페이지로 이동
+        Go to Login Page
       </a>
     </div>
   )
