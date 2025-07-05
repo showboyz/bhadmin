@@ -82,11 +82,11 @@ const activities = [
 const chartConfig = {
   physical: {
     label: 'Physical Exercise',
-    color: '#9ca3af',
+    color: '#3D3D3D',
   },
   cognitive: {
     label: 'Cognitive Training',
-    color: '#374151',
+    color: '#D8D8D8',
   },
 } satisfies ChartConfig
 
@@ -196,23 +196,32 @@ export default function UserDetailPage() {
                 <CardTitle className="text-lg font-semibold text-gray-900">Hours Spent</CardTitle>
                 <div className="flex items-center gap-6 text-sm">
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-gray-400 rounded"></div>
+                    <div className="w-3 h-3 rounded" style={{ backgroundColor: '#3D3D3D' }}></div>
                     <span className="text-gray-600">Physical Exercise</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-gray-800 rounded"></div>
+                    <div className="w-3 h-3 rounded" style={{ backgroundColor: '#D8D8D8' }}></div>
                     <span className="text-gray-600">Cognitive Training</span>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
                 <ChartContainer config={chartConfig} className="h-64">
-                  <BarChart data={monthlyData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                    <XAxis dataKey="month" stroke="#6b7280" fontSize={12} />
+                  <BarChart 
+                    data={monthlyData} 
+                    margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                    barCategoryGap="20%"
+                  >
+                    <XAxis 
+                      dataKey="month" 
+                      stroke="#6b7280" 
+                      fontSize={12}
+                      interval={0}
+                    />
                     <YAxis stroke="#6b7280" fontSize={12} />
                     <ChartTooltip content={<ChartTooltipContent />} />
-                    <Bar dataKey="physical" fill="#9ca3af" stackId="a" />
-                    <Bar dataKey="cognitive" fill="#374151" stackId="a" />
+                    <Bar dataKey="physical" fill="#3D3D3D" stackId="a" />
+                    <Bar dataKey="cognitive" fill="#D8D8D8" stackId="a" />
                   </BarChart>
                 </ChartContainer>
               </CardContent>
