@@ -452,7 +452,7 @@ export default function UsersPage() {
                           className="text-[#555] hover:text-[#111]"
                           onClick={(e) => {
                             e.stopPropagation();
-                            // Message action logic here
+                            window.location.href = `/users/${user.id}/messages`;
                           }}
                         >
                           <MessageSquare className="h-4 w-4" />
