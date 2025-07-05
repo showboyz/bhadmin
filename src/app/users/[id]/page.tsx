@@ -228,7 +228,10 @@ export default function UserDetailPage() {
               <p className="text-gray-600">Overview of the results from training activities</p>
             </div>
           </div>
-          <Button className="bg-gray-900 hover:bg-gray-800 text-white">
+          <Button 
+            className="bg-gray-900 hover:bg-gray-800 text-white"
+            onClick={() => router.push(`/users/${userId}/profile`)}
+          >
             <User className="h-4 w-4 mr-2" />
             Profile
           </Button>
