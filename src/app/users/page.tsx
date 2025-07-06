@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Search, Filter, Plus, Video, MessageSquare, Trash2, X, Calendar, MapPin } from 'lucide-react'
+import { Search, Filter, Plus, Video, MessageSquare, Trash2, X, Calendar, MapPin, RotateCcw } from 'lucide-react'
 import Link from 'next/link'
 
 // 더미 데이터
@@ -90,6 +90,26 @@ const dummyUsers = [
     progress: 65,
     status: 'Pending',
     avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face'
+  },
+  {
+    id: 9,
+    name: 'Patricia Williams',
+    phone: '+1-555-123-4567',
+    age: 72,
+    currentWeek: 24,
+    progress: 100,
+    status: 'Completed',
+    avatar: 'https://images.unsplash.com/photo-1559038073-2cc5fc2d7c63?w=60&h=60&fit=crop&crop=face'
+  },
+  {
+    id: 10,
+    name: 'James Thompson',
+    phone: '+1-555-987-6543',
+    age: 68,
+    currentWeek: 12,
+    progress: 100,
+    status: 'Completed',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop&crop=face'
   }
 ]
 
@@ -134,6 +154,8 @@ export default function UsersPage() {
         return 'bg-gray-100 text-gray-800 hover:bg-gray-200'
       case 'Pending':
         return 'bg-blue-100 text-blue-800 hover:bg-blue-200'
+      case 'Completed':
+        return 'bg-purple-100 text-purple-800 hover:bg-purple-200'
       default:
         return 'bg-gray-100 text-gray-800 hover:bg-gray-200'
     }
@@ -509,17 +531,32 @@ export default function UsersPage() {
                     </td>
                     <td className="py-4 px-6">
                       <div className="flex space-x-2">
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          className="text-[#555] hover:text-[#111]"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            // Video action logic here
-                          }}
-                        >
-                          <Video className="h-4 w-4" />
-                        </Button>
+                        {user.status === 'Completed' ? (
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-green-600 hover:text-green-700"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.location.href = `/users/${user.id}/profile`;
+                            }}
+                            title="Start New Program"
+                          >
+                            <RotateCcw className="h-4 w-4" />
+                          </Button>
+                        ) : (
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-[#555] hover:text-[#111]"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              // Video action logic here
+                            }}
+                          >
+                            <Video className="h-4 w-4" />
+                          </Button>
+                        )}
                         <Button 
                           variant="ghost" 
                           size="sm" 

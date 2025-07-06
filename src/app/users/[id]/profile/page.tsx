@@ -58,11 +58,11 @@ const userData = {
       type: '6-month',
       startDate: '2024-10-01',
       endDate: '2025-04-01',
-      currentWeek: 12,
+      currentWeek: 24,
       totalWeeks: 24,
-      completedSessions: 45,
+      completedSessions: 72,
       totalSessions: 72,
-      status: 'Active'
+      status: 'Completed'
     },
     programHistory: [
       {
@@ -89,6 +89,13 @@ export default function UserProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
   const [isProgramDialogOpen, setIsProgramDialogOpen] = useState(false)
   const [isNotificationDialogOpen, setIsNotificationDialogOpen] = useState(false)
+  const [isNewProgramDialogOpen, setIsNewProgramDialogOpen] = useState(false)
+  const [newProgramData, setNewProgramData] = useState({
+    type: '3-month',
+    startDate: '',
+    sessionFrequency: 'twice-weekly',
+    specialRequirements: ''
+  })
   
   const userId = params.id as string
   const user = userData[Number(userId) as keyof typeof userData]
@@ -122,6 +129,26 @@ export default function UserProfilePage() {
 
   const calculateSessionProgress = () => {
     return Math.round((user.currentProgram.completedSessions / user.currentProgram.totalSessions) * 100)
+  }
+
+  const isProgramCompleted = () => {
+    return user.currentProgram.currentWeek >= user.currentProgram.totalWeeks || 
+           user.currentProgram.status === 'Completed'
+  }
+
+  const handleStartNewProgram = () => {
+    console.log('Starting new program:', newProgramData)
+    // Here you would typically:
+    // 1. Move current program to history
+    // 2. Create new current program
+    // 3. Reset progress counters
+    setIsNewProgramDialogOpen(false)
+    setNewProgramData({
+      type: '3-month',
+      startDate: '',
+      sessionFrequency: 'twice-weekly',
+      specialRequirements: ''
+    })
   }
 
   return (
@@ -361,39 +388,130 @@ export default function UserProfilePage() {
             {/* Current Program Status */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg font-semibold text-[#111]">Current Program</CardTitle>
+                <CardTitle className="text-lg font-semibold text-[#111]">
+                  {isProgramCompleted() ? 'Program Completed' : 'Current Program'}
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="text-center">
-                  <div className="relative w-32 h-32 mx-auto mb-4">
-                    <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 120 120">
-                      <circle
-                        cx="60"
-                        cy="60"
-                        r="50"
-                        stroke="#F7F7F7"
-                        strokeWidth="8"
-                        fill="none"
-                      />
-                      <circle
-                        cx="60"
-                        cy="60"
-                        r="50"
-                        stroke="#333"
-                        strokeWidth="8"
-                        fill="none"
-                        strokeDasharray={`${calculateProgress() * 3.14} 314`}
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
+                {isProgramCompleted() ? (
+                  // Program Completed State
+                  <div className="text-center">
+                    <div className="w-32 h-32 mx-auto mb-4 flex items-center justify-center bg-green-100 rounded-full">
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-[#111]">{calculateProgress()}%</div>
-                        <div className="text-xs text-[#555]">Progress</div>
+                        <div className="text-4xl mb-2">🎉</div>
+                        <div className="text-sm font-medium text-green-700">Completed!</div>
+                      </div>
+                    </div>
+                    <p className="text-[#555] mb-4">
+                      Congratulations! The current program has been completed successfully.
+                    </p>
+                    <Dialog open={isNewProgramDialogOpen} onOpenChange={setIsNewProgramDialogOpen}>
+                      <DialogTrigger asChild>
+                        <Button className="w-full bg-[#111] hover:bg-[#222] text-white">
+                          Start New Program
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[500px]">
+                        <DialogHeader>
+                          <DialogTitle>Start New Program</DialogTitle>
+                          <p className="text-[#555]">Configure a new training program for {user.name}</p>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          <div>
+                            <label className="block text-sm font-medium text-[#555] mb-2">Program Type</label>
+                            <Select 
+                              value={newProgramData.type} 
+                              onValueChange={(value) => setNewProgramData({...newProgramData, type: value})}
+                            >
+                              <SelectTrigger>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="3-month">3-month Program</SelectItem>
+                                <SelectItem value="6-month">6-month Program</SelectItem>
+                                <SelectItem value="12-month">12-month Program</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-[#555] mb-2">Start Date</label>
+                            <Input
+                              type="date"
+                              value={newProgramData.startDate}
+                              onChange={(e) => setNewProgramData({...newProgramData, startDate: e.target.value})}
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-[#555] mb-2">Session Frequency</label>
+                            <Select 
+                              value={newProgramData.sessionFrequency} 
+                              onValueChange={(value) => setNewProgramData({...newProgramData, sessionFrequency: value})}
+                            >
+                              <SelectTrigger>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="daily">Daily</SelectItem>
+                                <SelectItem value="twice-weekly">Twice Weekly</SelectItem>
+                                <SelectItem value="three-times-weekly">Three Times Weekly</SelectItem>
+                                <SelectItem value="weekly">Weekly</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-[#555] mb-2">Special Requirements</label>
+                            <Textarea
+                              value={newProgramData.specialRequirements}
+                              onChange={(e) => setNewProgramData({...newProgramData, specialRequirements: e.target.value})}
+                              placeholder="Any special considerations or requirements..."
+                              rows={3}
+                            />
+                          </div>
+                          <div className="flex gap-2">
+                            <Button onClick={handleStartNewProgram} className="flex-1 bg-[#111] hover:bg-[#222] text-white">
+                              Start Program
+                            </Button>
+                            <Button variant="outline" className="flex-1" onClick={() => setIsNewProgramDialogOpen(false)}>
+                              Cancel
+                            </Button>
+                          </div>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                ) : (
+                  // Active Program State
+                  <div className="text-center">
+                    <div className="relative w-32 h-32 mx-auto mb-4">
+                      <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 120 120">
+                        <circle
+                          cx="60"
+                          cy="60"
+                          r="50"
+                          stroke="#F7F7F7"
+                          strokeWidth="8"
+                          fill="none"
+                        />
+                        <circle
+                          cx="60"
+                          cy="60"
+                          r="50"
+                          stroke="#333"
+                          strokeWidth="8"
+                          fill="none"
+                          strokeDasharray={`${calculateProgress() * 3.14} 314`}
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-[#111]">{calculateProgress()}%</div>
+                          <div className="text-xs text-[#555]">Progress</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
                 
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
