@@ -97,7 +97,9 @@ export default function UsersPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [isCreateUserOpen, setIsCreateUserOpen] = useState(false)
+  const [currentStep, setCurrentStep] = useState(1)
   const [formData, setFormData] = useState({
+    // Step 1: Basic Information
     fullName: '',
     gender: '',
     birthDate: '',
@@ -105,7 +107,21 @@ export default function UsersPage() {
     grade: '',
     guardian: '',
     address: '',
-    healthStatus: ''
+    healthStatus: '',
+    
+    // Step 2: Program Setup
+    programType: '',
+    startDate: '',
+    sessionFrequency: '',
+    preferredTime: '',
+    specialRequirements: '',
+    
+    // Step 3: Initial Assessment
+    cognitiveLevel: '',
+    physicalLevel: '',
+    primaryGoals: '',
+    medicalNotes: '',
+    emergencyContact: ''
   })
 
   const getStatusColor = (status: string) => {
@@ -135,10 +151,23 @@ export default function UsersPage() {
     }))
   }
 
+  const handleNext = () => {
+    if (currentStep < 3) {
+      setCurrentStep(currentStep + 1)
+    }
+  }
+
+  const handlePrevious = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1)
+    }
+  }
+
   const handleSubmit = () => {
-    console.log('Creating user:', formData)
+    console.log('Creating user with program setup:', formData)
     // Here you would typically send the data to your backend
     setIsCreateUserOpen(false)
+    setCurrentStep(1)
     // Reset form
     setFormData({
       fullName: '',
@@ -148,8 +177,36 @@ export default function UsersPage() {
       grade: '',
       guardian: '',
       address: '',
-      healthStatus: ''
+      healthStatus: '',
+      programType: '',
+      startDate: '',
+      sessionFrequency: '',
+      preferredTime: '',
+      specialRequirements: '',
+      cognitiveLevel: '',
+      physicalLevel: '',
+      primaryGoals: '',
+      medicalNotes: '',
+      emergencyContact: ''
     })
+  }
+
+  const getStepTitle = () => {
+    switch (currentStep) {
+      case 1: return 'Basic Information'
+      case 2: return 'Program Setup'
+      case 3: return 'Initial Assessment'
+      default: return 'Create User'
+    }
+  }
+
+  const getStepDescription = () => {
+    switch (currentStep) {
+      case 1: return 'Enter user personal and contact information'
+      case 2: return 'Configure training program and schedule'
+      case 3: return 'Set initial assessments and goals'
+      default: return 'Please enter following information'
+    }
   }
 
   return (
@@ -168,19 +225,36 @@ export default function UsersPage() {
                 Add User
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[600px] p-0 overflow-hidden">
+            <DialogContent className="sm:max-w-[700px] p-0 overflow-hidden">
               {/* Header */}
               <div className="bg-gray-800 text-white p-6 relative">
                 <DialogHeader>
-                  <DialogTitle className="text-xl font-semibold">Create User</DialogTitle>
-                  <p className="text-gray-300 text-sm mt-1">Please enter following information</p>
+                  <DialogTitle className="text-xl font-semibold">{getStepTitle()}</DialogTitle>
+                  <p className="text-gray-300 text-sm mt-1">{getStepDescription()}</p>
                 </DialogHeader>
                 <button 
-                  onClick={() => setIsCreateUserOpen(false)}
+                  onClick={() => {
+                    setIsCreateUserOpen(false)
+                    setCurrentStep(1)
+                  }}
                   className="absolute top-4 right-4 text-white hover:text-gray-300"
                 >
                   <X className="h-5 w-5" />
                 </button>
+                
+                {/* Progress Bar */}
+                <div className="mt-4">
+                  <div className="flex items-center justify-between text-sm text-gray-300 mb-2">
+                    <span>Step {currentStep} of 3</span>
+                    <span>{Math.round((currentStep / 3) * 100)}% Complete</span>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2">
+                    <div 
+                      className="bg-white h-2 rounded-full transition-all duration-300" 
+                      style={{ width: `${(currentStep / 3) * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
               </div>
 
               {/* Form Content */}
