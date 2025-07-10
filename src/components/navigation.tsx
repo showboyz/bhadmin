@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, Users, Calendar, AlertTriangle, FileText, LogOut } from 'lucide-react'
+import { LayoutDashboard, Users, Calendar, AlertTriangle, FileText, LogOut, Shield, Crown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/auth-context'
 import { toast } from 'sonner'
@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 export default function Navigation() {
   const pathname = usePathname()
   const router = useRouter()
-  const { user, signOut } = useAuth()
+  const { user, signOut, isSuperAdmin, canAccessSuperAdmin } = useAuth()
   
   const navItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -45,6 +45,30 @@ export default function Navigation() {
 
       {/* Navigation Items */}
       <div className="px-4 py-6">
+        {/* Super Admin Section */}
+        {canAccessSuperAdmin() && (
+          <>
+            <div className="mb-4">
+              <div className="flex items-center gap-2 px-3 py-2 mb-2">
+                <Crown className="h-4 w-4 text-red-600" />
+                <span className="text-xs font-semibold text-red-600 uppercase tracking-wide">Super Admin</span>
+              </div>
+              <Link href="/super-admin">
+                <div className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${
+                  pathname.startsWith('/super-admin')
+                    ? 'bg-red-100 text-red-900 font-medium border border-red-200' 
+                    : 'text-red-600 hover:bg-red-50 hover:text-red-700'
+                }`}>
+                  <Shield className="h-5 w-5" />
+                  <span className="text-sm">System Dashboard</span>
+                </div>
+              </Link>
+            </div>
+            <div className="border-b border-gray-200 mb-4"></div>
+          </>
+        )}
+
+        {/* Regular Navigation */}
         <div className="space-y-1">
           {navItems.map((item) => {
             const Icon = item.icon
@@ -73,6 +97,12 @@ export default function Navigation() {
             <p className="text-xs text-gray-500 truncate">
               {user.email}
             </p>
+            {isSuperAdmin && (
+              <div className="flex items-center gap-1 mt-1">
+                <Crown className="h-3 w-3 text-red-500" />
+                <span className="text-xs text-red-600 font-medium">Super Admin</span>
+              </div>
+            )}
           </div>
         )}
         <Button 
