@@ -10,25 +10,30 @@ interface SuperAdminRouteProps {
 }
 
 export function SuperAdminRoute({ children, fallback }: SuperAdminRouteProps) {
-  const { user, loading, canAccessSuperAdmin } = useAuth()
+  const { user, loading, canAccessSuperAdmin, userRoles } = useAuth()
   const router = useRouter()
   const [isChecking, setIsChecking] = useState(true)
 
   useEffect(() => {
-    if (!loading) {
-      if (!user) {
-        router.push('/login')
+    if (!loading && user) {
+      // Check if roles have been loaded (userRoles array exists and has been fetched)
+      // If userRoles is empty but user exists, wait for roles to load
+      if (userRoles.length === 0) {
+        // Don't redirect yet, still loading roles
         return
       }
 
+      // Now we can safely check super admin access
       if (!canAccessSuperAdmin()) {
         router.push('/dashboard')
         return
       }
 
       setIsChecking(false)
+    } else if (!loading && !user) {
+      router.push('/login')
     }
-  }, [user, loading, canAccessSuperAdmin, router])
+  }, [user, loading, canAccessSuperAdmin, userRoles, router])
 
   if (loading || isChecking) {
     return (

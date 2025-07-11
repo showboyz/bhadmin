@@ -3,11 +3,13 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
+import { supabase } from '@/lib/supabase'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { 
   Building2, 
   User, 
@@ -60,7 +62,7 @@ const initialFormData: OrganizationFormData = {
     city: '',
     state: '',
     postal_code: '',
-    country: 'South Korea'
+    country: '대한민국'
   },
   subscription_plan: 'basic',
   license_limit: 50,
@@ -116,10 +118,20 @@ export default function CreateOrganizationPage() {
   const [creationResult, setCreationResult] = useState<any>(null)
 
   const updateFormData = (field: string, value: any) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }))
+    setFormData(prev => {
+      const updated = {
+        ...prev,
+        [field]: value
+      }
+      
+      // 연락처 이메일이 변경되면 관리자 이메일도 자동으로 동일하게 설정
+      if (field === 'contact_email') {
+        updated.admin_email = value
+      }
+      
+      return updated
+    })
+    
     // 오류 제거
     if (errors[field]) {
       setErrors(prev => ({
@@ -139,10 +151,15 @@ export default function CreateOrganizationPage() {
     }))
   }
 
+  const formatPhoneNumber = (value: string) => {
+    // '-' 문자를 모두 제거하고 숫자만 남김
+    return value.replace(/[^0-9]/g, '')
+  }
+
   const generateAdminId = () => {
     const orgPrefix = formData.name.slice(0, 3).toLowerCase().replace(/\s/g, '')
-    const randomSuffix = Math.random().toString(36).substring(2, 8)
-    return `${orgPrefix}_admin_${randomSuffix}`
+    const randomSuffix = Math.random().toString(36).substring(2, 6)
+    return `${orgPrefix}${randomSuffix}`
   }
 
   const generateTempPassword = () => {
@@ -171,8 +188,7 @@ export default function CreateOrganizationPage() {
         break
       case 3:
         if (!formData.admin_name.trim()) newErrors.admin_name = '관리자 이름을 입력해주세요'
-        if (!formData.admin_email.trim()) newErrors.admin_email = '관리자 이메일을 입력해주세요'
-        if (!/\S+@\S+\.\S+/.test(formData.admin_email)) newErrors.admin_email = '올바른 이메일 형식을 입력해주세요'
+        // 관리자 이메일은 연락처 이메일과 동일하게 자동 설정되므로 별도 검증 불필요
         if (!formData.admin_id.trim()) newErrors.admin_id = '관리자 ID를 입력해주세요'
         if (!formData.admin_password.trim()) newErrors.admin_password = '임시 비밀번호를 입력해주세요'
         break
@@ -198,15 +214,23 @@ export default function CreateOrganizationPage() {
     setLoading(true)
     
     try {
+      // Supabase 세션 토큰 가져오기
+      const { data: { session } } = await supabase.auth.getSession()
+      
       const response = await fetch('/api/organizations/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(session?.access_token && {
+            'Authorization': `Bearer ${session.access_token}`
+          })
         },
         body: JSON.stringify(formData),
       })
 
       const result = await response.json()
+
+      console.log('API Response:', result) // 디버깅용 로그
 
       if (result.success) {
         setCreationResult(result.data)
@@ -217,7 +241,9 @@ export default function CreateOrganizationPage() {
           router.push('/super-admin/organizations')
         }, 5000)
       } else {
-        throw new Error(result.error || 'Failed to create organization')
+        console.error('API Error Details:', result) // 상세 오류 로그
+        const errorMessage = result.details || result.error || 'Failed to create organization'
+        throw new Error(errorMessage)
       }
     } catch (error) {
       console.error('Organization creation error:', error)
@@ -350,8 +376,8 @@ export default function CreateOrganizationPage() {
                       id="contact_phone"
                       type="tel"
                       value={formData.contact_phone}
-                      onChange={(e) => updateFormData('contact_phone', e.target.value)}
-                      placeholder="010-1234-5678"
+                      onChange={(e) => updateFormData('contact_phone', formatPhoneNumber(e.target.value))}
+                      placeholder="01012345678"
                       className={errors.contact_phone ? 'border-red-500' : ''}
                     />
                     {errors.contact_phone && <p className="text-sm text-red-600 mt-1">{errors.contact_phone}</p>}
@@ -390,11 +416,27 @@ export default function CreateOrganizationPage() {
                         onChange={(e) => updateAddressField('postal_code', e.target.value)}
                         placeholder="우편번호"
                       />
-                      <Input
+                      <Select
                         value={formData.address.country}
-                        onChange={(e) => updateAddressField('country', e.target.value)}
-                        placeholder="국가"
-                      />
+                        onValueChange={(value) => updateAddressField('country', value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="국가 선택" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="대한민국">대한민국</SelectItem>
+                          <SelectItem value="미국">미국</SelectItem>
+                          <SelectItem value="일본">일본</SelectItem>
+                          <SelectItem value="중국">중국</SelectItem>
+                          <SelectItem value="싱가포르">싱가포르</SelectItem>
+                          <SelectItem value="캐나다">캐나다</SelectItem>
+                          <SelectItem value="호주">호주</SelectItem>
+                          <SelectItem value="영국">영국</SelectItem>
+                          <SelectItem value="프랑스">프랑스</SelectItem>
+                          <SelectItem value="독일">독일</SelectItem>
+                          <SelectItem value="기타">기타</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
                 </div>
@@ -480,18 +522,17 @@ export default function CreateOrganizationPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="admin_email">관리자 이메일 (어드민 페이지 로그인용) *</Label>
+                  <Label htmlFor="admin_email">관리자 이메일 (어드민 페이지 로그인용)</Label>
                   <Input
                     id="admin_email"
                     type="email"
                     value={formData.admin_email}
-                    onChange={(e) => updateFormData('admin_email', e.target.value)}
-                    placeholder="admin@organization.com"
-                    className={errors.admin_email ? 'border-red-500' : ''}
+                    disabled
+                    placeholder="연락처 이메일과 동일하게 자동 설정됩니다"
+                    className="bg-gray-100"
                   />
-                  {errors.admin_email && <p className="text-sm text-red-600 mt-1">{errors.admin_email}</p>}
-                  <p className="text-sm text-gray-500 mt-1">
-                    이 이메일로 어드민 페이지에 로그인합니다
+                  <p className="text-sm text-blue-600 mt-1">
+                    💡 기관 연락처 이메일과 동일하게 자동 설정됩니다
                   </p>
                 </div>
 
@@ -501,8 +542,8 @@ export default function CreateOrganizationPage() {
                     id="admin_phone"
                     type="tel"
                     value={formData.admin_phone}
-                    onChange={(e) => updateFormData('admin_phone', e.target.value)}
-                    placeholder="010-1234-5678"
+                    onChange={(e) => updateFormData('admin_phone', formatPhoneNumber(e.target.value))}
+                    placeholder="01012345678"
                   />
                 </div>
 

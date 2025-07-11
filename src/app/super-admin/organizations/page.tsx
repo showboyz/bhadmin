@@ -342,9 +342,10 @@ export default function OrganizationsPage() {
                       <div className="flex items-center gap-2">
                         <Link
                           href={`/super-admin/organizations/${org.id}`}
-                          className="text-blue-600 hover:text-blue-900"
+                          className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors"
                         >
-                          <Eye className="h-4 w-4" />
+                          <Eye className="h-3 w-3" />
+                          Manage
                         </Link>
                         <Link
                           href={`/super-admin/organizations/${org.id}/edit`}

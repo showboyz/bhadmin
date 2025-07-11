@@ -77,34 +77,36 @@ export const getOrganizationById = async (id: string) => {
 };
 
 // 기관 생성 함수 (DynamoDB)
+// DynamoDB에서 기관명 중복 검사
+export const checkOrganizationExists = async (organizationName: string) => {
+  try {
+    const allItems = await getOrganizations();
+    
+    // 기관명 중복 검사 (organizationName, orgName, name 모든 필드 확인)
+    const existingOrg = allItems.find((item: any) => 
+      item.organizationName === organizationName ||
+      item.orgName === organizationName ||
+      item.name === organizationName
+    );
+    
+    return !!existingOrg;
+  } catch (error) {
+    console.error('Error checking organization existence in DynamoDB:', error);
+    // 검사 실패시 false 반환 (안전한 쪽으로)
+    return false;
+  }
+};
+
 export const createOrganizationInDynamoDB = async (orgData: any) => {
   try {
     const { PutCommand } = await import('@aws-sdk/lib-dynamodb');
     
-    // DynamoDB에 저장할 데이터 구조
+    // DynamoDB에 저장할 데이터 구조 (백업용 - 4개 필드만)
     const dynamoData = {
-      id: orgData.id || crypto.randomUUID(),
-      organizationName: orgData.name,
-      orgName: orgData.name,
-      name: orgData.name,
-      contactEmail: orgData.contact_email,
-      contactPhone: orgData.contact_phone,
-      address: orgData.address,
-      licenseLimit: orgData.license_limit,
-      subscriptionPlan: orgData.subscription_plan,
-      orgType: orgData.org_type,
-      isActive: true,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      
-      // Admin 정보
-      adminName: orgData.admin_name,
-      adminEmail: orgData.admin_email,
-      adminPhone: orgData.admin_phone,
-      
-      // 추가 메타데이터
-      source: 'admin_panel',
-      version: '1.0'
+      id: orgData.admin_id, // 앱 로그인 ID를 DynamoDB의 id로 사용
+      password: orgData.admin_password, // 앱 패스워드
+      name: orgData.name, // 기관명
+      timestamp: new Date().toISOString() // 타임스탬프
     };
     
     const command = new PutCommand({
