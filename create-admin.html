@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Missing Admin</title>
+</head>
+<body>
+    <h1>Create Missing Admin User</h1>
+    <button onclick="createAdmin()">Create andrew@youngandx.com</button>
+    <div id="result"></div>
+    
+    <script>
+        async function createAdmin() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Creating admin user...';
+            
+            try {
+                const response = await fetch('/api/debug/create-missing-admin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultDiv.innerHTML = `<div style="color: green;">성공: ${result.message}</div><pre>${JSON.stringify(result.data, null, 2)}</pre>`;
+                } else {
+                    resultDiv.innerHTML = `<div style="color: red;">실패: ${result.error}</div><pre>${result.details || ''}</pre>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div style="color: red;">오류: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

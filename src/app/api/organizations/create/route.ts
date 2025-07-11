@@ -155,9 +155,32 @@ export async function POST(request: Request) {
       // DynamoDB 오류는 로그만 남기고 계속 진행
     }
 
-    // 4. 관리자 정보를 organization_admins 테이블에 저장
+    // 4. 관리자 Supabase 사용자 계정 생성
+    let adminUserId = null;
     if (body.admin_email && body.admin_name) {
       try {
+        // Supabase Auth에 사용자 생성
+        const { data: authUser, error: authError } = await supabaseAdmin.auth.admin.createUser({
+          email: body.admin_email,
+          password: body.admin_password,
+          email_confirm: true, // 이메일 확인 건너뛰기
+          user_metadata: {
+            name: body.admin_name,
+            phone: body.admin_phone,
+            role: 'org_admin',
+            org_id: org.id
+          }
+        });
+
+        if (authError) {
+          console.error('Supabase auth user creation error:', authError);
+          throw new Error(`Failed to create admin user: ${authError.message}`);
+        }
+
+        adminUserId = authUser.user.id;
+        console.log('Admin user created in Supabase Auth:', adminUserId);
+
+        // organization_admins 테이블에 저장
         const { error: adminError } = await supabaseAdmin
           .from('organization_admins')
           .insert([{
@@ -172,25 +195,29 @@ export async function POST(request: Request) {
 
         if (adminError) {
           console.error('Admin info creation error:', adminError);
-          console.error('Admin error details:', JSON.stringify(adminError, null, 2));
-          // 테이블이 존재하지 않는 경우 등은 경고만 출력하고 계속 진행
-          if (adminError.message?.includes('does not exist') || adminError.code === '42P01') {
-            console.warn('organization_admins table does not exist. Admin info will be stored in logs only.');
-            console.log('Admin info (not stored in DB):', {
-              org_id: org.id,
-              admin_name: body.admin_name,
-              admin_email: body.admin_email,
-              admin_phone: body.admin_phone,
-              admin_id: body.admin_id,
-              admin_password: body.admin_password
-            });
-          }
-        } else {
-          console.log('Admin info stored successfully for organization:', org.id);
+          // 사용자는 생성되었으므로 계속 진행
         }
+
+        // user_roles 테이블에 org_admin 역할 추가
+        const { error: roleError } = await supabaseAdmin
+          .from('user_roles')
+          .insert([{
+            user_id: adminUserId,
+            org_id: org.id,
+            role: 'org_admin',
+            created_by: user.id
+          }]);
+
+        if (roleError) {
+          console.error('User role creation error:', roleError);
+          // 역할 생성 실패는 경고만 출력
+        }
+
+        console.log('Admin user setup completed for organization:', org.id);
       } catch (adminInfoError) {
-        console.error('Admin info storage failed:', adminInfoError);
-        console.error('Admin storage error details:', JSON.stringify(adminInfoError, null, 2));
+        console.error('Admin user creation failed:', adminInfoError);
+        // 관리자 계정 생성 실패 시 조직 생성을 중단
+        throw new Error(`Admin account creation failed: ${adminInfoError instanceof Error ? adminInfoError.message : 'Unknown error'}`);
       }
     }
 

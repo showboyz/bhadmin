@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Super Admin Role</title>
+</head>
+<body>
+    <h1>Add Super Admin Role</h1>
+    <p>먼저 andrew@test.com으로 로그인한 후 아래 버튼을 클릭하세요.</p>
+    
+    <button onclick="addSuperAdminRole()">Add Super Admin Role</button>
+    
+    <div id="result"></div>
+    
+    <script>
+        async function addSuperAdminRole() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Processing...';
+            
+            try {
+                const response = await fetch('/api/admin/add-super-admin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include' // 쿠키 포함
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultDiv.innerHTML = `<div style="color: green;">성공: ${result.message}</div><pre>${JSON.stringify(result.data, null, 2)}</pre>`;
+                } else {
+                    resultDiv.innerHTML = `<div style="color: red;">실패: ${result.error}</div><pre>${result.details || ''}</pre>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div style="color: red;">오류: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -40,6 +40,7 @@ interface AuthContextType {
   currentOrg: OrganizationData | null
   currentOrgContext: CurrentOrganization | null
   loading: boolean
+  rolesLoading: boolean
   isSuperAdmin: boolean
   isOrgAdmin: boolean
   signIn: (email: string, password: string) => Promise<any>
@@ -60,6 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [currentOrg, setCurrentOrg] = useState<OrganizationData | null>(null)
   const [currentOrgContext, setCurrentOrgContext] = useState<CurrentOrganization | null>(null)
   const [loading, setLoading] = useState(true)
+  const [rolesLoading, setRolesLoading] = useState(false)
 
   // Computed properties
   const isSuperAdmin = userRoles.some(role => role.role === 'super_admin')
@@ -110,16 +112,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const refreshUserRoles = async () => {
     if (!user) return
     
-    const roles = await fetchUserRoles(user.id)
-    setUserRoles(roles)
+    setRolesLoading(true)
+    try {
+      const roles = await fetchUserRoles(user.id)
+      setUserRoles(roles)
 
-    // Set current organization (first non-super-admin role's org, or null for super admin)
-    const firstOrgRole = roles.find(role => role.role !== 'super_admin' && role.org_id)
-    if (firstOrgRole?.org_id) {
-      const org = await fetchOrganization(firstOrgRole.org_id)
-      setCurrentOrg(org)
-    } else {
-      setCurrentOrg(null)
+      // Set current organization (first non-super-admin role's org, or null for super admin)
+      const firstOrgRole = roles.find(role => role.role !== 'super_admin' && role.org_id)
+      if (firstOrgRole?.org_id) {
+        const org = await fetchOrganization(firstOrgRole.org_id)
+        setCurrentOrg(org)
+      } else {
+        setCurrentOrg(null)
+      }
+    } finally {
+      setRolesLoading(false)
     }
   }
 
@@ -237,6 +244,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     currentOrg,
     currentOrgContext,
     loading,
+    rolesLoading,
     isSuperAdmin,
     isOrgAdmin,
     signIn,

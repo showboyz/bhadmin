@@ -77,7 +77,8 @@ export default function LoginPage() {
             role: activeOrgRole.role
           }))
           
-          router.push('/dashboard')
+          // Redirect to organization-specific dashboard
+          router.push(`/org/${activeOrgRole.org_id}/dashboard`)
           return
         }
       }
@@ -96,8 +97,12 @@ export default function LoginPage() {
     setIsLoading(true)
     
     try {
+      console.log('Login attempt:', { email, passwordLength: password.length })
+      
       // Password login only
       const { data, error } = await signIn(email, password)
+      
+      console.log('Login result:', { data, error })
       
       if (error) {
         toast.error('Login failed: ' + error.message)
