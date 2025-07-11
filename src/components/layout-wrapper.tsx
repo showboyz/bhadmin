@@ -13,9 +13,15 @@ export default function LayoutWrapper({
   const isLoginPage = pathname === '/login'
   const isSuperAdminPage = pathname.startsWith('/super-admin')
   const isSetupPage = pathname === '/setup-super-admin' || pathname === '/test-super-admin'
+  const isOrgPage = pathname.startsWith('/org/')
 
   // Pages that don't need any layout
   if (isLoginPage || isSuperAdminPage || isSetupPage) {
+    return <>{children}</>
+  }
+
+  // Organization pages use custom layout
+  if (isOrgPage) {
     return <>{children}</>
   }
 

@@ -70,19 +70,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Fetch user roles from database
   const fetchUserRoles = async (userId: string) => {
     try {
+      console.log('🔍 Fetching user roles for userId:', userId)
+      
       const { data, error } = await supabase
         .from('user_roles')
         .select('*')
         .eq('user_id', userId)
 
       if (error) {
-        console.error('Error fetching user roles:', error)
+        console.error('❌ Error fetching user roles:', error)
         return []
       }
 
+      console.log('✅ User roles found:', data)
       return data as UserRoleData[]
     } catch (error) {
-      console.error('Error fetching user roles:', error)
+      console.error('❌ Error fetching user roles:', error)
       return []
     }
   }
@@ -112,18 +115,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const refreshUserRoles = async () => {
     if (!user) return
     
+    console.log('👤 Refreshing roles for user:', { 
+      id: user.id, 
+      email: user.email, 
+      user_metadata: user.user_metadata 
+    })
+    
     setRolesLoading(true)
     try {
       const roles = await fetchUserRoles(user.id)
       setUserRoles(roles)
+      console.log('🎭 Roles refreshed and set:', roles)
 
       // Set current organization (first non-super-admin role's org, or null for super admin)
       const firstOrgRole = roles.find(role => role.role !== 'super_admin' && role.org_id)
       if (firstOrgRole?.org_id) {
         const org = await fetchOrganization(firstOrgRole.org_id)
         setCurrentOrg(org)
+        console.log('🏢 Current organization set:', org)
       } else {
         setCurrentOrg(null)
+        console.log('🏢 No organization set (super admin)')
       }
     } finally {
       setRolesLoading(false)
@@ -144,40 +156,58 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     }
 
-    // Get initial session
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      setUser(session?.user ?? null)
-      
-      if (session?.user) {
-        loadOrgContext()
-        await refreshUserRoles()
-      } else {
-        setUserRoles([])
-        setCurrentOrg(null)
-        setCurrentOrgContext(null)
-        localStorage.removeItem('currentOrganization')
+    // Get initial session with retry logic
+    const initializeAuth = async () => {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession()
+        
+        if (error) {
+          console.error('Session error:', error)
+        }
+        
+        console.log('Initial session check:', session?.user?.email || 'No session')
+        
+        setUser(session?.user ?? null)
+        
+        if (session?.user) {
+          loadOrgContext()
+          await refreshUserRoles()
+        } else {
+          setUserRoles([])
+          setCurrentOrg(null)
+          setCurrentOrgContext(null)
+          localStorage.removeItem('currentOrganization')
+        }
+      } catch (error) {
+        console.error('Auth initialization error:', error)
+      } finally {
+        setLoading(false)
       }
-      
-      setLoading(false)
-    })
+    }
+
+    initializeAuth()
 
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      setUser(session?.user ?? null)
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('Auth state change:', event, session?.user?.email || 'No session')
       
-      if (session?.user) {
-        loadOrgContext()
-        await refreshUserRoles()
-      } else {
+      // Only update loading state if not already loaded
+      if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+        setUser(session?.user ?? null)
+        
+        if (session?.user) {
+          loadOrgContext()
+          await refreshUserRoles()
+        }
+      } else if (event === 'SIGNED_OUT') {
+        setUser(null)
         setUserRoles([])
         setCurrentOrg(null)
         setCurrentOrgContext(null)
         localStorage.removeItem('currentOrganization')
       }
-      
-      setLoading(false)
     })
 
     return () => subscription.unsubscribe()

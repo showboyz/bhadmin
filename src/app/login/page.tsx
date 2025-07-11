@@ -105,9 +105,14 @@ export default function LoginPage() {
       console.log('Login result:', { data, error })
       
       if (error) {
+        console.error('Login error:', error)
         toast.error('Login failed: ' + error.message)
       } else if (data.user) {
+        console.log('Login successful for:', data.user.email)
         toast.success('Login successful')
+        
+        // Wait a bit for the auth state to propagate
+        await new Promise(resolve => setTimeout(resolve, 500))
         await redirectBasedOnRole()
       }
     } catch (error) {

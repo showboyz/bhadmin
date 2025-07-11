@@ -1,9 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter, useParams } from 'next/navigation'
+import { useRouter, useParams, usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { useAuth } from '@/contexts/auth-context'
 import { supabase } from '@/lib/supabase'
+import { LayoutDashboard, Users, FileText, Calendar, AlertTriangle, LogOut } from 'lucide-react'
 
 interface OrganizationData {
   id: string
@@ -17,8 +19,9 @@ export default function OrgLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { user, loading, userRoles } = useAuth()
+  const { user, loading, userRoles, rolesLoading } = useAuth()
   const router = useRouter()
+  const pathname = usePathname()
   const params = useParams()
   const orgId = params['org-id'] as string
 
@@ -28,7 +31,10 @@ export default function OrgLayout({
 
   useEffect(() => {
     const checkAccess = async () => {
-      if (loading) return
+      if (loading || rolesLoading) {
+        console.log('Still loading user or roles...')
+        return
+      }
 
       if (!user) {
         router.push('/login')
@@ -36,12 +42,24 @@ export default function OrgLayout({
       }
 
       // Check if user has access to this organization
-      const hasOrgAccess = userRoles.some(role => 
+      const isSuperAdmin = userRoles.some(role => role.role === 'super_admin')
+      const hasOrgSpecificAccess = userRoles.some(role => 
         (role.role === 'org_admin' || role.role === 'staff' || role.role === 'viewer') && 
         role.org_id === orgId
-      ) || userRoles.some(role => role.role === 'super_admin')
+      )
+      
+      const hasOrgAccess = isSuperAdmin || hasOrgSpecificAccess
+
+      console.log('Organization access check:', {
+        orgId,
+        userRoles,
+        isSuperAdmin,
+        hasOrgSpecificAccess,
+        hasOrgAccess
+      })
 
       if (!hasOrgAccess) {
+        console.log('Access denied, redirecting to dashboard')
         router.push('/dashboard')
         return
       }
@@ -70,9 +88,9 @@ export default function OrgLayout({
     }
 
     checkAccess()
-  }, [user, loading, userRoles, orgId, router])
+  }, [user, loading, rolesLoading, userRoles, orgId, router])
 
-  if (loading || isLoading) {
+  if (loading || rolesLoading || isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
@@ -92,66 +110,93 @@ export default function OrgLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Organization Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">{organization.name}</h1>
-              <p className="text-sm text-gray-600">{organization.org_type} • Organization Dashboard</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-500">Welcome, {user.email}</span>
-              <button
-                onClick={async () => {
-                  await supabase.auth.signOut()
-                  router.push('/login')
-                }}
-                className="text-sm text-gray-600 hover:text-gray-900"
-              >
-                Sign Out
-              </button>
-            </div>
+    <div className="flex">
+      {/* Left Sidebar - 기존 Navigation 컴포넌트와 동일한 스타일 */}
+      <nav className="bg-white text-gray-800 h-screen w-64 fixed left-0 top-0 border-r border-gray-200">
+        {/* Logo Section */}
+        <div className="p-6 border-b border-gray-100">
+          <div className="flex items-center gap-3">
+            <img 
+              src="https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true" 
+              alt="Brain Health Playground" 
+              className="h-16 w-auto"
+            />
           </div>
         </div>
-      </header>
 
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-8">
-            <a
-              href={`/org/${orgId}/dashboard`}
-              className="border-b-2 border-blue-500 py-4 px-1 text-sm font-medium text-blue-600"
-            >
-              Dashboard
-            </a>
-            <a
-              href={`/org/${orgId}/users`}
-              className="border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
-            >
-              Users
-            </a>
-            <a
-              href={`/org/${orgId}/reports`}
-              className="border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
-            >
-              Reports
-            </a>
-            <a
-              href={`/org/${orgId}/settings`}
-              className="border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
-            >
-              Settings
-            </a>
+        {/* Navigation Items */}
+        <div className="px-4 py-6">
+          <div className="space-y-1">
+            {[
+              { href: `/org/${orgId}/dashboard`, label: 'Dashboard', icon: LayoutDashboard },
+              { href: `/org/${orgId}/users`, label: 'User', icon: Users },
+              { href: `/org/${orgId}/reports`, label: 'Report', icon: FileText },
+              { href: `/org/${orgId}/schedules`, label: 'Schedules', icon: Calendar },
+              { href: `/org/${orgId}/monitoring`, label: 'Monitoring', icon: AlertTriangle },
+            ].map((item) => {
+              const Icon = item.icon
+              const isActive = pathname === item.href
+              
+              return (
+                <Link key={item.href} href={item.href}>
+                  <div className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${
+                    isActive 
+                      ? 'bg-gray-100 text-gray-900 font-medium' 
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  }`}>
+                    <Icon className="h-5 w-5" />
+                    <span className="text-sm">{item.label}</span>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
+        </div>
+
+        {/* User Info & Logout */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100">
+          {user && (
+            <div className="mb-3 px-3">
+              <p className="text-xs text-gray-500 truncate">
+                {user.email}
+              </p>
+            </div>
+          )}
+          <button 
+            className="w-full flex items-center gap-3 px-3 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all duration-200"
+            onClick={async () => {
+              await supabase.auth.signOut()
+              router.push('/login')
+            }}
+          >
+            <LogOut className="h-5 w-5" />
+            <span className="text-sm">Log out</span>
+          </button>
         </div>
       </nav>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        {children}
+      <main className="ml-64 flex-1 min-h-screen">
+        {/* Organization Header */}
+        <div className="bg-white border-b border-gray-200 px-6 py-4">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-2xl font-semibold text-gray-900">{organization.name}</h1>
+              <p className="text-gray-600">{organization.org_type} • Organization Dashboard</p>
+            </div>
+            <div className="text-right">
+              <div className="text-sm font-medium text-gray-900">
+                Welcome to {organization.name}
+              </div>
+              <div className="text-xs text-gray-500">{user.email}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Page Content */}
+        <div className="p-6">
+          {children}
+        </div>
       </main>
     </div>
   )

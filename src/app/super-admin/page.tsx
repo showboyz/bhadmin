@@ -279,13 +279,34 @@ export default function SuperAdminDashboard() {
 
   return (
     <div className="space-y-6">
-      {/* Header with Super Admin Badge */}
+      {/* Welcome Message */}
+      <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-lg p-6 border border-red-100">
+        <div className="flex items-center gap-3">
+          <div className="h-12 w-12 bg-red-100 rounded-lg flex items-center justify-center">
+            <Building2 className="h-6 w-6 text-red-600" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">
+              Welcome, Super Admin! 👨‍💼
+            </h1>
+            <p className="text-gray-600 mt-1">
+              Hello {user?.user_metadata?.name || user?.email?.split('@')[0] || 'Administrator'}, 
+              manage all organizations and system settings from your control center
+            </p>
+          </div>
+          <div className="ml-auto">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+              🔒 System Administrator
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Header with Actions */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <h1 className="text-3xl font-bold text-gray-900">Super Admin Dashboard</h1>
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
-            🔒 System Administrator
-          </span>
+        <div>
+          <h2 className="text-xl font-bold text-gray-900">System Overview</h2>
+          <p className="text-gray-600">Monitor all organizations and platform metrics</p>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 text-sm text-gray-500">
