@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -9,88 +9,76 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useAuth } from '@/contexts/auth-context'
 import { supabase } from '@/lib/supabase'
 import { toast } from 'sonner'
+import PasswordResetForm from '@/components/auth/password-reset-form'
 
-export default function LoginPage() {
+function LoginPageContent() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [showResetForm, setShowResetForm] = useState(false)
   
   const { signIn, refreshUserRoles } = useAuth()
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const redirectBasedOnRole = async () => {
     try {
-      // Wait a bit for roles to be loaded
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      await refreshUserRoles()
-      
-      // Get fresh user data after role refresh
-      const { data: { user }, error } = await supabase.auth.getUser()
-      if (!user) return
-      
-      // Check user roles with organization information
+      await refreshUserRoles();
+
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
       const { data: roles, error: rolesError } = await supabase
         .from('user_roles')
-        .select(`
-          role,
-          org_id,
-          organisations (
-            id,
-            name,
-            is_active
-          )
-        `)
-        .eq('user_id', user.id)
-      
+        .select('role, org_id')
+        .eq('user_id', user.id);
+
       if (rolesError) {
-        console.error('Error fetching user roles:', rolesError)
-        router.push('/dashboard')
-        return
+        toast.error('Error fetching user roles.');
+        return;
       }
-      
+
       if (!roles || roles.length === 0) {
-        // No roles found - might be a new user
-        toast.error('No access permissions found. Please contact your administrator.')
-        return
+        toast.error('No access permissions found. Please contact your administrator.');
+        return;
       }
-      
-      // Check for super admin role
-      const superAdminRole = roles.find(role => role.role === 'super_admin')
+
+      const superAdminRole = roles.find((role: any) => role.role === 'super_admin');
       if (superAdminRole) {
-        router.push('/super-admin')
-        return
+        router.push('/super-admin');
+        return;
       }
-      
-      // Check for organization roles
-      const orgRoles = roles.filter(role => role.role !== 'super_admin' && role.org_id)
-      if (orgRoles.length > 0) {
-        // Find the first active organization
-        const activeOrgRole = orgRoles.find(role => 
-          role.organisations?.is_active === true
-        )
-        
-        if (activeOrgRole) {
-          // Store organization context
+
+      const firstOrgRole = roles.find((role: any) => role.org_id);
+      if (firstOrgRole && firstOrgRole.org_id) {
+        const { data: org, error: orgError } = await supabase
+          .from('organisations')
+          .select('id, name, is_active')
+          .eq('id', firstOrgRole.org_id)
+          .single();
+
+        if (orgError || !org) {
+          toast.error('Could not retrieve organization details.');
+          return;
+        }
+
+        if (org.is_active) {
           localStorage.setItem('currentOrganization', JSON.stringify({
-            id: activeOrgRole.org_id,
-            name: activeOrgRole.organisations?.name,
-            role: activeOrgRole.role
-          }))
-          
-          // Redirect to organization-specific dashboard
-          router.push(`/org/${activeOrgRole.org_id}/dashboard`)
-          return
+            id: org.id,
+            name: org.name,
+            role: firstOrgRole.role,
+          }));
+          router.push(`/org/${org.id}/dashboard`);
+          return;
         }
       }
-      
-      // No valid organization found
-      toast.error('No active organization access. Please contact your administrator.')
-      
+
+      toast.error('No active organization access. Please contact your administrator.');
     } catch (error) {
-      console.error('Error in role-based redirect:', error)
-      router.push('/dashboard')
+      console.error('Error in role-based redirect:', error);
+      toast.error('An error occurred during login. Please try again.');
     }
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -99,6 +87,17 @@ export default function LoginPage() {
     try {
       console.log('Login attempt:', { email, passwordLength: password.length })
       
+      // Basic validation
+      if (!email || !password) {
+        toast.error('Please enter both email and password')
+        return
+      }
+      
+      if (!email.includes('@')) {
+        toast.error('Please enter a valid email address')
+        return
+      }
+      
       // Password login only
       const { data, error } = await signIn(email, password)
       
@@ -106,7 +105,19 @@ export default function LoginPage() {
       
       if (error) {
         console.error('Login error:', error)
-        toast.error('Login failed: ' + error.message)
+        
+        // Handle specific error types
+        if (error.message.includes('Invalid login credentials')) {
+          toast.error('Invalid email or password. Please check your credentials.')
+        } else if (error.message.includes('Demo mode')) {
+          toast.error('Demo mode is active. Please configure a valid Supabase project.')
+        } else if (error.message.includes('Network')) {
+          toast.error('Network error. Please check your internet connection.')
+        } else if (error.message.includes('Too many requests')) {
+          toast.error('Too many login attempts. Please wait and try again.')
+        } else {
+          toast.error('Login failed: ' + error.message)
+        }
       } else if (data.user) {
         console.log('Login successful for:', data.user.email)
         toast.success('Login successful')
@@ -114,14 +125,32 @@ export default function LoginPage() {
         // Wait a bit for the auth state to propagate
         await new Promise(resolve => setTimeout(resolve, 500))
         await redirectBasedOnRole()
+      } else {
+        toast.error('Login failed: No user data received')
       }
     } catch (error) {
-      toast.error('An unexpected error occurred')
+      console.error('Unexpected login error:', error)
+      toast.error('An unexpected error occurred. Please try again.')
     } finally {
       setIsLoading(false)
     }
   }
 
+  // Check for success/error messages from URL params
+  useEffect(() => {
+    const message = searchParams.get('message')
+    if (message === 'password_updated') {
+      toast.success('Password updated successfully. Please sign in with your new password.')
+    }
+  }, [searchParams])
+
+  if (showResetForm) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <PasswordResetForm onBackToLogin={() => setShowResetForm(false)} />
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center">
@@ -175,9 +204,31 @@ export default function LoginPage() {
             </Button>
           </form>
           
+          <div className="mt-6 text-center">
+            <Button 
+              variant="ghost" 
+              className="text-sm text-gray-600 hover:text-gray-900"
+              onClick={() => setShowResetForm(true)}
+            >
+              Forgot your password?
+            </Button>
+          </div>
+          
         </CardContent>
       </Card>
 
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#111]"></div>
+      </div>
+    }>
+      <LoginPageContent />
+    </Suspense>
   )
 }

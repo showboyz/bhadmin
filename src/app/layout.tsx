@@ -4,6 +4,7 @@ import "./globals.css";
 import LayoutWrapper from "@/components/layout-wrapper";
 import { AuthProvider } from "@/contexts/auth-context";
 import { Toaster } from "@/components/ui/sonner";
+import DemoModeBanner from "@/components/demo-mode-banner";
 
 const openSans = Open_Sans({
   variable: "--font-open-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
         className={`${openSans.variable} font-sans antialiased`}
       >
         <AuthProvider>
+          <DemoModeBanner />
           <LayoutWrapper>
             {children}
           </LayoutWrapper>

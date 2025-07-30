@@ -131,17 +131,28 @@ export default function OrganizationManagePage() {
 
   const fetchUsers = async () => {
     try {
+      console.log('Fetching users for organization:', orgId);
       const response = await fetch(`/api/organizations/${orgId}/users`)
+      
+      if (!response.ok) {
+        console.error('HTTP error:', response.status, response.statusText);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
       const result = await response.json()
+      console.log('Users API response:', result);
 
       if (!result.success) {
+        console.error('API error:', result.error, result.details);
         throw new Error(result.error || 'Failed to fetch users')
       }
 
+      console.log('Setting users:', result.data?.length || 0, 'users');
       setUsers(result.data || [])
     } catch (error) {
       console.error('Error fetching users:', error)
-      toast.error('사용자 정보를 불러오는데 실패했습니다.')
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      toast.error(`사용자 정보를 불러오는데 실패했습니다: ${errorMessage}`)
     }
   }
 

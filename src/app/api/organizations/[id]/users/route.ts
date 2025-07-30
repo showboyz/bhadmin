@@ -28,8 +28,18 @@ export async function GET(
     }
 
     console.log('Fetching users for organization:', orgId);
+    
+    // Check if Supabase admin client is properly configured
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      console.error('Missing Supabase environment variables');
+      return NextResponse.json({
+        success: false,
+        error: 'Server configuration error: Missing Supabase credentials'
+      }, { status: 500 });
+    }
 
     // 1. Get all user roles for this organization
+    console.log('Querying user_roles table...');
     const { data: userRoles, error: rolesError } = await supabaseAdmin
       .from('user_roles')
       .select('user_id, role, created_at')
@@ -37,7 +47,12 @@ export async function GET(
 
     if (rolesError) {
       console.error('Error fetching user roles:', rolesError);
-      throw new Error(`Failed to fetch user roles: ${rolesError.message}`);
+      console.error('Roles error details:', JSON.stringify(rolesError, null, 2));
+      return NextResponse.json({
+        success: false,
+        error: `Database error: ${rolesError.message}`,
+        details: 'Failed to query user_roles table'
+      }, { status: 500 });
     }
 
     if (!userRoles || userRoles.length === 0) {
@@ -51,12 +66,27 @@ export async function GET(
 
     // 2. Get user details from auth.users for each user_id
     const userIds = userRoles.map(role => role.user_id);
+    console.log('Fetching auth users for user IDs:', userIds);
     
     const { data: authUsers, error: authError } = await supabaseAdmin.auth.admin.listUsers();
     
     if (authError) {
       console.error('Error fetching auth users:', authError);
-      throw new Error(`Failed to fetch users: ${authError.message}`);
+      console.error('Auth error details:', JSON.stringify(authError, null, 2));
+      return NextResponse.json({
+        success: false,
+        error: `Authentication error: ${authError.message}`,
+        details: 'Failed to fetch users from auth system'
+      }, { status: 500 });
+    }
+    
+    if (!authUsers || !authUsers.users) {
+      console.error('No auth users data returned');
+      return NextResponse.json({
+        success: false,
+        error: 'No user data available',
+        details: 'Auth system returned empty response'
+      }, { status: 500 });
     }
 
     // 3. Filter users to only include those in this organization

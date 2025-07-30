@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { User } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase'
+import { supabaseQuery } from '@/lib/api-interceptor'
 
 export type UserRole = 'super_admin' | 'org_admin' | 'staff' | 'viewer'
 
@@ -67,25 +68,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const isSuperAdmin = userRoles.some(role => role.role === 'super_admin')
   const isOrgAdmin = userRoles.some(role => role.role === 'org_admin')
 
-  // Fetch user roles from database
+  // Fetch user roles from database with circuit breaker
   const fetchUserRoles = async (userId: string) => {
     try {
       console.log('🔍 Fetching user roles for userId:', userId)
       
-      const { data, error } = await supabase
+      // Add timeout to prevent hanging requests
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Request timeout')), 5000)
+      )
+      
+      const fetchPromise = supabase
         .from('user_roles')
         .select('*')
         .eq('user_id', userId)
 
+      const { data, error } = await Promise.race([fetchPromise, timeoutPromise]) as any
+
       if (error) {
         console.error('❌ Error fetching user roles:', error)
+        // Don't throw on role fetch errors to prevent infinite loops
         return []
       }
 
       console.log('✅ User roles found:', data)
       return data as UserRoleData[]
     } catch (error) {
-      console.error('❌ Error fetching user roles:', error)
+      console.error('❌ Error fetching user roles (with timeout):', error)
       return []
     }
   }
@@ -93,6 +102,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Fetch organization data
   const fetchOrganization = async (orgId: string) => {
     try {
+      // Direct supabase call without supabaseQuery to avoid infinite loop
       const { data, error } = await supabase
         .from('organisations')
         .select('*')
@@ -111,9 +121,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  // Circuit breaker to prevent infinite loops
+  let roleRefreshCount = 0
+  let lastRoleRefreshTime = 0
+  const ROLE_REFRESH_COOLDOWN = 2000 // 2 seconds
+  const MAX_ROLE_REFRESH_PER_MINUTE = 5
+  const CIRCUIT_BREAKER_RESET_TIME = 60000 // 1 minute
+
   // Refresh user roles
   const refreshUserRoles = async () => {
     if (!user) return
+    
+    const now = Date.now()
+    
+    // Reset circuit breaker after 1 minute
+    if (now - lastRoleRefreshTime > CIRCUIT_BREAKER_RESET_TIME) {
+      roleRefreshCount = 0
+    }
+    
+    // Circuit breaker - stop if too many requests
+    if (roleRefreshCount >= MAX_ROLE_REFRESH_PER_MINUTE) {
+      console.warn('🚫 Circuit breaker: Too many role refresh attempts, stopping to prevent infinite loop')
+      return
+    }
+    
+    // Rate limiting
+    if (now - lastRoleRefreshTime < ROLE_REFRESH_COOLDOWN) {
+      console.log('⏰ Role refresh skipped due to rate limiting')
+      return
+    }
+    
+    roleRefreshCount++
+    lastRoleRefreshTime = now
     
     console.log('👤 Refreshing roles for user:', { 
       id: user.id, 
@@ -156,6 +195,72 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     }
 
+    // Check session validity periodically
+    const checkSessionValidity = async () => {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession()
+        
+        if (error) {
+          console.error('Session check error:', error)
+          // Handle network errors gracefully
+          if (error.message.includes('Failed to fetch') || error.message.includes('Network error')) {
+            console.log('Network error detected, maintaining current session')
+            return true // Don't clear session on network errors
+          }
+          console.log('Session invalid, clearing auth state')
+          setUser(null)
+          setUserRoles([])
+          setCurrentOrg(null)
+          setCurrentOrgContext(null)
+          localStorage.removeItem('currentOrganization')
+          return false
+        }
+        
+        if (!session) {
+          console.log('No session found, clearing auth state')
+          setUser(null)
+          setUserRoles([])
+          setCurrentOrg(null)
+          setCurrentOrgContext(null)
+          localStorage.removeItem('currentOrganization')
+          return false
+        }
+        
+        // Check if token is expired or will expire soon (within 5 minutes)
+        const expiresAt = session.expires_at
+        const now = Math.floor(Date.now() / 1000)
+        const fiveMinutes = 5 * 60
+        
+        if (expiresAt && expiresAt - now < fiveMinutes) {
+          console.log('Token will expire soon, refreshing...')
+          try {
+            const { error: refreshError } = await supabase.auth.refreshSession()
+            if (refreshError) {
+              console.error('Failed to refresh session:', refreshError)
+              // Don't clear session on network errors during refresh
+              if (refreshError.message.includes('Failed to fetch') || refreshError.message.includes('Network error')) {
+                return true
+              }
+              return false
+            }
+          } catch (refreshError) {
+            console.error('Network error during token refresh:', refreshError)
+            return true // Maintain session despite refresh failure
+          }
+        }
+        
+        return true
+      } catch (error) {
+        console.error('Error checking session validity:', error)
+        // Handle network errors gracefully
+        if (error instanceof Error && (error.message.includes('Failed to fetch') || error.message.includes('Network error'))) {
+          console.log('Network error during session check, maintaining session')
+          return true
+        }
+        return false
+      }
+    }
+
     // Get initial session with retry logic
     const initializeAuth = async () => {
       try {
@@ -187,21 +292,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     initializeAuth()
 
-    // Listen for auth changes
+    // Listen for auth changes (with circuit breaker)
+    let authStateChangeCount = 0
+    const MAX_AUTH_CHANGES = 10
+    
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       console.log('Auth state change:', event, session?.user?.email || 'No session')
       
-      // Only update loading state if not already loaded
+      // Circuit breaker for auth state changes
+      authStateChangeCount++
+      if (authStateChangeCount > MAX_AUTH_CHANGES) {
+        console.warn('🚫 Too many auth state changes, ignoring to prevent infinite loop')
+        return
+      }
+      
       if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
         setUser(session?.user ?? null)
         
         if (session?.user) {
           loadOrgContext()
-          await refreshUserRoles()
+          // Only refresh roles if circuit breaker allows
+          if (roleRefreshCount < MAX_ROLE_REFRESH_PER_MINUTE) {
+            await refreshUserRoles()
+          }
         }
       } else if (event === 'SIGNED_OUT') {
+        console.log('Clearing auth state due to sign out or failed refresh')
         setUser(null)
         setUserRoles([])
         setCurrentOrg(null)
@@ -210,15 +328,74 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     })
 
-    return () => subscription.unsubscribe()
-  }, [])
+    // Set up periodic session validation (every 10 minutes, reduced frequency)
+    const sessionCheckInterval = setInterval(async () => {
+      if (user) {
+        const isValid = await checkSessionValidity()
+        if (!isValid) {
+          console.log('Session validation failed, signing out')
+          await supabase.auth.signOut()
+        }
+      }
+    }, 10 * 60 * 1000) // 10 minutes
+
+    // Check session on window focus
+    const handleWindowFocus = async () => {
+      if (user) {
+        console.log('Window focused, checking session validity')
+        const isValid = await checkSessionValidity()
+        if (!isValid) {
+          console.log('Session invalid on focus, signing out')
+          await supabase.auth.signOut()
+        }
+      }
+    }
+
+    // Check session on network reconnection
+    const handleOnline = async () => {
+      if (user) {
+        console.log('Network reconnected, checking session validity')
+        const isValid = await checkSessionValidity()
+        if (!isValid) {
+          console.log('Session invalid after reconnection, signing out')
+          await supabase.auth.signOut()
+        }
+      }
+    }
+
+    window.addEventListener('focus', handleWindowFocus)
+    window.addEventListener('online', handleOnline)
+
+    return () => {
+      subscription.unsubscribe()
+      clearInterval(sessionCheckInterval)
+      window.removeEventListener('focus', handleWindowFocus)
+      window.removeEventListener('online', handleOnline)
+    }
+  }, []) // Remove user dependency to prevent infinite loop
 
   const signIn = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-    return { data, error }
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+      
+      // Log the response for debugging
+      console.log('signInWithPassword result:', { 
+        hasUser: !!data?.user, 
+        hasSession: !!data?.session, 
+        errorMessage: error?.message 
+      })
+      
+      return { data, error }
+    } catch (networkError) {
+      console.error('Network error during sign in:', networkError)
+      return { 
+        data: { user: null, session: null }, 
+        error: { message: 'Network error. Please check your connection and try again.' } 
+      }
+    }
   }
 
   const signInWithOtp = async (email: string) => {
