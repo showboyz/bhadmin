@@ -29,6 +29,17 @@ export async function GET(
 
     console.log('Fetching users for organization:', orgId);
     
+    // Validate basic UUID format (more lenient)
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    if (!uuidRegex.test(orgId)) {
+      console.error('Invalid UUID format:', orgId);
+      return NextResponse.json({
+        success: false,
+        error: 'Invalid organization ID format',
+        details: `Expected UUID format, got: ${orgId}`
+      }, { status: 400 });
+    }
+    
     // Check if Supabase admin client is properly configured
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
       console.error('Missing Supabase environment variables');
