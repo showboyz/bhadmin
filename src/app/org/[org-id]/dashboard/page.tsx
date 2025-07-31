@@ -325,10 +325,11 @@ export default function OrgDashboardPage() {
           </Card>
         </div>
 
-        {/* Progress Table */}
+        {/* Recent Activity Progress Table */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="text-[#111]">User Progress ({userProgress.length})</CardTitle>
+            <CardTitle className="text-[#111]">Recent User Activity (Top 5)</CardTitle>
+            <p className="text-sm text-gray-600">Users with most recent training sessions</p>
           </CardHeader>
           <CardContent>
             {userProgress.length > 0 ? (
@@ -337,7 +338,8 @@ export default function OrgDashboardPage() {
                   <TableRow>
                     <TableHead>Name</TableHead>
                     <TableHead>Current Week</TableHead>
-                    <TableHead>Progress</TableHead>
+                    <TableHead>Weekly Progress</TableHead>
+                    <TableHead>Last Activity</TableHead>
                     <TableHead>Status</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -347,11 +349,14 @@ export default function OrgDashboardPage() {
                       <TableCell className="font-medium">{user.name}</TableCell>
                       <TableCell>{user.currentWeek}</TableCell>
                       <TableCell>{user.progress}</TableCell>
+                      <TableCell className="text-[#555]">{user.lastActivity}</TableCell>
                       <TableCell>
                         <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
                           user.status === 'Active' 
-                            ? 'bg-[#333] text-white' 
-                            : 'bg-[#777] text-white'
+                            ? 'bg-green-100 text-green-800' 
+                            : user.status === 'Recent'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-gray-100 text-gray-800'
                         }`}>
                           {user.status}
                         </span>
@@ -362,7 +367,7 @@ export default function OrgDashboardPage() {
               </Table>
             ) : (
               <div className="text-center py-8 text-[#555]">
-                No active users found
+                No recent activity found
               </div>
             )}
           </CardContent>
@@ -372,6 +377,7 @@ export default function OrgDashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle className="text-[#111]">Inactive Users ({inactiveUsers.length})</CardTitle>
+            <p className="text-sm text-gray-600">Users with no activity for 3+ days</p>
           </CardHeader>
           <CardContent>
             {inactiveUsers.length > 0 ? (

@@ -176,6 +176,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setCurrentOrg(null)
         console.log('🏢 No organization set (super admin)')
       }
+    } catch (error) {
+      console.error('❌ Error in refreshUserRoles:', error)
     } finally {
       setRolesLoading(false)
     }
@@ -313,8 +315,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         if (session?.user) {
           loadOrgContext()
-          // Only refresh roles if circuit breaker allows
-          if (roleRefreshCount < MAX_ROLE_REFRESH_PER_MINUTE) {
+          
+          // Force refresh roles on sign in, bypassing circuit breaker for initial login
+          if (event === 'SIGNED_IN') {
+            // Reset circuit breaker for fresh login
+            roleRefreshCount = 0
+            lastRoleRefreshTime = 0
+            
+            // Wait a brief moment for user state to propagate
+            setTimeout(async () => {
+              const roles = await fetchUserRoles(session.user.id)
+              setUserRoles(roles)
+            }, 100)
+          } else if (roleRefreshCount < MAX_ROLE_REFRESH_PER_MINUTE) {
             await refreshUserRoles()
           }
         }

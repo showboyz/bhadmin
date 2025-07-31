@@ -28,23 +28,80 @@ function LoginPageContent() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
+      console.log('🔍 User details after login:', {
+        userId: user.id,
+        email: user.email,
+        userMetadata: user.user_metadata
+      });
+
       const { data: roles, error: rolesError } = await supabase
         .from('user_roles')
         .select('role, org_id')
         .eq('user_id', user.id);
 
+      console.log('🎭 User roles query result:', {
+        roles,
+        error: rolesError,
+        userId: user.id
+      });
+
       if (rolesError) {
+        console.error('❌ Role fetch error:', rolesError);
         toast.error('Error fetching user roles.');
         return;
       }
 
       if (!roles || roles.length === 0) {
+        console.warn('⚠️ No roles found for user:', user.id);
+        
+        // Special case: if this is todays777@gmail.com, automatically assign super_admin role
+        if (user.email === 'todays777@gmail.com') {
+          console.log('🔧 Auto-assigning super_admin role to todays777@gmail.com');
+          try {
+            const { error: insertError } = await supabase
+              .from('user_roles')
+              .insert({
+                user_id: user.id,
+                role: 'super_admin',
+                org_id: null,
+                created_by: user.id
+              });
+
+            if (insertError) {
+              console.error('❌ Failed to auto-assign super_admin role:', insertError);
+              toast.error('Failed to assign admin permissions. Please contact your administrator.');
+              return;
+            }
+
+            console.log('✅ Successfully auto-assigned super_admin role');
+            toast.success('Admin permissions assigned. Redirecting...');
+            
+            // Wait for a moment then redirect
+            setTimeout(() => {
+              window.location.href = '/super-admin';
+            }, 1000);
+            return;
+            
+          } catch (error) {
+            console.error('❌ Error auto-assigning super_admin role:', error);
+            toast.error('Failed to assign admin permissions. Please contact your administrator.');
+            return;
+          }
+        }
+        
         toast.error('No access permissions found. Please contact your administrator.');
         return;
       }
 
       const superAdminRole = roles.find((role: any) => role.role === 'super_admin');
+      console.log('🎯 Super admin check:', {
+        superAdminRole,
+        allRoles: roles.map(r => r.role),
+        redirecting: !!superAdminRole
+      });
+      
       if (superAdminRole) {
+        console.log('✅ Redirecting to super-admin dashboard');
         router.push('/super-admin');
         return;
       }

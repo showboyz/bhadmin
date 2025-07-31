@@ -19,6 +19,7 @@ interface UserProgress {
   currentWeek: string
   progress: string
   status: string
+  lastActivity: string
 }
 
 interface InactiveUser {
@@ -138,38 +139,86 @@ export function useDashboard() {
         licenseSeatRemaining
       })
 
-      // Build user progress data
-      const progressData: UserProgress[] = activeSeniors.slice(0, 10).map((senior: any) => {
+      // Build recent user progress data - get users with most recent training activity
+      const seniorsWithLastActivity = activeSeniors.map((senior: any) => {
+        // Find most recent activity for this senior
+        const seniorResults = allResults.filter(r => r.senior_id === senior.id)
+        const lastActivity = seniorResults.length > 0 
+          ? Math.max(...seniorResults.map(r => new Date(r.created_at).getTime()))
+          : new Date(senior.created_at).getTime()
+          
+        return {
+          ...senior,
+          lastActivityTime: lastActivity,
+          recentActivityCount: seniorResults.length
+        }
+      })
+      
+      // Sort by most recent activity and take top 5
+      const recentActiveUsers = seniorsWithLastActivity
+        .sort((a, b) => b.lastActivityTime - a.lastActivityTime)
+        .slice(0, 5)
+      
+      const progressData: UserProgress[] = recentActiveUsers.map((senior: any) => {
         const activeSchedule = senior.schedules.find((s: any) => s.status === 'Active')
         const startDate = new Date(activeSchedule?.start_date || senior.created_at)
         const currentWeek = Math.ceil((Date.now() - startDate.getTime()) / (7 * 24 * 60 * 60 * 1000))
         
-        // Calculate progress (mock for now - would need actual session completion data)
+        // Calculate days since last activity
+        const daysSinceLastActivity = Math.floor((Date.now() - senior.lastActivityTime) / (24 * 60 * 60 * 1000))
+        const lastActivityText = daysSinceLastActivity === 0 ? 'Today' : 
+                               daysSinceLastActivity === 1 ? '1 day ago' : 
+                               `${daysSinceLastActivity} days ago`
+        
+        // Calculate session completion for the week
         const sessionsPerWeek = activeSchedule?.sessions_per_week || 3
-        const isActive = activeSeniorIds.has(senior.id)
-        const mockProgress = isActive ? `${Math.min(sessionsPerWeek, 5)}/${sessionsPerWeek}` : `0/${sessionsPerWeek}`
-
+        const weekStart = new Date()
+        weekStart.setDate(weekStart.getDate() - weekStart.getDay()) // Start of this week
+        
+        const thisWeekResults = allResults.filter(r => 
+          r.senior_id === senior.id && new Date(r.created_at) >= weekStart
+        )
+        const completedThisWeek = Math.min(thisWeekResults.length, sessionsPerWeek)
+        
         return {
           id: senior.id,
           name: senior.name,
-          currentWeek: `Week ${currentWeek}`,
-          progress: mockProgress,
-          status: isActive ? 'Active' : 'Inactive'
+          currentWeek: `Week ${Math.max(1, currentWeek)}`,
+          progress: `${completedThisWeek}/${sessionsPerWeek} sessions`,
+          status: daysSinceLastActivity <= 1 ? 'Active' : daysSinceLastActivity <= 3 ? 'Recent' : 'Inactive',
+          lastActivity: lastActivityText
         }
       })
 
       setUserProgress(progressData)
 
-      // Build inactive users data
-      const inactiveData: InactiveUser[] = inactiveSeniors.slice(0, 10).map((senior: any) => {
-        // Find last activity (mock calculation)
-        const daysAgo = Math.floor(Math.random() * 7) + 1 // Mock: 1-7 days
+      // Build inactive users data (3+ days no activity)
+      const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
+      
+      const inactiveUsersData = activeSeniors.map((senior: any) => {
+        // Find most recent activity for this senior
+        const seniorResults = allResults.filter(r => r.senior_id === senior.id)
+        const lastActivity = seniorResults.length > 0 
+          ? Math.max(...seniorResults.map(r => new Date(r.created_at).getTime()))
+          : new Date(senior.created_at).getTime()
+          
+        const daysSinceLastActivity = Math.floor((Date.now() - lastActivity) / (24 * 60 * 60 * 1000))
+        
         return {
+          ...senior,
+          lastActivityTime: lastActivity,
+          daysSinceLastActivity
+        }
+      }).filter(senior => senior.daysSinceLastActivity >= 3) // Only users inactive for 3+ days
+      
+      const inactiveData: InactiveUser[] = inactiveUsersData
+        .sort((a, b) => b.daysSinceLastActivity - a.daysSinceLastActivity) // Sort by most inactive first
+        .slice(0, 10)
+        .map((senior: any) => ({
           id: senior.id,
           name: senior.name,
-          daysAgo: `${daysAgo} day${daysAgo > 1 ? 's' : ''} ago`
-        }
-      })
+          daysAgo: `${senior.daysSinceLastActivity} day${senior.daysSinceLastActivity > 1 ? 's' : ''} ago`
+        }))
 
       setInactiveUsers(inactiveData)
 
