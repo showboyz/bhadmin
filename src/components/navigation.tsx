@@ -7,14 +7,21 @@ import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/auth-context'
 import { toast } from 'sonner'
 
-export default function Navigation() {
+interface NavigationProps {
+  orgId?: string
+}
+
+export default function Navigation({ orgId }: NavigationProps) {
   const pathname = usePathname()
   const router = useRouter()
   const { user, signOut, isSuperAdmin, canAccessSuperAdmin } = useAuth()
   
+  // Extract org ID from current path if not provided
+  const currentOrgId = orgId || pathname.match(/\/org\/([^\/]+)/)?.[1]
+  
   const navItems = [
-    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/users', label: 'User', icon: Users },
+    { href: currentOrgId ? `/org/${currentOrgId}/dashboard` : '#', label: 'Dashboard', icon: LayoutDashboard },
+    { href: currentOrgId ? `/org/${currentOrgId}/users` : '/users', label: 'User', icon: Users },
     { href: '/reports', label: 'Report', icon: FileText },
     { href: '/schedules', label: 'Schedules', icon: Calendar },
     { href: '/monitoring', label: 'Monitoring', icon: AlertTriangle },

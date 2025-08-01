@@ -14,8 +14,6 @@ import {
   X,
   LogOut,
   Shield,
-  ArrowLeft,
-  LayoutDashboard,
   Database
 } from 'lucide-react'
 import { useState } from 'react'
@@ -62,19 +60,6 @@ export default function SuperAdminLayout({
               </button>
             </div>
             <nav className="flex-1 px-4 py-4">
-              {/* Regular Dashboard Link */}
-              <div className="mb-4 pb-4 border-b">
-                <Link
-                  href="/dashboard"
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
-                  onClick={() => setSidebarOpen(false)}
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  <LayoutDashboard className="h-4 w-4" />
-                  Regular Dashboard
-                </Link>
-              </div>
-
               {/* Super Admin Navigation */}
               <div className="space-y-1">
                 {navigation.map((item) => {
@@ -108,18 +93,6 @@ export default function SuperAdminLayout({
             <span className="text-xl font-bold text-gray-900">Super Admin</span>
           </div>
           <nav className="flex-1 px-4 py-4">
-            {/* Regular Dashboard Link */}
-            <div className="mb-4 pb-4 border-b">
-              <Link
-                href="/dashboard"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                <LayoutDashboard className="h-4 w-4" />
-                Regular Dashboard
-              </Link>
-            </div>
-
             {/* Super Admin Navigation */}
             <div className="space-y-1">
               {navigation.map((item) => {

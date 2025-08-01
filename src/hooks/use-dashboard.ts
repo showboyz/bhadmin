@@ -28,7 +28,7 @@ interface InactiveUser {
   daysAgo: string
 }
 
-export function useDashboard() {
+export function useDashboard(orgId?: string) {
   const [kpi, setKPI] = useState<DashboardKPI>({
     totalUsers: 0,
     activeToday: 0,
@@ -54,8 +54,8 @@ export function useDashboard() {
       const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1)
       const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
 
-      // Fetch seniors data
-      const { data: seniors, error: seniorsError } = await supabase
+      // Fetch seniors data (filtered by org if provided)
+      let seniorsQuery = supabase
         .from('seniors')
         .select(`
           *,
@@ -68,13 +68,26 @@ export function useDashboard() {
           )
         `)
 
+      if (orgId) {
+        seniorsQuery = seniorsQuery.eq('org_id', orgId)
+      }
+
+      const { data: seniors, error: seniorsError } = await seniorsQuery
+
       if (seniorsError) throw seniorsError
 
       // Fetch organization data for license seats
-      const { data: orgs, error: orgsError } = await supabase
+      let orgsQuery = supabase
         .from('organisations')
         .select('licence_seats')
-        .limit(1)
+
+      if (orgId) {
+        orgsQuery = orgsQuery.eq('id', orgId)
+      } else {
+        orgsQuery = orgsQuery.limit(1)
+      }
+
+      const { data: orgs, error: orgsError } = await orgsQuery
 
       if (orgsError) throw orgsError
 
@@ -233,7 +246,7 @@ export function useDashboard() {
     if (user) {
       fetchDashboardData()
     }
-  }, [user])
+  }, [user, orgId])
 
   return {
     kpi,

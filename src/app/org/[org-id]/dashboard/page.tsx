@@ -24,7 +24,7 @@ export default function OrgDashboardPage() {
   const params = useParams()
   const orgId = params['org-id'] as string
   const { user } = useAuth()
-  const { kpi, userProgress, inactiveUsers, loading: dashboardLoading, error, refetch } = useDashboard()
+  const { kpi, userProgress, inactiveUsers, loading: dashboardLoading, error, refetch } = useDashboard(orgId)
   
   const [organization, setOrganization] = useState<OrganizationInfo | null>(null)
   const [loading, setLoading] = useState(true)

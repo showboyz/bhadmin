@@ -28,15 +28,51 @@ export default function OrgLayout({
   const [organization, setOrganization] = useState<OrganizationData | null>(null)
   const [hasAccess, setHasAccess] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [retryCount, setRetryCount] = useState(0)
 
   useEffect(() => {
+    // Reset retry count when dependencies change
+    setRetryCount(0)
+    
     const checkAccess = async () => {
-      if (loading || rolesLoading) {
-        console.log('Still loading user or roles...')
+      console.log('🔍 Access check - Loading states:', { 
+        loading, 
+        rolesLoading, 
+        hasUser: !!user,
+        rolesCount: userRoles?.length || 0 
+      })
+
+      if (loading) {
+        console.log('Still loading user...')
+        return
+      }
+
+      // Wait for roles to load, but don't wait forever
+      if (rolesLoading) {
+        console.log('Still loading roles...')
+        return
+      }
+
+      // If user is authenticated but no roles loaded, wait a moment and try again
+      if (user && userRoles.length === 0 && retryCount < 10) {
+        console.log(`⏳ User authenticated but no roles loaded yet, waiting... (attempt ${retryCount + 1}/10)`)
+        setTimeout(() => {
+          setRetryCount(prev => prev + 1)
+          checkAccess()
+        }, 1500)
+        return
+      }
+
+      // If we've tried 10 times and still no roles, this might be a real authentication issue
+      if (user && userRoles.length === 0 && retryCount >= 10) {
+        console.log('⚠️ Max retries reached with no roles loaded - possible authentication issue')
+        console.log('🔄 Redirecting to login to re-authenticate')
+        router.push('/login')
         return
       }
 
       if (!user) {
+        console.log('No user found, redirecting to login')
         router.push('/login')
         return
       }
@@ -48,20 +84,44 @@ export default function OrgLayout({
         role.org_id === orgId
       )
       
-      const hasOrgAccess = isSuperAdmin || hasOrgSpecificAccess
+      // Also check localStorage for current organization context (fallback during role loading)
+      let hasStoredOrgAccess = false
+      try {
+        const storedOrg = localStorage.getItem('currentOrganization')
+        if (storedOrg) {
+          const parsedOrg = JSON.parse(storedOrg)
+          hasStoredOrgAccess = parsedOrg.id === orgId
+        }
+      } catch (error) {
+        console.error('Error parsing stored organization:', error)
+      }
+      
+      const hasOrgAccess = isSuperAdmin || hasOrgSpecificAccess || 
+        (userRoles.length === 0 && hasStoredOrgAccess) // Allow access with stored org if roles haven't loaded yet
 
-      console.log('Organization access check:', {
+      console.log('🏢 Organization access check:', {
         orgId,
-        userRoles,
+        userEmail: user.email,
+        userRolesCount: userRoles.length,
+        userRoles: userRoles.map(r => ({ role: r.role, org_id: r.org_id })),
         isSuperAdmin,
         hasOrgSpecificAccess,
+        hasStoredOrgAccess,
         hasOrgAccess
       })
 
       if (!hasOrgAccess) {
-        console.log('Access denied, redirecting to dashboard')
-        router.push('/dashboard')
+        console.log('❌ Access denied for user:', user.email, 'to org:', orgId)
+        console.log('Available roles:', userRoles.map(r => `${r.role}(${r.org_id || 'global'})`).join(', '))
+        // Redirect super admins to super admin portal, others to login
+        if (isSuperAdmin) {
+          router.push('/super-admin')
+        } else {
+          router.push('/login')
+        }
         return
+      } else {
+        console.log('✅ Access granted for user:', user.email, 'to org:', orgId)
       }
 
       // Fetch organization data
@@ -73,7 +133,12 @@ export default function OrgLayout({
           .single()
 
         if (error || !org) {
-          router.push('/dashboard')
+          // Redirect super admins to super admin portal, others to login
+          if (isSuperAdmin) {
+            router.push('/super-admin')
+          } else {
+            router.push('/login')
+          }
           return
         }
 
@@ -81,7 +146,12 @@ export default function OrgLayout({
         setHasAccess(true)
       } catch (error) {
         console.error('Error fetching organization:', error)
-        router.push('/dashboard')
+        // Redirect super admins to super admin portal, others to login
+        if (isSuperAdmin) {
+          router.push('/super-admin')
+        } else {
+          router.push('/login')
+        }
       } finally {
         setIsLoading(false)
       }
