@@ -204,6 +204,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         if (error) {
           console.error('Session check error:', error)
+          
+          // Handle specific refresh token errors
+          if (error.message.includes('Invalid Refresh Token') || 
+              error.message.includes('Refresh Token Not Found') ||
+              error.message.includes('refresh_token_not_found')) {
+            console.log('Refresh token invalid during session check, clearing auth state and redirecting to login')
+            setUser(null)
+            setUserRoles([])
+            setCurrentOrg(null)
+            setCurrentOrgContext(null)
+            localStorage.removeItem('currentOrganization')
+            // Force redirect to login
+            window.location.href = '/login'
+            return false
+          }
+          
           // Handle network errors gracefully
           if (error.message.includes('Failed to fetch') || error.message.includes('Network error')) {
             console.log('Network error detected, maintaining current session')
@@ -239,6 +255,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             const { error: refreshError } = await supabase.auth.refreshSession()
             if (refreshError) {
               console.error('Failed to refresh session:', refreshError)
+              
+              // Handle specific refresh token errors
+              if (refreshError.message.includes('Invalid Refresh Token') || 
+                  refreshError.message.includes('Refresh Token Not Found') ||
+                  refreshError.message.includes('refresh_token_not_found')) {
+                console.log('Refresh token invalid, clearing auth state and redirecting to login')
+                setUser(null)
+                setUserRoles([])
+                setCurrentOrg(null)
+                setCurrentOrgContext(null)
+                localStorage.removeItem('currentOrganization')
+                // Force redirect to login
+                window.location.href = '/login'
+                return false
+              }
+              
               // Don't clear session on network errors during refresh
               if (refreshError.message.includes('Failed to fetch') || refreshError.message.includes('Network error')) {
                 return true
@@ -270,6 +302,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         if (error) {
           console.error('Session error:', error)
+          
+          // Handle specific refresh token errors during initialization
+          if (error.message.includes('Invalid Refresh Token') || 
+              error.message.includes('Refresh Token Not Found') ||
+              error.message.includes('refresh_token_not_found')) {
+            console.log('Refresh token invalid during initialization, clearing auth state')
+            setUser(null)
+            setUserRoles([])
+            setCurrentOrg(null)
+            setCurrentOrgContext(null)
+            localStorage.removeItem('currentOrganization')
+            setLoading(false)
+            return
+          }
         }
         
         console.log('Initial session check:', session?.user?.email || 'No session')
@@ -293,6 +339,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     initializeAuth()
+
+    // Global error handler for auth errors
+    const handleAuthError = (error: any) => {
+      if (error && typeof error.message === 'string') {
+        if (error.message.includes('Invalid Refresh Token') || 
+            error.message.includes('Refresh Token Not Found') ||
+            error.message.includes('refresh_token_not_found') ||
+            error.message.includes('AuthApiError')) {
+          console.log('Global auth error detected, clearing auth state and redirecting to login')
+          setUser(null)
+          setUserRoles([])
+          setCurrentOrg(null)
+          setCurrentOrgContext(null)
+          localStorage.removeItem('currentOrganization')
+          // Use setTimeout to avoid potential infinite loops
+          setTimeout(() => {
+            window.location.href = '/login'
+          }, 100)
+          return true
+        }
+      }
+      return false
+    }
+
+    // Set up global error listener for unhandled auth errors
+    const originalConsoleError = console.error
+    console.error = (...args) => {
+      const errorMessage = args.join(' ')
+      if (!handleAuthError({ message: errorMessage })) {
+        originalConsoleError.apply(console, args)
+      }
+    }
 
     // Listen for auth changes (with circuit breaker)
     let authStateChangeCount = 0
@@ -338,6 +416,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setCurrentOrg(null)
         setCurrentOrgContext(null)
         localStorage.removeItem('currentOrganization')
+      } else if (event === 'TOKEN_REFRESH_FAILED') {
+        console.log('Token refresh failed, clearing auth state and redirecting to login')
+        setUser(null)
+        setUserRoles([])
+        setCurrentOrg(null)
+        setCurrentOrgContext(null)
+        localStorage.removeItem('currentOrganization') 
+        // Force redirect to login on token refresh failure
+        window.location.href = '/login'
       }
     })
 
@@ -384,6 +471,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       clearInterval(sessionCheckInterval)
       window.removeEventListener('focus', handleWindowFocus)
       window.removeEventListener('online', handleOnline)
+      // Restore original console.error
+      console.error = originalConsoleError
     }
   }, []) // Remove user dependency to prevent infinite loop
 
@@ -431,7 +520,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const signOut = async () => {
-    await supabase.auth.signOut()
+    try {
+      await supabase.auth.signOut()
+    } catch (error: any) {
+      console.error('Error during sign out:', error)
+      // Even if signOut fails, clear local state
+      setUser(null)
+      setUserRoles([])
+      setCurrentOrg(null)
+      setCurrentOrgContext(null)
+      localStorage.removeItem('currentOrganization')
+    }
   }
 
   // Switch organization context

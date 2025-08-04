@@ -1,0 +1,596 @@
+{
+  "testRun": "2025-08-01T05:36:02.329Z",
+  "finalUrl": "http://localhost:3000/dashboard",
+  "stayedOnOrgDashboard": false,
+  "redirectedToDashboard": true,
+  "allConsoleMessages": [
+    {
+      "timestamp": "2025-08-01T05:35:47.526Z",
+      "type": "log",
+      "text": "🔍 User details after login: {userId: 91f360ba-2c8b-4256-a82a-538066030d9f, email: todays777@gmail.com, userMetadata: Object}",
+      "args": [
+        "🔍 User details after login:",
+        "{userId: 91f360ba-2c8b-4256-a82a-538066030d9f, email: todays777@gmail.com, userMetadata: Object}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.577Z",
+      "type": "log",
+      "text": "🎭 User roles query result: {roles: null, error: Object, userId: 91f360ba-2c8b-4256-a82a-538066030d9f}",
+      "args": [
+        "🎭 User roles query result:",
+        "{roles: null, error: Object, userId: 91f360ba-2c8b-4256-a82a-538066030d9f}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.578Z",
+      "type": "error",
+      "text": "❌ Role fetch error: {message: TypeError: Failed to fetch, details: TypeError: Failed to fetch\n    at http://localhost…tatic/chunks/node_modules_2003025a._.js:12597:32), hint: , code: }",
+      "args": [
+        "❌ Role fetch error:",
+        "{message: TypeError: Failed to fetch, details: TypeError: Failed to fetch\n    at http://localhost…tatic/chunks/node_modules_2003025a._.js:12597:32), hint: , code: }"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.635Z",
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "args": [
+        "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools",
+        "font-weight:bold"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.686Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.686Z",
+      "type": "log",
+      "text": "Still loading user...",
+      "args": [
+        "Still loading user..."
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.689Z",
+      "type": "log",
+      "text": "Initial session check: todays777@gmail.com",
+      "args": [
+        "Initial session check:",
+        "todays777@gmail.com"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.689Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.689Z",
+      "type": "log",
+      "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}",
+      "args": [
+        "🏢 Organization access check:",
+        "{orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.689Z",
+      "type": "log",
+      "text": "❌ Access denied for user: todays777@gmail.com to org: bf579a76-e9c5-45be-8659-7e62664883c4",
+      "args": [
+        "❌ Access denied for user:",
+        "todays777@gmail.com",
+        "to org:",
+        "bf579a76-e9c5-45be-8659-7e62664883c4"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.689Z",
+      "type": "log",
+      "text": "Available roles: ",
+      "args": [
+        "Available roles:",
+        ""
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.693Z",
+      "type": "log",
+      "text": "Auth state change: INITIAL_SESSION todays777@gmail.com",
+      "args": [
+        "Auth state change:",
+        "INITIAL_SESSION",
+        "todays777@gmail.com"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.929Z",
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "args": [
+        "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools",
+        "font-weight:bold"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.976Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.976Z",
+      "type": "log",
+      "text": "Still loading user...",
+      "args": [
+        "Still loading user..."
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.977Z",
+      "type": "log",
+      "text": "Auth state change: SIGNED_IN todays777@gmail.com",
+      "args": [
+        "Auth state change:",
+        "SIGNED_IN",
+        "todays777@gmail.com"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.977Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: true, rolesLoading: false, hasUser: true, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.977Z",
+      "type": "log",
+      "text": "Still loading user...",
+      "args": [
+        "Still loading user..."
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.982Z",
+      "type": "log",
+      "text": "Initial session check: todays777@gmail.com",
+      "args": [
+        "Initial session check:",
+        "todays777@gmail.com"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.987Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.987Z",
+      "type": "log",
+      "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}",
+      "args": [
+        "🏢 Organization access check:",
+        "{orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.987Z",
+      "type": "log",
+      "text": "❌ Access denied for user: todays777@gmail.com to org: bf579a76-e9c5-45be-8659-7e62664883c4",
+      "args": [
+        "❌ Access denied for user:",
+        "todays777@gmail.com",
+        "to org:",
+        "bf579a76-e9c5-45be-8659-7e62664883c4"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.988Z",
+      "type": "log",
+      "text": "Available roles: ",
+      "args": [
+        "Available roles:",
+        ""
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.998Z",
+      "type": "log",
+      "text": "Auth state change: INITIAL_SESSION todays777@gmail.com",
+      "args": [
+        "Auth state change:",
+        "INITIAL_SESSION",
+        "todays777@gmail.com"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:53.089Z",
+      "type": "log",
+      "text": "🔍 Fetching user roles for userId: 91f360ba-2c8b-4256-a82a-538066030d9f",
+      "args": [
+        "🔍 Fetching user roles for userId:",
+        "91f360ba-2c8b-4256-a82a-538066030d9f"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:53.149Z",
+      "type": "log",
+      "text": "✅ User roles found: [Object]",
+      "args": [
+        "✅ User roles found:",
+        "[Object]"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:57.101Z",
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "args": [
+        "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools",
+        "font-weight:bold"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:57.147Z",
+      "type": "log",
+      "text": "Auth state change: SIGNED_IN todays777@gmail.com",
+      "args": [
+        "Auth state change:",
+        "SIGNED_IN",
+        "todays777@gmail.com"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:57.149Z",
+      "type": "log",
+      "text": "Initial session check: todays777@gmail.com",
+      "args": [
+        "Initial session check:",
+        "todays777@gmail.com"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:57.155Z",
+      "type": "log",
+      "text": "Auth state change: INITIAL_SESSION todays777@gmail.com",
+      "args": [
+        "Auth state change:",
+        "INITIAL_SESSION",
+        "todays777@gmail.com"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:57.219Z",
+      "type": "log",
+      "text": "🔍 Fetching user roles for userId: 91f360ba-2c8b-4256-a82a-538066030d9f",
+      "args": [
+        "🔍 Fetching user roles for userId:",
+        "91f360ba-2c8b-4256-a82a-538066030d9f"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:57.505Z",
+      "type": "log",
+      "text": "✅ User roles found: [Object]",
+      "args": [
+        "✅ User roles found:",
+        "[Object]"
+      ]
+    }
+  ],
+  "debugMessages": [
+    {
+      "timestamp": "2025-08-01T05:35:47.526Z",
+      "type": "log",
+      "text": "🔍 User details after login: {userId: 91f360ba-2c8b-4256-a82a-538066030d9f, email: todays777@gmail.com, userMetadata: Object}",
+      "args": [
+        "🔍 User details after login:",
+        "{userId: 91f360ba-2c8b-4256-a82a-538066030d9f, email: todays777@gmail.com, userMetadata: Object}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.577Z",
+      "type": "log",
+      "text": "🎭 User roles query result: {roles: null, error: Object, userId: 91f360ba-2c8b-4256-a82a-538066030d9f}",
+      "args": [
+        "🎭 User roles query result:",
+        "{roles: null, error: Object, userId: 91f360ba-2c8b-4256-a82a-538066030d9f}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.686Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.689Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.689Z",
+      "type": "log",
+      "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}",
+      "args": [
+        "🏢 Organization access check:",
+        "{orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.689Z",
+      "type": "log",
+      "text": "Available roles: ",
+      "args": [
+        "Available roles:",
+        ""
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.976Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.977Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: true, rolesLoading: false, hasUser: true, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.987Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.987Z",
+      "type": "log",
+      "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}",
+      "args": [
+        "🏢 Organization access check:",
+        "{orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.988Z",
+      "type": "log",
+      "text": "Available roles: ",
+      "args": [
+        "Available roles:",
+        ""
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:53.089Z",
+      "type": "log",
+      "text": "🔍 Fetching user roles for userId: 91f360ba-2c8b-4256-a82a-538066030d9f",
+      "args": [
+        "🔍 Fetching user roles for userId:",
+        "91f360ba-2c8b-4256-a82a-538066030d9f"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:53.149Z",
+      "type": "log",
+      "text": "✅ User roles found: [Object]",
+      "args": [
+        "✅ User roles found:",
+        "[Object]"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:57.219Z",
+      "type": "log",
+      "text": "🔍 Fetching user roles for userId: 91f360ba-2c8b-4256-a82a-538066030d9f",
+      "args": [
+        "🔍 Fetching user roles for userId:",
+        "91f360ba-2c8b-4256-a82a-538066030d9f"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:57.505Z",
+      "type": "log",
+      "text": "✅ User roles found: [Object]",
+      "args": [
+        "✅ User roles found:",
+        "[Object]"
+      ]
+    }
+  ],
+  "superAdminMessages": [
+    {
+      "timestamp": "2025-08-01T05:35:47.689Z",
+      "type": "log",
+      "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}",
+      "args": [
+        "🏢 Organization access check:",
+        "{orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.987Z",
+      "type": "log",
+      "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}",
+      "args": [
+        "🏢 Organization access check:",
+        "{orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}"
+      ]
+    }
+  ],
+  "roleMessages": [
+    {
+      "timestamp": "2025-08-01T05:35:47.577Z",
+      "type": "log",
+      "text": "🎭 User roles query result: {roles: null, error: Object, userId: 91f360ba-2c8b-4256-a82a-538066030d9f}",
+      "args": [
+        "🎭 User roles query result:",
+        "{roles: null, error: Object, userId: 91f360ba-2c8b-4256-a82a-538066030d9f}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.578Z",
+      "type": "error",
+      "text": "❌ Role fetch error: {message: TypeError: Failed to fetch, details: TypeError: Failed to fetch\n    at http://localhost…tatic/chunks/node_modules_2003025a._.js:12597:32), hint: , code: }",
+      "args": [
+        "❌ Role fetch error:",
+        "{message: TypeError: Failed to fetch, details: TypeError: Failed to fetch\n    at http://localhost…tatic/chunks/node_modules_2003025a._.js:12597:32), hint: , code: }"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.686Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.689Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.689Z",
+      "type": "log",
+      "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}",
+      "args": [
+        "🏢 Organization access check:",
+        "{orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:47.689Z",
+      "type": "log",
+      "text": "Available roles: ",
+      "args": [
+        "Available roles:",
+        ""
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.976Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.977Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: true, rolesLoading: false, hasUser: true, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.987Z",
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "args": [
+        "🔍 Access check - Loading states:",
+        "{loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.987Z",
+      "type": "log",
+      "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}",
+      "args": [
+        "🏢 Organization access check:",
+        "{orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: todays777@gmail.com, userRolesCount: 0, userRoles: Array(0), isSuperAdmin: false}"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:52.988Z",
+      "type": "log",
+      "text": "Available roles: ",
+      "args": [
+        "Available roles:",
+        ""
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:53.089Z",
+      "type": "log",
+      "text": "🔍 Fetching user roles for userId: 91f360ba-2c8b-4256-a82a-538066030d9f",
+      "args": [
+        "🔍 Fetching user roles for userId:",
+        "91f360ba-2c8b-4256-a82a-538066030d9f"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:53.149Z",
+      "type": "log",
+      "text": "✅ User roles found: [Object]",
+      "args": [
+        "✅ User roles found:",
+        "[Object]"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:57.219Z",
+      "type": "log",
+      "text": "🔍 Fetching user roles for userId: 91f360ba-2c8b-4256-a82a-538066030d9f",
+      "args": [
+        "🔍 Fetching user roles for userId:",
+        "91f360ba-2c8b-4256-a82a-538066030d9f"
+      ]
+    },
+    {
+      "timestamp": "2025-08-01T05:35:57.505Z",
+      "type": "log",
+      "text": "✅ User roles found: [Object]",
+      "args": [
+        "✅ User roles found:",
+        "[Object]"
+      ]
+    }
+  ]
+}
