@@ -1,0 +1,558 @@
+{
+  "kpiCards": [],
+  "charts": [
+    {
+      "index": 0,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-shield",
+        "h-8",
+        "w-8",
+        "text-red-600"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 1,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-x",
+        "h-6",
+        "w-6"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 2,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-house",
+        "h-5",
+        "w-5"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 3,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-building2",
+        "lucide-building-2",
+        "h-5",
+        "w-5"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 4,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-users",
+        "h-5",
+        "w-5"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 5,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-chart-column",
+        "h-5",
+        "w-5"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 6,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-database",
+        "h-5",
+        "w-5"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 7,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-settings",
+        "h-5",
+        "w-5"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 8,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-shield",
+        "h-8",
+        "w-8",
+        "text-red-600"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 9,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-house",
+        "h-5",
+        "w-5"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 10,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-building2",
+        "lucide-building-2",
+        "h-5",
+        "w-5"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 11,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-users",
+        "h-5",
+        "w-5"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 12,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-chart-column",
+        "h-5",
+        "w-5"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 13,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-database",
+        "h-5",
+        "w-5"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 14,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-settings",
+        "h-5",
+        "w-5"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 15,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-log-out",
+        "h-4",
+        "w-4"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 16,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-menu",
+        "h-6",
+        "w-6"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 17,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-shield",
+        "h-6",
+        "w-6",
+        "text-red-600"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 18,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-log-out",
+        "h-4",
+        "w-4"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 19,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-building2",
+        "lucide-building-2",
+        "h-6",
+        "w-6",
+        "text-red-600"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 20,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-circle-check-big",
+        "h-4",
+        "w-4",
+        "text-green-500"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 21,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-building2",
+        "lucide-building-2",
+        "h-4",
+        "w-4"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 22,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-building2",
+        "lucide-building-2",
+        "h-6",
+        "w-6",
+        "text-blue-700"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 23,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-users",
+        "h-6",
+        "w-6",
+        "text-green-700"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 24,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-activity",
+        "h-6",
+        "w-6",
+        "text-purple-700"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 25,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-trending-up",
+        "h-6",
+        "w-6",
+        "text-green-700"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 26,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-building2",
+        "lucide-building-2",
+        "h-4",
+        "w-4",
+        "text-blue-600"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 27,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-building2",
+        "lucide-building-2",
+        "h-4",
+        "w-4",
+        "text-blue-600"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 28,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-building2",
+        "lucide-building-2",
+        "h-4",
+        "w-4",
+        "text-blue-600"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 29,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-building2",
+        "lucide-building-2",
+        "h-4",
+        "w-4",
+        "text-blue-600"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 30,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-building2",
+        "lucide-building-2",
+        "h-4",
+        "w-4",
+        "text-blue-600"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 31,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-building2",
+        "lucide-building-2",
+        "h-4",
+        "w-4",
+        "text-blue-600"
+      ],
+      "dimensions": {}
+    },
+    {
+      "index": 32,
+      "type": "svg",
+      "classes": [
+        "lucide",
+        "lucide-circle-check-big",
+        "h-8",
+        "w-8",
+        "text-green-500",
+        "mx-auto",
+        "mb-2"
+      ],
+      "dimensions": {}
+    }
+  ],
+  "tables": [
+    {
+      "index": 0,
+      "headers": [
+        "Organization",
+        "Status",
+        "Seniors",
+        "Usage",
+        "Plan",
+        "Actions"
+      ],
+      "rowCount": 4,
+      "classes": [
+        "w-full"
+      ]
+    }
+  ],
+  "navigation": [
+    {
+      "index": 0,
+      "links": [
+        {
+          "text": "System Dashboard",
+          "href": "http://localhost:3001/super-admin"
+        },
+        {
+          "text": "Organizations",
+          "href": "http://localhost:3001/super-admin/organizations"
+        },
+        {
+          "text": "Users",
+          "href": "http://localhost:3001/super-admin/users"
+        },
+        {
+          "text": "Analytics",
+          "href": "http://localhost:3001/super-admin/analytics"
+        },
+        {
+          "text": "DynamoDB Test",
+          "href": "http://localhost:3001/super-admin/test-dynamodb"
+        },
+        {
+          "text": "Settings",
+          "href": "http://localhost:3001/super-admin/settings"
+        }
+      ],
+      "classes": [
+        "flex-1",
+        "px-4",
+        "py-4"
+      ]
+    },
+    {
+      "index": 1,
+      "links": [
+        {
+          "text": "System Dashboard",
+          "href": "http://localhost:3001/super-admin"
+        },
+        {
+          "text": "Organizations",
+          "href": "http://localhost:3001/super-admin/organizations"
+        },
+        {
+          "text": "Users",
+          "href": "http://localhost:3001/super-admin/users"
+        },
+        {
+          "text": "Analytics",
+          "href": "http://localhost:3001/super-admin/analytics"
+        },
+        {
+          "text": "DynamoDB Test",
+          "href": "http://localhost:3001/super-admin/test-dynamodb"
+        },
+        {
+          "text": "Settings",
+          "href": "http://localhost:3001/super-admin/settings"
+        }
+      ],
+      "classes": [
+        "flex-1",
+        "px-4",
+        "py-4"
+      ]
+    },
+    {
+      "index": 2,
+      "links": [],
+      "classes": [
+        "lucide",
+        "lucide-menu",
+        "h-6",
+        "w-6"
+      ]
+    }
+  ],
+  "dataPoints": [
+    {
+      "text": "Total Organizations",
+      "tag": "P",
+      "classes": [
+        "text-sm",
+        "font-medium",
+        "text-blue-700"
+      ]
+    },
+    {
+      "text": "3",
+      "tag": "P",
+      "classes": [
+        "text-3xl",
+        "font-bold",
+        "text-blue-900"
+      ]
+    },
+    {
+      "text": "2",
+      "tag": "P",
+      "classes": [
+        "text-3xl",
+        "font-bold",
+        "text-green-900"
+      ]
+    },
+    {
+      "text": "Total Seniors",
+      "tag": "P",
+      "classes": [
+        "text-sm",
+        "font-medium",
+        "text-purple-700"
+      ]
+    },
+    {
+      "text": "0",
+      "tag": "P",
+      "classes": [
+        "text-3xl",
+        "font-bold",
+        "text-purple-900"
+      ]
+    },
+    {
+      "text": "0.0%",
+      "tag": "P",
+      "classes": [
+        "text-3xl",
+        "font-bold",
+        "text-green-900"
+      ]
+    },
+    {
+      "text": "0%",
+      "tag": "SPAN",
+      "classes": [
+        "text-sm",
+        "text-gray-600"
+      ]
+    }
+  ]
+}

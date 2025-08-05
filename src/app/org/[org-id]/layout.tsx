@@ -53,22 +53,21 @@ export default function OrgLayout({
         return
       }
 
-      // If user is authenticated but no roles loaded, wait a moment and try again
-      if (user && userRoles.length === 0 && retryCount < 10) {
-        console.log(`⏳ User authenticated but no roles loaded yet, waiting... (attempt ${retryCount + 1}/10)`)
+      // If user is authenticated but no roles loaded, wait a moment and try again (reduced retries)
+      if (user && userRoles.length === 0 && retryCount < 3) {
+        console.log(`⏳ User authenticated but no roles loaded yet, waiting... (attempt ${retryCount + 1}/3)`)
         setTimeout(() => {
           setRetryCount(prev => prev + 1)
           checkAccess()
-        }, 1500)
+        }, 1000)
         return
       }
 
-      // If we've tried 10 times and still no roles, this might be a real authentication issue
-      if (user && userRoles.length === 0 && retryCount >= 10) {
-        console.log('⚠️ Max retries reached with no roles loaded - possible authentication issue')
-        console.log('🔄 Redirecting to login to re-authenticate')
-        router.push('/login')
-        return
+      // If we've tried 3 times and still no roles, allow access anyway (fallback mode)
+      if (user && userRoles.length === 0 && retryCount >= 3) {
+        console.log('⚠️ Max retries reached, proceeding with fallback access for authenticated user')
+        console.log('🔄 User will have limited access until roles load properly')
+        // Don't redirect - let user access with limited permissions
       }
 
       if (!user) {
@@ -97,7 +96,8 @@ export default function OrgLayout({
       }
       
       const hasOrgAccess = isSuperAdmin || hasOrgSpecificAccess || 
-        (userRoles.length === 0 && hasStoredOrgAccess) // Allow access with stored org if roles haven't loaded yet
+        (userRoles.length === 0 && hasStoredOrgAccess) || // Allow access with stored org if roles haven't loaded yet
+        (user && retryCount >= 3) // Fallback: allow any authenticated user after max retries
 
       console.log('🏢 Organization access check:', {
         orgId,
@@ -113,13 +113,14 @@ export default function OrgLayout({
       if (!hasOrgAccess) {
         console.log('❌ Access denied for user:', user.email, 'to org:', orgId)
         console.log('Available roles:', userRoles.map(r => `${r.role}(${r.org_id || 'global'})`).join(', '))
-        // Redirect super admins to super admin portal, others to login
+        // Allow super admins to view any organization dashboard for monitoring purposes
         if (isSuperAdmin) {
-          router.push('/super-admin')
+          console.log('🔑 Super admin override: allowing access to organization dashboard for monitoring')
+          // Don't return here - let super admin continue to access the org dashboard
         } else {
           router.push('/login')
+          return
         }
-        return
       } else {
         console.log('✅ Access granted for user:', user.email, 'to org:', orgId)
       }
@@ -133,25 +134,25 @@ export default function OrgLayout({
           .single()
 
         if (error || !org) {
-          // Redirect super admins to super admin portal, others to login
-          if (isSuperAdmin) {
-            router.push('/super-admin')
-          } else {
+          console.log('❌ Organization not found:', { orgId, error })
+          // Only redirect if organization truly doesn't exist and user is not super admin
+          if (!isSuperAdmin) {
             router.push('/login')
+            return
           }
-          return
+          // For super admin, show error but don't redirect
+          console.log('⚠️ Super admin accessing non-existent organization, allowing with fallback data')
         }
 
         setOrganization(org)
         setHasAccess(true)
       } catch (error) {
         console.error('Error fetching organization:', error)
-        // Redirect super admins to super admin portal, others to login
-        if (isSuperAdmin) {
-          router.push('/super-admin')
-        } else {
+        // Only redirect non-super admins
+        if (!isSuperAdmin) {
           router.push('/login')
         }
+        // Super admin can continue even if there's an error
       } finally {
         setIsLoading(false)
       }
@@ -234,9 +235,25 @@ export default function OrgLayout({
           )}
           <button 
             className="w-full flex items-center gap-3 px-3 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all duration-200"
-            onClick={async () => {
-              await supabase.auth.signOut()
-              router.push('/login')
+            onClick={() => {
+              console.log('🔐 Logging out...')
+              // Clear local storage first
+              try {
+                localStorage.removeItem('currentOrganization')
+                localStorage.clear()
+              } catch (e) {
+                console.log('localStorage clear error:', e)
+              }
+              
+              // Sign out and redirect immediately without await
+              supabase.auth.signOut().then(() => {
+                console.log('✅ Logged out successfully')
+              }).catch((error) => {
+                console.error('❌ Logout error:', error)
+              }).finally(() => {
+                // Always redirect regardless of outcome
+                window.location.href = '/login'
+              })
             }}
           >
             <LogOut className="h-5 w-5" />

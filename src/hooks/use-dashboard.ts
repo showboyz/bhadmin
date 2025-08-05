@@ -50,23 +50,13 @@ export function useDashboard(orgId?: string) {
 
       // Get current date ranges
       const today = new Date()
-      const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay()))
       const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1)
       const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
 
-      // Fetch seniors data (filtered by org if provided)
+      // Simple approach: Just get seniors directly
       let seniorsQuery = supabase
         .from('seniors')
-        .select(`
-          *,
-          schedules!inner (
-            id,
-            start_date,
-            end_date,
-            status,
-            sessions_per_week
-          )
-        `)
+        .select('*')
 
       if (orgId) {
         seniorsQuery = seniorsQuery.eq('org_id', orgId)
@@ -76,7 +66,7 @@ export function useDashboard(orgId?: string) {
 
       if (seniorsError) throw seniorsError
 
-      // Fetch organization data for license seats
+      // Get organization data for license seats
       let orgsQuery = supabase
         .from('organisations')
         .select('licence_seats')
@@ -130,17 +120,13 @@ export function useDashboard(orgId?: string) {
       const activeToday = activeTodayIds.size
 
       // Get new users this month
-      const newUsersThisMonth = seniors?.filter(s => {
+      const newUsersThisMonth = seniors?.filter((s: any) => {
         const createdDate = new Date(s.created_at)
         return createdDate >= startOfMonth
       }).length || 0
 
-      // Calculate inactive users (seniors with active schedules but no recent activity)
-      const activeSeniors = seniors?.filter(s => 
-        s.schedules.some((schedule: any) => schedule.status === 'Active')
-      ) || []
-      
-      const inactiveSeniors = activeSeniors.filter(s => !activeSeniorIds.has(s.id))
+      // Calculate inactive users (all seniors who haven't been active recently)
+      const inactiveSeniors = seniors?.filter((s: any) => !activeSeniorIds.has(s.id)) || []
       const inactiveUsersThisWeek = inactiveSeniors.length
 
       setKPI({
@@ -153,7 +139,7 @@ export function useDashboard(orgId?: string) {
       })
 
       // Build recent user progress data - get users with most recent training activity
-      const seniorsWithLastActivity = activeSeniors.map((senior: any) => {
+      const seniorsWithLastActivity = seniors?.map((senior: any) => {
         // Find most recent activity for this senior
         const seniorResults = allResults.filter(r => r.senior_id === senior.id)
         const lastActivity = seniorResults.length > 0 
@@ -169,12 +155,12 @@ export function useDashboard(orgId?: string) {
       
       // Sort by most recent activity and take top 5
       const recentActiveUsers = seniorsWithLastActivity
-        .sort((a, b) => b.lastActivityTime - a.lastActivityTime)
+        .sort((a: any, b: any) => b.lastActivityTime - a.lastActivityTime)
         .slice(0, 5)
       
       const progressData: UserProgress[] = recentActiveUsers.map((senior: any) => {
-        const activeSchedule = senior.schedules.find((s: any) => s.status === 'Active')
-        const startDate = new Date(activeSchedule?.start_date || senior.created_at)
+        // Simplified without schedule complexity
+        const startDate = new Date(senior.created_at)
         const currentWeek = Math.ceil((Date.now() - startDate.getTime()) / (7 * 24 * 60 * 60 * 1000))
         
         // Calculate days since last activity
@@ -183,21 +169,20 @@ export function useDashboard(orgId?: string) {
                                daysSinceLastActivity === 1 ? '1 day ago' : 
                                `${daysSinceLastActivity} days ago`
         
-        // Calculate session completion for the week
-        const sessionsPerWeek = activeSchedule?.sessions_per_week || 3
+        // Simple session count this week
         const weekStart = new Date()
-        weekStart.setDate(weekStart.getDate() - weekStart.getDay()) // Start of this week
+        weekStart.setDate(weekStart.getDate() - weekStart.getDay())
         
         const thisWeekResults = allResults.filter(r => 
           r.senior_id === senior.id && new Date(r.created_at) >= weekStart
         )
-        const completedThisWeek = Math.min(thisWeekResults.length, sessionsPerWeek)
+        const completedThisWeek = thisWeekResults.length
         
         return {
           id: senior.id,
           name: senior.name,
           currentWeek: `Week ${Math.max(1, currentWeek)}`,
-          progress: `${completedThisWeek}/${sessionsPerWeek} sessions`,
+          progress: `${completedThisWeek} sessions`,
           status: daysSinceLastActivity <= 1 ? 'Active' : daysSinceLastActivity <= 3 ? 'Recent' : 'Inactive',
           lastActivity: lastActivityText
         }
@@ -206,9 +191,7 @@ export function useDashboard(orgId?: string) {
       setUserProgress(progressData)
 
       // Build inactive users data (3+ days no activity)
-      const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
-      
-      const inactiveUsersData = activeSeniors.map((senior: any) => {
+      const inactiveUsersData = seniors?.map((senior: any) => {
         // Find most recent activity for this senior
         const seniorResults = allResults.filter(r => r.senior_id === senior.id)
         const lastActivity = seniorResults.length > 0 
@@ -222,10 +205,10 @@ export function useDashboard(orgId?: string) {
           lastActivityTime: lastActivity,
           daysSinceLastActivity
         }
-      }).filter(senior => senior.daysSinceLastActivity >= 3) // Only users inactive for 3+ days
+      }).filter((senior: any) => senior.daysSinceLastActivity >= 3) // Only users inactive for 3+ days
       
       const inactiveData: InactiveUser[] = inactiveUsersData
-        .sort((a, b) => b.daysSinceLastActivity - a.daysSinceLastActivity) // Sort by most inactive first
+        .sort((a: any, b: any) => b.daysSinceLastActivity - a.daysSinceLastActivity) // Sort by most inactive first
         .slice(0, 10)
         .map((senior: any) => ({
           id: senior.id,

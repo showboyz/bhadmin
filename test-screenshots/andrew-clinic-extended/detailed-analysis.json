@@ -1,0 +1,82 @@
+{
+  "testTimestamp": "2025-08-04T05:53:12.282Z",
+  "dashboardUrl": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+  "pageTitle": "Brain Health Admin Console",
+  "waitTime": "25 seconds",
+  "analysis": {
+    "foundElements": [],
+    "loadingElements": [
+      {
+        "selector": "[class*=\"spin\"]",
+        "visible": true
+      }
+    ],
+    "textPatterns": [
+      {
+        "pattern": "\\d+%",
+        "matches": 139,
+        "examples": [
+          "35%",
+          "35%",
+          "35%",
+          "35%",
+          "0%"
+        ]
+      }
+    ],
+    "consoleLogs": [
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-04T05:53:07.256Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T05:53:07.258Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-04T05:53:08.757Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T05:53:08.758Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-04T05:53:10.259Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T05:53:10.259Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-04T05:53:11.761Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T05:53:11.761Z"
+      }
+    ],
+    "recentRequests": []
+  },
+  "htmlAnalysis": {
+    "totalLength": 37599,
+    "hasReactComponents": true,
+    "hasLoadingSpinner": true,
+    "hasChartLibrary": true,
+    "hasTableElements": false
+  },
+  "recommendations": [
+    "Dashboard still showing loading states after 25 seconds - likely data fetching issue",
+    "No dashboard elements detected - components may not be rendering"
+  ]
+}

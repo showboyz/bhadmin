@@ -1,0 +1,383 @@
+{
+  "consoleLogs": [
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:18.013Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:18.013Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:19.514Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:19.514Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:21.015Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:21.015Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:22.516Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:22.516Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:24.017Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:24.017Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:25.518Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:25.518Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:27.021Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:27.021Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:28.522Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:28.522Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:30.025Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:30.025Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:31.527Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:31.527Z"
+    }
+  ],
+  "authLogs": [
+    {
+      "type": "log",
+      "text": "🔍 Fetching user roles for userId: e63d614d-e592-472d-9141-3f33a348de0c",
+      "timestamp": "2025-08-04T13:35:09.848Z"
+    },
+    {
+      "type": "log",
+      "text": "✅ User roles found: [Object]",
+      "timestamp": "2025-08-04T13:35:10.132Z"
+    },
+    {
+      "type": "log",
+      "text": "🎭 User roles query result: {roles: Array(1), error: null, userId: e63d614d-e592-472d-9141-3f33a348de0c}",
+      "timestamp": "2025-08-04T13:35:10.520Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 1}",
+      "timestamp": "2025-08-04T13:35:10.813Z"
+    },
+    {
+      "type": "log",
+      "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: andrew@youngandx.com, userRolesCount: 1, userRoles: Array(1), isSuperAdmin: false}",
+      "timestamp": "2025-08-04T13:35:10.813Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 1}",
+      "timestamp": "2025-08-04T13:35:10.814Z"
+    },
+    {
+      "type": "log",
+      "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: andrew@youngandx.com, userRolesCount: 1, userRoles: Array(1), isSuperAdmin: false}",
+      "timestamp": "2025-08-04T13:35:10.815Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:12.004Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:12.009Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:12.009Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:13.509Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:13.509Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:15.012Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:15.012Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:16.512Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:16.512Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:18.013Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:18.013Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:19.514Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:19.514Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:21.015Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:21.015Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:22.516Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:22.516Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:24.017Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:24.017Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:25.518Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:25.518Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:27.021Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:27.021Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:28.522Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:28.522Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:30.025Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:30.025Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-04T13:35:31.527Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+      "timestamp": "2025-08-04T13:35:31.527Z"
+    }
+  ],
+  "apiRequests": [
+    {
+      "method": "GET",
+      "url": "http://localhost:3001/_next/static/chunks/node_modules_%40supabase_node-fetch_browser_6e09c5c2.js",
+      "timestamp": "2025-08-04T13:35:06.980Z"
+    },
+    {
+      "method": "POST",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/auth/v1/token?grant_type=password",
+      "timestamp": "2025-08-04T13:35:08.708Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/user_roles?select=*&user_id=eq.e63d614d-e592-472d-9141-3f33a348de0c",
+      "timestamp": "2025-08-04T13:35:09.849Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/auth/v1/user",
+      "timestamp": "2025-08-04T13:35:10.251Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/user_roles?select=role%2Corg_id&user_id=eq.e63d614d-e592-472d-9141-3f33a348de0c",
+      "timestamp": "2025-08-04T13:35:10.369Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=id%2Cname%2Cis_active&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-04T13:35:10.521Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=*&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-04T13:35:10.816Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=*&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-04T13:35:10.817Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/seniors?select=*%2Cschedules%28id%2Cstart_date%2Cend_date%2Cstatus%2Csessions_per_week%29&org_id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-04T13:35:10.921Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=id%2Cname%2Corg_type%2Cis_active&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-04T13:35:10.921Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/seniors?select=*%2Cschedules%28id%2Cstart_date%2Cend_date%2Cstatus%2Csessions_per_week%29&org_id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-04T13:35:10.921Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=id%2Cname%2Corg_type%2Cis_active&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-04T13:35:10.922Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=licence_seats&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-04T13:35:10.990Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=licence_seats&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-04T13:35:11.061Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/motor_results?select=senior_id%2Ccreated_at&created_at=gte.2025-07-28T13%3A35%3A10.907Z",
+      "timestamp": "2025-08-04T13:35:11.107Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/motor_results?select=senior_id%2Ccreated_at&created_at=gte.2025-07-28T13%3A35%3A10.907Z",
+      "timestamp": "2025-08-04T13:35:11.156Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/cognitive_results?select=senior_id%2Ccreated_at&created_at=gte.2025-07-28T13%3A35%3A10.907Z",
+      "timestamp": "2025-08-04T13:35:11.189Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/cognitive_results?select=senior_id%2Ccreated_at&created_at=gte.2025-07-28T13%3A35%3A10.907Z",
+      "timestamp": "2025-08-04T13:35:11.258Z"
+    },
+    {
+      "method": "GET",
+      "url": "http://localhost:3001/_next/static/chunks/node_modules_%40supabase_node-fetch_browser_6e09c5c2.js",
+      "timestamp": "2025-08-04T13:35:11.857Z"
+    }
+  ]
+}

@@ -178,6 +178,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     } catch (error) {
       console.error('❌ Error in refreshUserRoles:', error)
+      // Don't clear roles on error, keep existing ones
+      if (userRoles.length === 0) {
+        console.log('🔄 No existing roles, retrying role fetch once more...')
+        try {
+          const retryRoles = await fetchUserRoles(user.id)
+          if (retryRoles.length > 0) {
+            setUserRoles(retryRoles)
+            console.log('✅ Retry successful, roles set:', retryRoles)
+          }
+        } catch (retryError) {
+          console.error('❌ Retry also failed:', retryError)
+        }
+      }
     } finally {
       setRolesLoading(false)
     }
@@ -324,7 +337,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         if (session?.user) {
           loadOrgContext()
-          await refreshUserRoles()
+          try {
+            await refreshUserRoles()
+          } catch (roleError) {
+            console.error('❌ Failed to load user roles during initialization:', roleError)
+            // Continue with user set but roles empty - better than infinite loading
+            setUserRoles([])
+          }
         } else {
           setUserRoles([])
           setCurrentOrg(null)

@@ -1,0 +1,55 @@
+{
+  "testTimestamp": "2025-08-04T05:51:23.552Z",
+  "testConfiguration": {
+    "loginUrl": "http://localhost:3001/login",
+    "dashboardUrl": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+    "credentials": {
+      "email": "todays777@gmail.com",
+      "password": "[REDACTED]"
+    }
+  },
+  "navigation": {
+    "finalUrl": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+    "pageTitle": "Brain Health Admin Console",
+    "dashboardLoadedSuccessfully": true
+  },
+  "dashboardContent": {
+    "kpiCards": {
+      "count": 0,
+      "expected": 6,
+      "details": []
+    },
+    "charts": {
+      "count": 1,
+      "expected": 3,
+      "details": [
+        {
+          "index": 1,
+          "visible": true,
+          "type": "svg",
+          "className": ""
+        }
+      ]
+    },
+    "tables": {
+      "count": 0,
+      "expected": 2,
+      "details": []
+    }
+  },
+  "states": {
+    "loading": [],
+    "errors": [
+      {
+        "content": ""
+      }
+    ],
+    "emptyStates": []
+  },
+  "recommendations": [
+    "No KPI cards found - may need dummy data creation",
+    "Only 1 charts found, expected 3",
+    "No tables found - may need table data creation",
+    "Error states detected - check console logs and fix issues"
+  ]
+}

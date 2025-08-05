@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-08-04T13:35:32.953Z",
+  "testDuration": "20 seconds",
+  "results": {
+    "dashboardLoads": true,
+    "kpiCardsVisible": false,
+    "hasRealData": false,
+    "kpiData": {},
+    "apiRequests": 19,
+    "seniorsApiCalls": 2,
+    "authLogs": 36,
+    "consoleErrors": 0,
+    "finalUrl": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+    "hasCharts": false,
+    "hasTables": false
+  },
+  "expectedData": {
+    "totalUsers": 40,
+    "activeToday": 3,
+    "weeklyActive": 3
+  },
+  "verdict": {
+    "authContextFixed": false,
+    "dataLoading": false,
+    "dashboardFunctional": false,
+    "kpiMatches": {
+      "totalUsers": false,
+      "activeToday": false,
+      "weeklyActive": false
+    }
+  }
+}

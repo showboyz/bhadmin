@@ -1,0 +1,148 @@
+{
+  "testInfo": {
+    "timestamp": "2025-08-04T12:29:10.052Z",
+    "testName": "Comprehensive Dashboard Debug",
+    "dashboardUrl": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+    "pageTitle": "Brain Health Admin Console",
+    "testDuration": "~45 seconds"
+  },
+  "phases": {
+    "phase1_login": {
+      "successful": true,
+      "supabaseRequests": 34,
+      "consoleLogs": 16,
+      "authRequests": 4
+    },
+    "phase2_dashboard": {
+      "loaded": true,
+      "stuckInAuth": true,
+      "supabaseRequests": 2,
+      "authLoopDetected": true
+    }
+  },
+  "authenticationAnalysis": {
+    "loginAttempted": true,
+    "loginSuccessful": true,
+    "authLoopCount": 14,
+    "rolesLoadingIssue": true,
+    "maxRetriesReached": false
+  },
+  "networkAnalysis": {
+    "totalRequests": 92,
+    "supabaseRequests": 2,
+    "authRequests": 0,
+    "roleRequests": 0,
+    "organizationRequests": 0,
+    "dataRequests": 0,
+    "apiErrors": 0,
+    "requestBreakdown": {
+      "login": 34,
+      "dashboard": 2
+    }
+  },
+  "browserStateAnalysis": {
+    "localStorage": {
+      "currentOrganization": "{\"id\":\"bf579a76-e9c5-45be-8659-7e62664883c4\",\"name\":\"Andrew's Clinic\",\"role\":\"org_admin\"}",
+      "brain-health-admin-auth-token": "{\"access_token\":\"eyJhbGciOiJIUzI1NiIsImtpZCI6Ik5NckJWNHQvakFWOVhrMG4iLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2d0Zm9zdG1sbGdqeG9zdnZrYXVoLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJlNjNkNjE0ZC1lNTkyLTQ3MmQt..."
+    },
+    "hasAuthToken": false,
+    "currentUrl": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+    "cookies": ""
+  },
+  "consoleAnalysis": {
+    "totalLogs": 33,
+    "errorCount": 0,
+    "authRelatedLogs": 30,
+    "criticalMessages": [
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:28:49.179Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:28:50.680Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:28:52.181Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:28:53.683Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:28:55.184Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:28:56.686Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:28:58.188Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:28:59.689Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:29:01.191Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:29:02.692Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:29:04.193Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:29:05.694Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:29:07.195Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/10)",
+        "timestamp": "2025-08-04T12:29:08.696Z"
+      }
+    ]
+  },
+  "problemDiagnosis": {
+    "primaryIssue": "Authentication loop - user roles not loading",
+    "secondaryIssues": [
+      "No role-related API requests detected",
+      "No dashboard data requests made - likely blocked by auth"
+    ],
+    "likelihoodAssessment": {
+      "roleLoadingIssue": "HIGH",
+      "noRoleRequests": "HIGH",
+      "dataBlockedByAuth": "HIGH"
+    },
+    "recommendedActions": [
+      "Check user_roles table for andrew@youngandx.com",
+      "Verify RLS policies on user_roles table",
+      "Check Supabase auth configuration",
+      "Examine auth context implementation"
+    ],
+    "innerJoinFixStatus": "Not reached - authentication issue prevents data loading"
+  }
+}
