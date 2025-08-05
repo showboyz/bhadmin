@@ -24,15 +24,15 @@ export default function OrgDashboardPage() {
   const params = useParams()
   const orgId = params['org-id'] as string
   const { user } = useAuth()
-  const { kpi, userProgress, inactiveUsers, loading: dashboardLoading, error, refetch } = useDashboard(orgId)
+  const { kpi, userProgress, inactiveUsers, genderDistribution, healthStatusDistribution, loading: dashboardLoading, error, refetch } = useDashboard(orgId)
   
   const [organization, setOrganization] = useState<OrganizationInfo | null>(null)
   const [loading, setLoading] = useState(true)
 
-  // Gender Distribution Data
+  // Gender Distribution Data (using real data)
   const genderData = [
-    { name: 'Male', value: 45, count: 156, fill: '#3D3D3D' },
-    { name: 'Female', value: 55, count: 191, fill: '#D8D8D8' }
+    { name: 'Male', value: genderDistribution.malePercentage, count: genderDistribution.male, fill: '#3D3D3D' },
+    { name: 'Female', value: genderDistribution.femalePercentage, count: genderDistribution.female, fill: '#D8D8D8' }
   ]
 
   const genderConfig = {
@@ -64,12 +64,12 @@ export default function OrgDashboardPage() {
     },
   } satisfies ChartConfig
 
-  // Health Status Distribution Data
+  // Health Status Distribution Data (using real data)
   const healthStatusData = [
-    { name: 'Excellent', value: 25, fill: '#111827' },
-    { name: 'Good', value: 40, fill: '#374151' },
-    { name: 'Fair', value: 25, fill: '#6b7280' },
-    { name: 'Poor', value: 10, fill: '#9ca3af' }
+    { name: 'Excellent', value: healthStatusDistribution.excellentPercentage, count: healthStatusDistribution.excellent, fill: '#111827' },
+    { name: 'Good', value: healthStatusDistribution.goodPercentage, count: healthStatusDistribution.good, fill: '#374151' },
+    { name: 'Fair', value: healthStatusDistribution.fairPercentage, count: healthStatusDistribution.fair, fill: '#6b7280' },
+    { name: 'Poor', value: healthStatusDistribution.poorPercentage, count: healthStatusDistribution.poor, fill: '#9ca3af' }
   ]
 
   const healthConfig = {
@@ -313,7 +313,7 @@ export default function OrgDashboardPage() {
                     outerRadius={70}
                     paddingAngle={2}
                     dataKey="value"
-                    label={({ name, value }) => `${name}: ${value}%`}
+                    label={({ name, value, count }) => `${name}: ${count} (${value}%)`}
                   >
                     {healthStatusData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.fill} />

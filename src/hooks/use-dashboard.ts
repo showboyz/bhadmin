@@ -28,6 +28,24 @@ interface InactiveUser {
   daysAgo: string
 }
 
+interface GenderDistribution {
+  male: number
+  female: number
+  malePercentage: number
+  femalePercentage: number
+}
+
+interface HealthStatusDistribution {
+  excellent: number
+  good: number
+  fair: number
+  poor: number
+  excellentPercentage: number
+  goodPercentage: number
+  fairPercentage: number
+  poorPercentage: number
+}
+
 export function useDashboard(orgId?: string) {
   const [kpi, setKPI] = useState<DashboardKPI>({
     totalUsers: 0,
@@ -39,6 +57,22 @@ export function useDashboard(orgId?: string) {
   })
   const [userProgress, setUserProgress] = useState<UserProgress[]>([])
   const [inactiveUsers, setInactiveUsers] = useState<InactiveUser[]>([])
+  const [genderDistribution, setGenderDistribution] = useState<GenderDistribution>({
+    male: 0,
+    female: 0,
+    malePercentage: 0,
+    femalePercentage: 0
+  })
+  const [healthStatusDistribution, setHealthStatusDistribution] = useState<HealthStatusDistribution>({
+    excellent: 0,
+    good: 0,
+    fair: 0,
+    poor: 0,
+    excellentPercentage: 0,
+    goodPercentage: 0,
+    fairPercentage: 0,
+    poorPercentage: 0
+  })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const { user } = useAuth()
@@ -54,17 +88,28 @@ export function useDashboard(orgId?: string) {
       const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
 
       // Simple approach: Just get seniors directly
+      console.log('🔍 Dashboard fetching seniors for orgId:', orgId)
+      
       let seniorsQuery = supabase
         .from('seniors')
         .select('*')
 
       if (orgId) {
         seniorsQuery = seniorsQuery.eq('org_id', orgId)
+        console.log('🔍 Applied org filter for:', orgId)
       }
 
+      console.log('🔍 About to execute seniors query...')
       const { data: seniors, error: seniorsError } = await seniorsQuery
+      console.log('🔍 Seniors query completed:', { seniors, seniorsError })
 
       if (seniorsError) throw seniorsError
+
+      // Debug: Log the actual data received
+      console.log('🔍 Dashboard seniors data:', {
+        count: seniors?.length || 0,
+        seniors: seniors?.map((s: any) => ({ id: s.id, name: s.name })) || []
+      })
 
       // Get organization data for license seats
       let orgsQuery = supabase
@@ -218,6 +263,39 @@ export function useDashboard(orgId?: string) {
 
       setInactiveUsers(inactiveData)
 
+      // Calculate Gender Distribution
+      const maleCount = seniors?.filter((s: any) => s.gender_enum === 'M').length || 0
+      const femaleCount = seniors?.filter((s: any) => s.gender_enum === 'F').length || 0
+      const totalGender = maleCount + femaleCount
+      
+      setGenderDistribution({
+        male: maleCount,
+        female: femaleCount,
+        malePercentage: totalGender > 0 ? Math.round((maleCount / totalGender) * 100) : 0,
+        femalePercentage: totalGender > 0 ? Math.round((femaleCount / totalGender) * 100) : 0
+      })
+
+      // Calculate Health Status Distribution
+      const excellentCount = seniors?.filter((s: any) => s.health_status === 'Excellent').length || 0
+      const goodCount = seniors?.filter((s: any) => s.health_status === 'Good').length || 0
+      const fairCount = seniors?.filter((s: any) => s.health_status === 'Fair').length || 0
+      const poorCount = seniors?.filter((s: any) => s.health_status === 'Poor').length || 0
+      const totalHealth = excellentCount + goodCount + fairCount + poorCount
+      
+      setHealthStatusDistribution({
+        excellent: excellentCount,
+        good: goodCount,
+        fair: fairCount,
+        poor: poorCount,
+        excellentPercentage: totalHealth > 0 ? Math.round((excellentCount / totalHealth) * 100) : 0,
+        goodPercentage: totalHealth > 0 ? Math.round((goodCount / totalHealth) * 100) : 0,
+        fairPercentage: totalHealth > 0 ? Math.round((fairCount / totalHealth) * 100) : 0,
+        poorPercentage: totalHealth > 0 ? Math.round((poorCount / totalHealth) * 100) : 0
+      })
+
+      console.log('🔍 Gender Distribution:', { maleCount, femaleCount })
+      console.log('🔍 Health Status Distribution:', { excellentCount, goodCount, fairCount, poorCount })
+
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Failed to fetch dashboard data')
     } finally {
@@ -235,6 +313,8 @@ export function useDashboard(orgId?: string) {
     kpi,
     userProgress,
     inactiveUsers,
+    genderDistribution,
+    healthStatusDistribution,
     loading,
     error,
     refetch: fetchDashboardData
