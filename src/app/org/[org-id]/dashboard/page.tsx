@@ -28,6 +28,7 @@ export default function OrgDashboardPage() {
   
   const [organization, setOrganization] = useState<OrganizationInfo | null>(null)
   const [loading, setLoading] = useState(true)
+  const [loadingTimeout, setLoadingTimeout] = useState(false)
 
   // Gender Distribution Data (using real data)
   const genderData = [
@@ -94,6 +95,7 @@ export default function OrgDashboardPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log('🔄 Fetching organization data for:', orgId)
         // Fetch organization info
         const { data: orgData, error: orgError } = await supabase
           .from('organisations')
@@ -104,6 +106,7 @@ export default function OrgDashboardPage() {
         if (orgError) {
           console.error('Error fetching organization:', orgError)
         } else {
+          console.log('✅ Organization data loaded:', orgData)
           setOrganization(orgData)
         }
       } catch (error) {
@@ -117,6 +120,18 @@ export default function OrgDashboardPage() {
       fetchData()
     }
   }, [orgId])
+
+  // Add timeout to prevent infinite loading
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (dashboardLoading || loading) {
+        console.warn('⚠️ Dashboard loading timeout reached')
+        setLoadingTimeout(true)
+      }
+    }, 10000) // 10 seconds timeout
+
+    return () => clearTimeout(timeout)
+  }, [dashboardLoading, loading])
 
   const kpiData = [
     { 
@@ -179,12 +194,39 @@ export default function OrgDashboardPage() {
     }
   }
 
-  if (loading || dashboardLoading) {
+  if ((loading || dashboardLoading) && !loadingTimeout) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#111] mx-auto"></div>
           <p className="mt-2 text-[#555]">Loading dashboard...</p>
+          <p className="mt-1 text-xs text-gray-400">
+            {dashboardLoading ? 'Fetching dashboard data...' : 'Loading organization...'}
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  if (loadingTimeout) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <div className="text-red-500 text-4xl mb-4">⚠️</div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Loading Timeout</h2>
+          <p className="text-gray-600 mb-4">
+            The dashboard is taking longer than expected to load. This might be due to network issues or server problems.
+          </p>
+          <Button 
+            onClick={() => {
+              setLoadingTimeout(false)
+              setLoading(true)
+              window.location.reload()
+            }}
+            className="bg-[#111] text-white hover:bg-[#333]"
+          >
+            Reload Dashboard
+          </Button>
         </div>
       </div>
     )
@@ -205,11 +247,16 @@ export default function OrgDashboardPage() {
           </div>
           <Button 
             variant="outline" 
-            onClick={refetch}
+            onClick={() => {
+              console.log('🔄 Manual refresh triggered')
+              setLoadingTimeout(false)
+              refetch()
+            }}
+            disabled={dashboardLoading}
             className="flex items-center gap-2"
           >
-            <RefreshCw className="h-4 w-4" />
-            Refresh
+            <RefreshCw className={`h-4 w-4 ${dashboardLoading ? 'animate-spin' : ''}`} />
+            {dashboardLoading ? 'Refreshing...' : 'Refresh'}
           </Button>
         </div>
 
