@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { createClient } from '@supabase/supabase-js';
-import { createOrganizationInDynamoDB, checkOrganizationExists } from '@/lib/dynamodb';
+import { createOrganizationInDynamoDB } from '@/lib/dynamodb';
 
 // Create admin client that bypasses RLS for testing
 const supabaseAdmin = createClient(
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       console.error('Error fetching user roles:', roleError);
     }
     
-    const isSuperAdmin = userRoles?.some(role => role.role === 'super_admin');
+    const isSuperAdmin = userRoles?.some((role: any) => role.role === 'super_admin');
     console.log('Is super admin:', isSuperAdmin);
     
     if (!isSuperAdmin) {

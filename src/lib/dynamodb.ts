@@ -101,11 +101,12 @@ export const createOrganizationInDynamoDB = async (orgData: any) => {
   try {
     const { PutCommand } = await import('@aws-sdk/lib-dynamodb');
     
-    // DynamoDB에 저장할 데이터 구조 (백업용 - 4개 필드만)
+    // DynamoDB에 저장할 데이터 구조 (백업용 - 5개 필드)
     const dynamoData = {
       id: orgData.admin_id, // 앱 로그인 ID를 DynamoDB의 id로 사용
       password: orgData.admin_password, // 앱 패스워드
       name: orgData.name, // 기관명
+      accesspermission: "1", // 접근 권한 (기본값 "1")
       timestamp: new Date().toISOString() // 타임스탬프
     };
     
