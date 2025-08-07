@@ -1,0 +1,735 @@
+{
+  "timestamp": "2025-08-06T01:45:15.390Z",
+  "url": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+  "consoleLogs": [
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "timestamp": "2025-08-06T01:45:15.685Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}",
+      "timestamp": "2025-08-06T01:45:15.927Z"
+    },
+    {
+      "type": "log",
+      "text": "Still loading user...",
+      "timestamp": "2025-08-06T01:45:15.943Z"
+    },
+    {
+      "type": "log",
+      "text": "Initial session check: No session",
+      "timestamp": "2025-08-06T01:45:15.959Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: false, rolesCount: 0}",
+      "timestamp": "2025-08-06T01:45:15.960Z"
+    },
+    {
+      "type": "log",
+      "text": "No user found, redirecting to login",
+      "timestamp": "2025-08-06T01:45:15.961Z"
+    },
+    {
+      "type": "log",
+      "text": "Auth state change: INITIAL_SESSION No session",
+      "timestamp": "2025-08-06T01:45:15.961Z"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] done in NaNms",
+      "timestamp": "2025-08-06T01:45:16.027Z"
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq) %o",
+      "timestamp": "2025-08-06T01:45:16.572Z"
+    },
+    {
+      "type": "log",
+      "text": "Login attempt: {email: andrew@youngandx.com, passwordLength: 12}",
+      "timestamp": "2025-08-06T01:45:20.607Z"
+    },
+    {
+      "type": "log",
+      "text": "Auth state change: SIGNED_IN andrew@youngandx.com",
+      "timestamp": "2025-08-06T01:45:21.077Z"
+    },
+    {
+      "type": "log",
+      "text": "signInWithPassword result: {hasUser: true, hasSession: true, errorMessage: undefined}",
+      "timestamp": "2025-08-06T01:45:21.077Z"
+    },
+    {
+      "type": "log",
+      "text": "Login result: {data: Object, error: null}",
+      "timestamp": "2025-08-06T01:45:21.078Z"
+    },
+    {
+      "type": "log",
+      "text": "Login successful for: andrew@youngandx.com",
+      "timestamp": "2025-08-06T01:45:21.078Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Fetching user roles for userId: e63d614d-e592-472d-9141-3f33a348de0c",
+      "timestamp": "2025-08-06T01:45:21.178Z"
+    },
+    {
+      "type": "log",
+      "text": "✅ User roles found: [Object]",
+      "timestamp": "2025-08-06T01:45:21.444Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 User details after login: {userId: e63d614d-e592-472d-9141-3f33a348de0c, email: andrew@youngandx.com, userMetadata: Object}",
+      "timestamp": "2025-08-06T01:45:21.722Z"
+    },
+    {
+      "type": "log",
+      "text": "🎭 User roles query result: {roles: Array(1), error: null, userId: e63d614d-e592-472d-9141-3f33a348de0c}",
+      "timestamp": "2025-08-06T01:45:21.864Z"
+    },
+    {
+      "type": "log",
+      "text": "🎯 Super admin check: {superAdminRole: undefined, allRoles: Array(1), redirecting: false}",
+      "timestamp": "2025-08-06T01:45:21.864Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 1}",
+      "timestamp": "2025-08-06T01:45:22.139Z"
+    },
+    {
+      "type": "log",
+      "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: andrew@youngandx.com, userRolesCount: 1, userRoles: Array(1), isSuperAdmin: false}",
+      "timestamp": "2025-08-06T01:45:22.140Z"
+    },
+    {
+      "type": "log",
+      "text": "✅ Access granted for user: andrew@youngandx.com to org: bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-06T01:45:22.140Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 1}",
+      "timestamp": "2025-08-06T01:45:22.140Z"
+    },
+    {
+      "type": "log",
+      "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: andrew@youngandx.com, userRolesCount: 1, userRoles: Array(1), isSuperAdmin: false}",
+      "timestamp": "2025-08-06T01:45:22.140Z"
+    },
+    {
+      "type": "log",
+      "text": "✅ Access granted for user: andrew@youngandx.com to org: bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-06T01:45:22.140Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Dashboard fetching seniors for orgId: bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-06T01:45:22.307Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Applied org filter for: bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-06T01:45:22.308Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 About to execute seniors query...",
+      "timestamp": "2025-08-06T01:45:22.308Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Dashboard fetching seniors for orgId: bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-06T01:45:22.308Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Applied org filter for: bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-06T01:45:22.308Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 About to execute seniors query...",
+      "timestamp": "2025-08-06T01:45:22.309Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Seniors query completed: {seniors: Array(40), seniorsError: null}",
+      "timestamp": "2025-08-06T01:45:22.417Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Dashboard seniors data: {count: 40, seniors: Array(40)}",
+      "timestamp": "2025-08-06T01:45:22.417Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Seniors query completed: {seniors: Array(40), seniorsError: null}",
+      "timestamp": "2025-08-06T01:45:22.500Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Dashboard seniors data: {count: 40, seniors: Array(40)}",
+      "timestamp": "2025-08-06T01:45:22.500Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Gender Distribution: {maleCount: 22, femaleCount: 18}",
+      "timestamp": "2025-08-06T01:45:22.695Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Health Status Distribution: {excellentCount: 0, goodCount: 3, fairCount: 30, poorCount: 1, hasHealthData: true}",
+      "timestamp": "2025-08-06T01:45:22.695Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Gender Distribution: {maleCount: 22, femaleCount: 18}",
+      "timestamp": "2025-08-06T01:45:22.827Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Health Status Distribution: {excellentCount: 0, goodCount: 3, fairCount: 30, poorCount: 1, hasHealthData: true}",
+      "timestamp": "2025-08-06T01:45:22.827Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Manual trigger - checking for health status data...",
+      "timestamp": "2025-08-06T01:45:56.338Z"
+    },
+    {
+      "type": "log",
+      "text": "📍 Currently on dashboard page",
+      "timestamp": "2025-08-06T01:45:56.339Z"
+    },
+    {
+      "type": "log",
+      "text": "Found 84 chart elements",
+      "timestamp": "2025-08-06T01:46:01.724Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 1 content: \n [data-chart=chart-«r0»] {\n  --color-male: #3D3D3D;\n  --color-female: #D8D8D8;\n}\n\n\n.dark [data-chart=chart-«r0»] {\n  --color-male: #3D3D3D;\n  --color-female: #D8D8D8;\n}\n",
+      "timestamp": "2025-08-06T01:46:01.725Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 2 content: ",
+      "timestamp": "2025-08-06T01:46:01.725Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 3 content: ",
+      "timestamp": "2025-08-06T01:46:01.725Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 4 content: ",
+      "timestamp": "2025-08-06T01:46:01.725Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 5 content: ",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 6 content: ",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 7 content: ",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 8 content: ",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 9 content: ",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 10 content: ",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 11 content: ",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 12 content: \n [data-chart=chart-«r1»] {\n  --color-sessions: #374151;\n}\n\n\n.dark [data-chart=chart-«r1»] {\n  --color-sessions: #374151;\n}\nMonTueWedThuFriSatSun07142128",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 13 content: MonTueWedThuFriSatSun07142128",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 14 content: MonTueWedThuFriSatSun07142128",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 15 content: ",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 16 content: MonTueWedThuFriSatSun07142128",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 17 content: ",
+      "timestamp": "2025-08-06T01:46:01.726Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 18 content: ",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 19 content: ",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 20 content: MonTueWedThuFriSatSun",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 21 content: ",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 22 content: MonTueWedThuFriSatSun",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 23 content: Mon",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 24 content: ",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 25 content: Mon",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 26 content: Tue",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 27 content: ",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 28 content: Tue",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 29 content: Wed",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 30 content: ",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 31 content: Wed",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 32 content: Thu",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 33 content: ",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 34 content: Thu",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 35 content: Fri",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 36 content: ",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 37 content: Fri",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 38 content: Sat",
+      "timestamp": "2025-08-06T01:46:01.727Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 39 content: ",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 40 content: Sat",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 41 content: Sun",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 42 content: ",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 43 content: Sun",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 44 content: 07142128",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 45 content: ",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 46 content: 07142128",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 47 content: 0",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 48 content: ",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 49 content: 0",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 50 content: 7",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 51 content: ",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 52 content: 7",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 53 content: 14",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 54 content: ",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 55 content: 14",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 56 content: 21",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 57 content: ",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 58 content: 21",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 59 content: 28",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 60 content: ",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 61 content: 28",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 62 content: ",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 63 content: ",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 64 content: ",
+      "timestamp": "2025-08-06T01:46:01.729Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 65 content: ",
+      "timestamp": "2025-08-06T01:46:01.732Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 66 content: ",
+      "timestamp": "2025-08-06T01:46:01.732Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 67 content: ",
+      "timestamp": "2025-08-06T01:46:01.732Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 68 content: ",
+      "timestamp": "2025-08-06T01:46:01.732Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 69 content: ",
+      "timestamp": "2025-08-06T01:46:01.733Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 70 content: ",
+      "timestamp": "2025-08-06T01:46:01.733Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 71 content: ",
+      "timestamp": "2025-08-06T01:46:01.733Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 72 content: \n [data-chart=chart-«r2»] {\n  --color-excellent: #111827;\n  --color-good: #374151;\n  --color-fair: #6b7280;\n  --color-poor: #9ca3af;\n}\n\n\n.dark [data-chart=chart-«r2»] {\n  --color-excellent: #111827;\n ",
+      "timestamp": "2025-08-06T01:46:01.734Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 73 content: ",
+      "timestamp": "2025-08-06T01:46:01.734Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 74 content: ",
+      "timestamp": "2025-08-06T01:46:01.734Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 75 content: ",
+      "timestamp": "2025-08-06T01:46:01.734Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 76 content: ",
+      "timestamp": "2025-08-06T01:46:01.734Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 77 content: ",
+      "timestamp": "2025-08-06T01:46:01.735Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 78 content: ",
+      "timestamp": "2025-08-06T01:46:01.735Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 79 content: ",
+      "timestamp": "2025-08-06T01:46:01.736Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 80 content: ",
+      "timestamp": "2025-08-06T01:46:01.736Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 81 content: ",
+      "timestamp": "2025-08-06T01:46:01.736Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 82 content: ",
+      "timestamp": "2025-08-06T01:46:01.736Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 83 content: ",
+      "timestamp": "2025-08-06T01:46:01.736Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 84 content: ",
+      "timestamp": "2025-08-06T01:46:01.736Z"
+    }
+  ],
+  "healthStatusLogs": [
+    {
+      "type": "log",
+      "text": "🔍 Dashboard fetching seniors for orgId: bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-06T01:45:22.307Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 About to execute seniors query...",
+      "timestamp": "2025-08-06T01:45:22.308Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Dashboard fetching seniors for orgId: bf579a76-e9c5-45be-8659-7e62664883c4",
+      "timestamp": "2025-08-06T01:45:22.308Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 About to execute seniors query...",
+      "timestamp": "2025-08-06T01:45:22.309Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Seniors query completed: {seniors: Array(40), seniorsError: null}",
+      "timestamp": "2025-08-06T01:45:22.417Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Dashboard seniors data: {count: 40, seniors: Array(40)}",
+      "timestamp": "2025-08-06T01:45:22.417Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Seniors query completed: {seniors: Array(40), seniorsError: null}",
+      "timestamp": "2025-08-06T01:45:22.500Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Dashboard seniors data: {count: 40, seniors: Array(40)}",
+      "timestamp": "2025-08-06T01:45:22.500Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Gender Distribution: {maleCount: 22, femaleCount: 18}",
+      "timestamp": "2025-08-06T01:45:22.695Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Health Status Distribution: {excellentCount: 0, goodCount: 3, fairCount: 30, poorCount: 1, hasHealthData: true}",
+      "timestamp": "2025-08-06T01:45:22.695Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Gender Distribution: {maleCount: 22, femaleCount: 18}",
+      "timestamp": "2025-08-06T01:45:22.827Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Health Status Distribution: {excellentCount: 0, goodCount: 3, fairCount: 30, poorCount: 1, hasHealthData: true}",
+      "timestamp": "2025-08-06T01:45:22.827Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Manual trigger - checking for health status data...",
+      "timestamp": "2025-08-06T01:45:56.338Z"
+    },
+    {
+      "type": "log",
+      "text": "Chart 40 content: Sat",
+      "timestamp": "2025-08-06T01:46:01.728Z"
+    }
+  ],
+  "hasHealthDataLogs": [
+    {
+      "type": "log",
+      "text": "🔍 Health Status Distribution: {excellentCount: 0, goodCount: 3, fairCount: 30, poorCount: 1, hasHealthData: true}",
+      "timestamp": "2025-08-06T01:45:22.695Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Health Status Distribution: {excellentCount: 0, goodCount: 3, fairCount: 30, poorCount: 1, hasHealthData: true}",
+      "timestamp": "2025-08-06T01:45:22.827Z"
+    }
+  ],
+  "classificationExamples": [],
+  "healthDistribution": null,
+  "screenshots": [
+    "01-dashboard-initial.png",
+    "02-login-form-filled.png",
+    "03-after-login.png",
+    "04-health-status-chart.png",
+    "05-health-status-chart-specific.png",
+    "06-final-comprehensive.png"
+  ],
+  "errors": [],
+  "successfulCredentials": {
+    "email": "andrew@youngandx.com",
+    "password": "RX3XJEemQAfw"
+  }
+}

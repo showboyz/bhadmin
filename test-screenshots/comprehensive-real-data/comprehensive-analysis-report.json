@@ -1,0 +1,88 @@
+{
+  "timestamp": "2025-08-06T00:00:45.397Z",
+  "testType": "Real Data Comprehensive Analysis",
+  "demoModeStatus": "disabled",
+  "login": {
+    "credentials": {
+      "email": "todays777@gmail.com",
+      "password": "your-new-password"
+    },
+    "success": true,
+    "redirectUrl": "http://localhost:3001/super-admin"
+  },
+  "dashboard": {
+    "url": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+    "loaded": true,
+    "dataVisible": false,
+    "kpis": {
+      "totalUsers": {
+        "value": null,
+        "expected": 40,
+        "matches": false
+      },
+      "activeToday": {
+        "value": null,
+        "expected": 0,
+        "matches": false
+      },
+      "weeklyActive": {
+        "value": null,
+        "expected": 16,
+        "matches": false
+      },
+      "newUsersMonth": {
+        "value": null,
+        "expected": 1,
+        "matches": false
+      },
+      "inactiveUsersWeek": {
+        "value": null,
+        "expected": 24,
+        "matches": false
+      },
+      "licenseSeatsRemaining": {
+        "value": null,
+        "expected": 10,
+        "matches": false
+      }
+    },
+    "genderDistribution": {
+      "visible": false
+    },
+    "userTables": {
+      "recentActivity": {
+        "visible": false,
+        "userCount": 0,
+        "users": []
+      },
+      "inactiveUsers": {
+        "visible": false,
+        "userCount": 0,
+        "users": []
+      }
+    }
+  },
+  "performance": {
+    "loadTime": 20197,
+    "dataRenderTime": 10001
+  },
+  "realVsMockComparison": {
+    "status": "unknown",
+    "evidence": [
+      "Active Today = 0 (matches expected real data)"
+    ],
+    "differences": [],
+    "issues": []
+  },
+  "screenshots": [
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/comprehensive-real-data/01-login-page.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/comprehensive-real-data/02-login-filled.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/comprehensive-real-data/03-after-login.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/comprehensive-real-data/04-dashboard-initial.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/comprehensive-real-data/05-dashboard-loaded.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/comprehensive-real-data/06-final-analysis.png"
+  ],
+  "errors": [
+    "KPI cards not found within timeout"
+  ]
+}

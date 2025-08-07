@@ -1,0 +1,81 @@
+{
+  "testName": "Comprehensive User Management Test",
+  "timestamp": "2025-08-05T02:25:03.707Z",
+  "authentication": "Demo mode bypass successful",
+  "existingUsersExpected": [
+    "김영희",
+    "박철수"
+  ],
+  "existingUsersFound": [
+    "김영희",
+    "박철수"
+  ],
+  "newUserData": {
+    "full_name": "이미자",
+    "gender": "Female",
+    "birth_date": "1960-08-10",
+    "phone": "010-7777-8888",
+    "grade": "advanced",
+    "guardian_name": "이지영",
+    "address": "대구시 중구",
+    "health_status": "excellent",
+    "org_id": "bf579a76-e9c5-45be-8659-7e62664883c4"
+  },
+  "newUserAddResult": {
+    "status": 200,
+    "ok": true,
+    "body": "{\"success\":true,\"senior\":{\"id\":\"demo-senior-1754360698594\",\"gender_enum\":\"F\",\"eduyear\":\"high\",\"phone\":\"010-7777-8888\",\"address\":{\"address\":\"대구시 중구\",\"city\":\"대구시 중구\"},\"note\":\"Health: undefined. Goals: undefined. Medical: undefined. Special requirements: undefined\",\"created_at\":\"2025-08-05T02:24:58.594Z\",\"updated_at\":\"2025-08-05T02:24:58.594Z\"},\"message\":\"Senior created successfully\"}"
+  },
+  "apiVerification": {
+    "success": true,
+    "seniors": [
+      {
+        "id": "demo-senior-existing-1",
+        "org_id": "bf579a76-e9c5-45be-8659-7e62664883c4",
+        "name": "김영희",
+        "gender_enum": "F",
+        "birth": "1958-05-20",
+        "phone": "010-1234-5678",
+        "created_at": "2025-07-26T02:11:47.864Z"
+      },
+      {
+        "id": "demo-senior-existing-2",
+        "org_id": "bf579a76-e9c5-45be-8659-7e62664883c4",
+        "name": "박철수",
+        "gender_enum": "M",
+        "birth": "1952-12-03",
+        "phone": "010-2345-6789",
+        "created_at": "2025-07-31T02:11:47.864Z"
+      }
+    ],
+    "count": 2
+  },
+  "uiVisibleUsers": [],
+  "tableInfo": {
+    "tableCount": 0,
+    "tables": []
+  },
+  "screenshots": [
+    "comprehensive-01-before-users-page.png",
+    "comprehensive-02-after-user-addition.png"
+  ],
+  "networkRequests": [
+    {
+      "url": "http://localhost:3000/api/seniors?org_id=bf579a76-e9c5-45be-8659-7e62664883c4",
+      "method": "GET",
+      "status": 200,
+      "response": "{\"success\":true,\"seniors\":[{\"id\":\"demo-senior-existing-1\",\"org_id\":\"bf579a76-e9c5-45be-8659-7e62664883c4\",\"name\":\"김영희\",\"gender_enum\":\"F\",\"birth\":\"1958-05-20\",\"phone\":\"010-1234-5678\",\"created_at\":\"2025-07-26T02:11:47.864Z\"},{\"id\":\"demo-senior-existing-2\",\"org_id\":\"bf579a76-e9c5-45be-8659-7e62664883c4\",\"name\":\"박철수\",\"gender_enum\":\"M\",\"birth\":\"1952-12-03\",\"phone\":\"010-2345-6789\",\"created_at\":\"2025-07-31T02:11:47.864Z\"}],\"count\":2}"
+    },
+    {
+      "url": "http://localhost:3000/api/seniors",
+      "method": "POST",
+      "status": 200,
+      "response": "{\"success\":true,\"senior\":{\"id\":\"demo-senior-1754360698594\",\"gender_enum\":\"F\",\"eduyear\":\"high\",\"phone\":\"010-7777-8888\",\"address\":{\"address\":\"대구시 중구\",\"city\":\"대구시 중구\"},\"note\":\"Health: undefined. Goals: undefined. Medical: undefined. Special requirements: undefined\",\"created_at\":\"2025-08-05T02:24:58.594Z\",\"updated_at\":\"2025-08-05T02:24:58.594Z\"},\"message\":\"Senior created successfully\"}"
+    },
+    {
+      "url": "http://localhost:3000/api/seniors?org_id=bf579a76-e9c5-45be-8659-7e62664883c4",
+      "method": "GET"
+    }
+  ],
+  "success": false
+}

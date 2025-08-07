@@ -1,0 +1,127 @@
+{
+  "testName": "CURRENT Column Format Verification",
+  "timestamp": "2025-08-06T09:17:25.966Z",
+  "url": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/users",
+  "pageTitle": "Brain Health Admin Console",
+  "tablesFound": 0,
+  "currentColumnVisible": false,
+  "patterns": {
+    "sessionFormat": [],
+    "weekWeekFormat": [],
+    "weekFormat": [],
+    "numberWeekFormat": []
+  },
+  "verdict": {
+    "hasCorrectSessionFormat": false,
+    "hasProblematicWeekWeekFormat": false,
+    "hasNumberWeekFormat": false,
+    "recommendation": "⚠ NO ACCESS: Could not access CURRENT column - authentication or permission issue"
+  },
+  "consoleMessages": [
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T09:17:21.120Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T09:17:21.121Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T09:17:21.332Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T09:17:21.332Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T09:17:22.120Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T09:17:22.120Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T09:17:22.336Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T09:17:22.337Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T09:17:23.120Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T09:17:23.121Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T09:17:23.337Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T09:17:23.338Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T09:17:24.122Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T09:17:24.122Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T09:17:24.338Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T09:17:24.338Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T09:17:25.123Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T09:17:25.124Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T09:17:25.339Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T09:17:25.340Z"
+    }
+  ],
+  "screenshots": [
+    "current-column-verification-01.png",
+    "current-column-verification-02-login.png",
+    "current-column-verification-03-final.png"
+  ]
+}

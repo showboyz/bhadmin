@@ -1,0 +1,44 @@
+
+KOREAN HEALTH STATUS ANALYSIS TEST RESULTS
+==========================================
+Test Date: 2025-08-06T04:28:37.177Z
+Target URL: http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard
+Credentials Used: todays777@gmail.com
+Final Dashboard URL: http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard
+
+KEY FINDINGS:
+=============
+✅ hasHealthData Status: NOT FOUND ✗
+🇰🇷 Korean Text Examples: 0
+📊 Health Classifications: 0
+📈 Distribution Data Logs: 25
+📊 Chart Elements: 1
+📝 Total Console Logs: 70
+
+EVIDENCE SUMMARY:
+================
+❌ No hasHealthData confirmation
+❌ No Korean health text detected
+❌ No health classifications detected
+✅ Chart visualization found (1 elements)
+
+KOREAN TEXT EXAMPLES:
+=====================
+
+
+HEALTH CLASSIFICATION EXAMPLES:
+===============================
+
+
+DISTRIBUTION DATA EXAMPLES:
+===========================
+1. 🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}
+2. 🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}
+3. 🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}
+4. 🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}
+5. 🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}
+
+OVERALL ASSESSMENT:
+==================
+⚠️ CHART PRESENT: Chart visualization detected but Korean analysis logs missing.
+❓ Chart may be showing fallback data instead of real Korean analysis.

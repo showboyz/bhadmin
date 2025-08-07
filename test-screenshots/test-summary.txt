@@ -1,0 +1,44 @@
+
+HEALTH STATUS DISTRIBUTION CHART TEST RESULTS
+=============================================
+Test Date: 2025-08-06T04:24:33.268Z
+Target URL: http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard
+Final URL: http://localhost:3001/login
+
+KEY FINDINGS:
+=============
+✅ hasHealthData Status: NOT FOUND
+🇰🇷 Korean Health Analysis Logs: 0
+📊 Health Status Classifications: 1
+📈 Distribution Data Logs: 5
+🎯 Korean Text Examples: 0
+📊 Chart Elements Found: 1
+📝 Total Console Logs: 27
+
+SPECIFIC EVIDENCE:
+==================
+❌ hasHealthData not found in console logs
+❌ No Korean health analysis logs found
+❌ No specific Korean text examples found
+✅ 1 health status classification logs found
+✅ 1 chart elements detected on page
+
+KOREAN HEALTH ANALYSIS SAMPLES:
+===============================
+
+
+HEALTH STATUS CLASSIFICATION SAMPLES:
+====================================
+1. Failed to load resource: the server responded with a status of 400 ()
+
+SCREENSHOTS SAVED:
+==================
+- 0-login-page.png (if login was required)
+- 1-dashboard-full.png (full page screenshot)
+- 2-dashboard-with-devtools.png (with dev tools open)
+- 3-chart-element-*.png (individual chart elements)
+
+FILES GENERATED:
+================
+- detailed-test-report.json (complete technical data)
+- test-summary.txt (this file)

@@ -1,0 +1,41 @@
+{
+  "timestamp": "2025-08-05T23:57:18.059Z",
+  "testType": "Real Data Dashboard Test",
+  "loginCredentials": {
+    "email": "todays777@gmail.com",
+    "success": true
+  },
+  "dashboardAccess": {
+    "url": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+    "success": true
+  },
+  "kpiValues": {
+    "totalUsers": "Welcome to Andrew's Clinic! 👋",
+    "licenseSeatsRemaining": null,
+    "genderDistribution": {
+      "male": null,
+      "female": null
+    },
+    "otherMetrics": {}
+  },
+  "screenshots": [
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/real-data-test/01-login-page.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/real-data-test/02-login-filled.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/real-data-test/03-after-login.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/real-data-test/04-dashboard-initial.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/real-data-test/05-dashboard-full-page.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/real-data-test/06-dashboard-viewport.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/real-data-test/07-final-comprehensive.png"
+  ],
+  "errors": [],
+  "performance": {
+    "loadTime": 11467,
+    "dataFetchTime": 3008
+  },
+  "realVsMockComparison": {
+    "differences": [
+      "? Total Users shows NaN (unexpected value)"
+    ],
+    "issues": []
+  }
+}

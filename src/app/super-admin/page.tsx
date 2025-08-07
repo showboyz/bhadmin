@@ -3,7 +3,7 @@
 import { useAuth } from '@/contexts/auth-context'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Building2, Users, Activity, TrendingUp, AlertTriangle, CheckCircle } from 'lucide-react'
+import { Building2, Users, Activity, TrendingUp, AlertTriangle, CheckCircle, Database } from 'lucide-react'
 import Link from 'next/link'
 
 interface SystemStats {
@@ -313,13 +313,22 @@ export default function SuperAdminDashboard() {
             <CheckCircle className="h-4 w-4 text-green-500" />
             All Systems Operational
           </div>
-          <Link 
-            href="/super-admin/organizations/create"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-          >
-            <Building2 className="h-4 w-4" />
-            New Organization
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link 
+              href="/super-admin/sync"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            >
+              <Database className="h-4 w-4" />
+              DynamoDB Sync
+            </Link>
+            <Link 
+              href="/super-admin/organizations/create"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+              <Building2 className="h-4 w-4" />
+              New Organization
+            </Link>
+          </div>
         </div>
       </div>
 

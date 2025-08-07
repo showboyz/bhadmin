@@ -1,0 +1,403 @@
+{
+  "timestamp": "2025-08-06T04:28:08.495Z",
+  "testUrl": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+  "credentials": "todays777@gmail.com",
+  "steps": [
+    "Authentication started",
+    "Login completed - URL: http://localhost:3001/super-admin",
+    "Dashboard navigation - URL: http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+    "Completed extended wait for Korean health analysis"
+  ],
+  "koreanAnalysisFindings": {
+    "hasHealthDataFound": false,
+    "koreanTextExamples": [],
+    "healthStatusClassifications": [],
+    "distributionDataLogs": [
+      "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}"
+    ],
+    "chartElementsFound": 1
+  },
+  "screenshots": [
+    "01-login-page.png",
+    "02-credentials-filled.png",
+    "03-dashboard-with-devtools.png",
+    "04-final-dashboard-state.png",
+    "05-chart-1.png"
+  ],
+  "allConsoleLogs": [
+    {
+      "type": "verbose",
+      "text": "[DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq) %o",
+      "timestamp": "2025-08-06T04:28:08.731Z"
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "timestamp": "2025-08-06T04:28:08.755Z"
+    },
+    {
+      "type": "log",
+      "text": "Initial session check: No session",
+      "timestamp": "2025-08-06T04:28:09.007Z"
+    },
+    {
+      "type": "log",
+      "text": "Auth state change: INITIAL_SESSION No session",
+      "timestamp": "2025-08-06T04:28:09.007Z"
+    },
+    {
+      "type": "log",
+      "text": "Login attempt: {email: todays777@gmail.com, passwordLength: 17}",
+      "timestamp": "2025-08-06T04:28:10.576Z"
+    },
+    {
+      "type": "log",
+      "text": "Auth state change: SIGNED_IN todays777@gmail.com",
+      "timestamp": "2025-08-06T04:28:11.333Z"
+    },
+    {
+      "type": "log",
+      "text": "signInWithPassword result: {hasUser: true, hasSession: true, errorMessage: undefined}",
+      "timestamp": "2025-08-06T04:28:11.334Z"
+    },
+    {
+      "type": "log",
+      "text": "Login result: {data: Object, error: null}",
+      "timestamp": "2025-08-06T04:28:11.334Z"
+    },
+    {
+      "type": "log",
+      "text": "Login successful for: todays777@gmail.com",
+      "timestamp": "2025-08-06T04:28:11.334Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Fetching user roles for userId: 91f360ba-2c8b-4256-a82a-538066030d9f",
+      "timestamp": "2025-08-06T04:28:11.433Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 User details after login: {userId: 91f360ba-2c8b-4256-a82a-538066030d9f, email: todays777@gmail.com, userMetadata: Object}",
+      "timestamp": "2025-08-06T04:28:11.964Z"
+    },
+    {
+      "type": "log",
+      "text": "✅ User roles found: [Object, Object, Object]",
+      "timestamp": "2025-08-06T04:28:12.085Z"
+    },
+    {
+      "type": "log",
+      "text": "🎭 User roles query result: {roles: Array(3), error: null, userId: 91f360ba-2c8b-4256-a82a-538066030d9f}",
+      "timestamp": "2025-08-06T04:28:12.175Z"
+    },
+    {
+      "type": "log",
+      "text": "🎯 Super admin check: {superAdminRole: Object, allRoles: Array(3), redirecting: true}",
+      "timestamp": "2025-08-06T04:28:12.175Z"
+    },
+    {
+      "type": "log",
+      "text": "✅ Redirecting to super-admin dashboard",
+      "timestamp": "2025-08-06T04:28:12.175Z"
+    },
+    {
+      "type": "log",
+      "text": "SuperAdminRoute: Super admin access confirmed",
+      "timestamp": "2025-08-06T04:28:12.368Z"
+    },
+    {
+      "type": "log",
+      "text": "SuperAdminRoute: Super admin access confirmed",
+      "timestamp": "2025-08-06T04:28:12.368Z"
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "timestamp": "2025-08-06T04:28:13.784Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:13.921Z"
+    },
+    {
+      "type": "log",
+      "text": "Still loading user...",
+      "timestamp": "2025-08-06T04:28:13.921Z"
+    },
+    {
+      "type": "log",
+      "text": "Initial session check: todays777@gmail.com",
+      "timestamp": "2025-08-06T04:28:13.926Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:13.928Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:13.928Z"
+    },
+    {
+      "type": "log",
+      "text": "Auth state change: INITIAL_SESSION todays777@gmail.com",
+      "timestamp": "2025-08-06T04:28:13.928Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:14.930Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:14.930Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:15.933Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:15.933Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:16.935Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:16.935Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:17.935Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:17.935Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:18.940Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:18.940Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:19.941Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:19.941Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:20.940Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:20.940Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:21.941Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:21.941Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:22.943Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:22.943Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:23.946Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:23.946Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:24.949Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:24.949Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:25.950Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:25.950Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:26.953Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:26.954Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:27.952Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:27.952Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:28.957Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:28.957Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:29.956Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:29.956Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:30.960Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:30.960Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:31.960Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:31.960Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:32.961Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:32.961Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:33.963Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:33.963Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:34.967Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:34.967Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:35.967Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:35.967Z"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+      "timestamp": "2025-08-06T04:28:36.968Z"
+    },
+    {
+      "type": "log",
+      "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+      "timestamp": "2025-08-06T04:28:36.968Z"
+    }
+  ]
+}

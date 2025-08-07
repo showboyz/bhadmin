@@ -7,11 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:login": "node test-login-persistence.js"
+    "test:login": "node test-login-persistence.js",
+    "test:playwright": "playwright test",
+    "test:current-column": "playwright test current-column-formatting-test.spec.ts",
+    "test:user-management": "playwright test complete-user-management-test.spec.ts",
+    "test:playwright:ui": "playwright test --ui",
+    "test:playwright:debug": "playwright test --debug"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.844.0",
-    "@aws-sdk/lib-dynamodb": "^3.844.0",
+    "@aws-sdk/client-dynamodb": "^3.859.0",
+    "@aws-sdk/lib-dynamodb": "^3.859.0",
     "@hookform/resolvers": "^5.1.1",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-label": "^2.1.7",

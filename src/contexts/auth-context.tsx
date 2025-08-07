@@ -382,11 +382,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return false
     }
 
-    // Set up global error listener for unhandled auth errors
+    // Set up global error listener for unhandled auth errors (더 안전한 방식)
     const originalConsoleError = console.error
     console.error = (...args) => {
-      const errorMessage = args.join(' ')
-      if (!handleAuthError({ message: errorMessage })) {
+      try {
+        const errorMessage = args.join(' ')
+        // auth 관련 에러만 처리하고 나머지는 그대로 로그
+        if (errorMessage.includes('Auth') || errorMessage.includes('Invalid Refresh Token') || errorMessage.includes('refresh_token')) {
+          if (!handleAuthError({ message: errorMessage })) {
+            originalConsoleError.apply(console, args)
+          }
+        } else {
+          // auth 관련이 아닌 에러는 그대로 로그
+          originalConsoleError.apply(console, args)
+        }
+      } catch (e) {
+        // console.error 오버라이드 중 오류 발생 시 원래 함수 사용
         originalConsoleError.apply(console, args)
       }
     }

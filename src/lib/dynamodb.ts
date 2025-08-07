@@ -15,6 +15,22 @@ export const dynamoDbClient = DynamoDBDocumentClient.from(client);
 // 기관 테이블 조회 함수 (모든 클라이언트 데이터)
 export const getOrganizations = async () => {
   try {
+    // AWS 설정 확인
+    const hasAWSConfig = process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY;
+    
+    if (!hasAWSConfig) {
+      console.log('⚡ Development mode: returning simulated organizations');
+      return [
+        {
+          id: 'admin1',
+          name: '테스트병원',
+          accesspermission: '1',
+          timestamp: new Date().toISOString(),
+          mode: 'simulation'
+        }
+      ];
+    }
+
     const command = new ScanCommand({
       TableName: process.env.DYNAMODB_ORGANIZATIONS_TABLE || 'ClientTable',
     });
@@ -28,6 +44,13 @@ export const getOrganizations = async () => {
   } catch (error) {
     console.error('Error fetching organizations from DynamoDB:', error);
     console.error('Error details:', error);
+    
+    // 개발 환경에서는 빈 배열 반환
+    if (!process.env.AWS_ACCESS_KEY_ID) {
+      console.log('⚠️ Falling back to empty array due to AWS config missing');
+      return [];
+    }
+    
     throw error;
   }
 };
@@ -99,6 +122,24 @@ export const checkOrganizationExists = async (organizationName: string) => {
 
 export const createOrganizationInDynamoDB = async (orgData: any) => {
   try {
+    // AWS 자격 증명 확인
+    const hasAWSConfig = process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY;
+    
+    if (!hasAWSConfig) {
+      // 개발 모드: AWS 설정이 없으면 시뮬레이션
+      console.log('⚡ Development mode: simulating DynamoDB creation');
+      const simulatedData = {
+        id: orgData.admin_id,
+        password: orgData.admin_password,
+        name: orgData.name,
+        accesspermission: "1",
+        timestamp: new Date().toISOString(),
+        mode: 'development_simulation'
+      };
+      console.log('✅ Simulated DynamoDB creation:', simulatedData);
+      return simulatedData;
+    }
+
     const { PutCommand } = await import('@aws-sdk/lib-dynamodb');
     
     // DynamoDB에 저장할 데이터 구조 (백업용 - 5개 필드)
@@ -110,16 +151,33 @@ export const createOrganizationInDynamoDB = async (orgData: any) => {
       timestamp: new Date().toISOString() // 타임스탬프
     };
     
+    console.log('🔄 Attempting to create in DynamoDB:', dynamoData);
+    
     const command = new PutCommand({
       TableName: process.env.DYNAMODB_ORGANIZATIONS_TABLE || 'ClientTable',
       Item: dynamoData,
     });
     
     await dynamoDbClient.send(command);
-    console.log('Organization created in DynamoDB:', dynamoData);
+    console.log('✅ Organization created in DynamoDB:', dynamoData);
     return dynamoData;
   } catch (error) {
-    console.error('Error creating organization in DynamoDB:', error);
+    console.error('❌ Error creating organization in DynamoDB:', error);
+    
+    // 개발 환경에서는 에러를 던지지 않고 시뮬레이션 반환
+    if (!process.env.AWS_ACCESS_KEY_ID) {
+      console.log('⚠️ Falling back to simulation mode due to AWS config missing');
+      return {
+        id: orgData.admin_id,
+        password: orgData.admin_password,
+        name: orgData.name,
+        accesspermission: "1",
+        timestamp: new Date().toISOString(),
+        mode: 'fallback_simulation',
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+    
     throw error;
   }
 };

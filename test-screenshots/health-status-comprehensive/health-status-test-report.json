@@ -1,0 +1,617 @@
+{
+  "timestamp": "2025-08-06T01:15:40.444Z",
+  "testType": "Health Status Distribution Chart Analysis",
+  "login": {
+    "credentials": {
+      "email": "andrew@youngandx.com",
+      "password": "RX3XJEemQAfw"
+    },
+    "success": true,
+    "redirectUrl": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard"
+  },
+  "dashboard": {
+    "url": "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+    "loaded": true,
+    "healthStatusChart": {
+      "visible": false,
+      "isEmpty": true,
+      "dataPoints": [],
+      "svgElements": 0
+    },
+    "genderDistributionChart": {
+      "visible": false,
+      "isEmpty": true,
+      "dataPoints": [],
+      "svgElements": 0
+    },
+    "chartComparison": {
+      "bothVisible": false,
+      "healthStatusWorking": false,
+      "genderDistributionWorking": false,
+      "differences": [],
+      "issues": [
+        "Health Status Distribution chart title not visible",
+        "Gender Distribution chart title not visible"
+      ]
+    }
+  },
+  "consoleErrors": {
+    "healthStatusErrors": [
+      "🔍 Health Status Distribution: {excellentCount: 8, goodCount: 16, fairCount: 12, poorCount: 4}",
+      "🔍 Health Status Distribution: {excellentCount: 8, goodCount: 16, fairCount: 12, poorCount: 4}"
+    ],
+    "generalErrors": [],
+    "allLogs": [
+      {
+        "type": "verbose",
+        "text": "[DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq) %o",
+        "timestamp": "2025-08-06T01:15:40.599Z"
+      },
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "timestamp": "2025-08-06T01:15:40.641Z"
+      },
+      {
+        "type": "log",
+        "text": "Initial session check: No session",
+        "timestamp": "2025-08-06T01:15:40.734Z"
+      },
+      {
+        "type": "log",
+        "text": "Auth state change: INITIAL_SESSION No session",
+        "timestamp": "2025-08-06T01:15:40.736Z"
+      },
+      {
+        "type": "log",
+        "text": "Login attempt: {email: andrew@youngandx.com, passwordLength: 12}",
+        "timestamp": "2025-08-06T01:15:41.673Z"
+      },
+      {
+        "type": "log",
+        "text": "Auth state change: SIGNED_IN andrew@youngandx.com",
+        "timestamp": "2025-08-06T01:15:41.874Z"
+      },
+      {
+        "type": "log",
+        "text": "signInWithPassword result: {hasUser: true, hasSession: true, errorMessage: undefined}",
+        "timestamp": "2025-08-06T01:15:41.875Z"
+      },
+      {
+        "type": "log",
+        "text": "Login result: {data: Object, error: null}",
+        "timestamp": "2025-08-06T01:15:41.875Z"
+      },
+      {
+        "type": "log",
+        "text": "Login successful for: andrew@youngandx.com",
+        "timestamp": "2025-08-06T01:15:41.875Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Fetching user roles for userId: e63d614d-e592-472d-9141-3f33a348de0c",
+        "timestamp": "2025-08-06T01:15:41.975Z"
+      },
+      {
+        "type": "log",
+        "text": "✅ User roles found: [Object]",
+        "timestamp": "2025-08-06T01:15:42.062Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 User details after login: {userId: e63d614d-e592-472d-9141-3f33a348de0c, email: andrew@youngandx.com, userMetadata: Object}",
+        "timestamp": "2025-08-06T01:15:42.466Z"
+      },
+      {
+        "type": "log",
+        "text": "🎭 User roles query result: {roles: Array(1), error: null, userId: e63d614d-e592-472d-9141-3f33a348de0c}",
+        "timestamp": "2025-08-06T01:15:42.570Z"
+      },
+      {
+        "type": "log",
+        "text": "🎯 Super admin check: {superAdminRole: undefined, allRoles: Array(1), redirecting: false}",
+        "timestamp": "2025-08-06T01:15:42.570Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 1}",
+        "timestamp": "2025-08-06T01:15:42.798Z"
+      },
+      {
+        "type": "log",
+        "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: andrew@youngandx.com, userRolesCount: 1, userRoles: Array(1), isSuperAdmin: false}",
+        "timestamp": "2025-08-06T01:15:42.799Z"
+      },
+      {
+        "type": "log",
+        "text": "✅ Access granted for user: andrew@youngandx.com to org: bf579a76-e9c5-45be-8659-7e62664883c4",
+        "timestamp": "2025-08-06T01:15:42.799Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 1}",
+        "timestamp": "2025-08-06T01:15:42.802Z"
+      },
+      {
+        "type": "log",
+        "text": "🏢 Organization access check: {orgId: bf579a76-e9c5-45be-8659-7e62664883c4, userEmail: andrew@youngandx.com, userRolesCount: 1, userRoles: Array(1), isSuperAdmin: false}",
+        "timestamp": "2025-08-06T01:15:42.802Z"
+      },
+      {
+        "type": "log",
+        "text": "✅ Access granted for user: andrew@youngandx.com to org: bf579a76-e9c5-45be-8659-7e62664883c4",
+        "timestamp": "2025-08-06T01:15:42.804Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Dashboard fetching seniors for orgId: bf579a76-e9c5-45be-8659-7e62664883c4",
+        "timestamp": "2025-08-06T01:15:42.891Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Applied org filter for: bf579a76-e9c5-45be-8659-7e62664883c4",
+        "timestamp": "2025-08-06T01:15:42.892Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 About to execute seniors query...",
+        "timestamp": "2025-08-06T01:15:42.893Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Dashboard fetching seniors for orgId: bf579a76-e9c5-45be-8659-7e62664883c4",
+        "timestamp": "2025-08-06T01:15:42.894Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Applied org filter for: bf579a76-e9c5-45be-8659-7e62664883c4",
+        "timestamp": "2025-08-06T01:15:42.894Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 About to execute seniors query...",
+        "timestamp": "2025-08-06T01:15:42.894Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Seniors query completed: {seniors: Array(40), seniorsError: null}",
+        "timestamp": "2025-08-06T01:15:42.991Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Dashboard seniors data: {count: 40, seniors: Array(40)}",
+        "timestamp": "2025-08-06T01:15:42.991Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Seniors query completed: {seniors: Array(40), seniorsError: null}",
+        "timestamp": "2025-08-06T01:15:43.050Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Dashboard seniors data: {count: 40, seniors: Array(40)}",
+        "timestamp": "2025-08-06T01:15:43.050Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Gender Distribution: {maleCount: 22, femaleCount: 18}",
+        "timestamp": "2025-08-06T01:15:43.190Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Health Status Distribution: {excellentCount: 8, goodCount: 16, fairCount: 12, poorCount: 4}",
+        "timestamp": "2025-08-06T01:15:43.190Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Gender Distribution: {maleCount: 22, femaleCount: 18}",
+        "timestamp": "2025-08-06T01:15:43.276Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Health Status Distribution: {excellentCount: 8, goodCount: 16, fairCount: 12, poorCount: 4}",
+        "timestamp": "2025-08-06T01:15:43.276Z"
+      },
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "timestamp": "2025-08-06T01:15:44.951Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: true, rolesLoading: false, hasUser: false, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:45.008Z"
+      },
+      {
+        "type": "log",
+        "text": "Still loading user...",
+        "timestamp": "2025-08-06T01:15:45.008Z"
+      },
+      {
+        "type": "log",
+        "text": "Initial session check: andrew@youngandx.com",
+        "timestamp": "2025-08-06T01:15:45.015Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:45.015Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:45.016Z"
+      },
+      {
+        "type": "log",
+        "text": "Auth state change: INITIAL_SESSION andrew@youngandx.com",
+        "timestamp": "2025-08-06T01:15:45.016Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:46.012Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:46.012Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:47.014Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:47.014Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:48.017Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:48.017Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:49.016Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:49.017Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:50.018Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:50.018Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:51.019Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:51.019Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:52.021Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:52.021Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:53.023Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:53.023Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:54.025Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:54.025Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:55.026Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:55.026Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:56.027Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:56.027Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:57.028Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:57.028Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:58.030Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:58.030Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:15:59.032Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:15:59.032Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:16:00.033Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:16:00.033Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:16:01.033Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:16:01.034Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:16:02.035Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:16:02.035Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:16:03.036Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:16:03.036Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:16:04.037Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:16:04.037Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:16:05.038Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:16:05.038Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:16:06.039Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:16:06.039Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:16:07.040Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:16:07.040Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:16:08.041Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:16:08.041Z"
+      },
+      {
+        "type": "log",
+        "text": "🔍 Access check - Loading states: {loading: false, rolesLoading: false, hasUser: true, rolesCount: 0}",
+        "timestamp": "2025-08-06T01:16:09.043Z"
+      },
+      {
+        "type": "log",
+        "text": "⏳ User authenticated but no roles loaded yet, waiting... (attempt 1/3)",
+        "timestamp": "2025-08-06T01:16:09.043Z"
+      }
+    ]
+  },
+  "networkRequests": {
+    "apiCalls": [
+      "http://localhost:3001/login",
+      "http://localhost:3001/_next/static/media/memvYaGs126MiZpBA_UvWbX2vVnXBbObj2OVTS_mu0SC55I-s.p.47b51c64.woff2",
+      "https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true",
+      "http://localhost:3001/_next/static/chunks/%5Broot-of-the-server%5D__3ad004d1._.css",
+      "http://localhost:3001/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_fd44f5a4._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_2ce9398a._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_next_dist_client_8f19e6fb._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_next_dist_2ecbf5fa._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_%40swc_helpers_cjs_00636ac3._.js",
+      "http://localhost:3001/_next/static/chunks/_e69f0d32._.js",
+      "http://localhost:3001/_next/static/chunks/_93808211._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_next_dist_1a6ee436._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_favicon_ico_mjs_8a7a8fdc._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_%40supabase_node-fetch_browser_6e09c5c2.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_2003025a._.js",
+      "http://localhost:3001/_next/static/chunks/src_76f7bf33._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_layout_tsx_c0237562._.js",
+      "http://localhost:3001/_next/static/chunks/_7b3c2a51._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_login_page_tsx_d061e8ac._.js",
+      "https://github.com/showboyz/showboyz.github.io/raw/refs/heads/main/BHP_eng@3x.png",
+      "https://raw.githubusercontent.com/showboyz/showboyz.github.io/refs/heads/main/BHP_eng%403x.png",
+      "https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true",
+      "http://localhost:3001/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_61dcf9ba._.js",
+      "http://localhost:3001/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_66796270._.js",
+      "https://github.com/showboyz/showboyz.github.io/raw/refs/heads/main/BHP_eng@3x.png",
+      "https://raw.githubusercontent.com/showboyz/showboyz.github.io/refs/heads/main/BHP_eng%403x.png",
+      "http://localhost:3001/favicon.ico?favicon.45db1c09.ico",
+      "https://gtfostmllgjxosvvkauh.supabase.co/auth/v1/token?grant_type=password",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/user_roles?select=*&user_id=eq.e63d614d-e592-472d-9141-3f33a348de0c",
+      "https://gtfostmllgjxosvvkauh.supabase.co/auth/v1/user",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/user_roles?select=role%2Corg_id&user_id=eq.e63d614d-e592-472d-9141-3f33a348de0c",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=id%2Cname%2Cis_active&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard?_rsc=ak96a",
+      "http://localhost:3001/_next/static/chunks/src_app_org_%5Borg-id%5D_layout_tsx_2829ef9d._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_org_%5Borg-id%5D_layout_tsx_d061e8ac._.js",
+      "http://localhost:3001/_next/static/chunks/src_29d4afcb._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_recharts_es6_b909d72c._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_d4bb41f9._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_org_%5Borg-id%5D_dashboard_page_tsx_6e7d9807._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_org_%5Borg-id%5D_layout_tsx_2829ef9d._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_org_%5Borg-id%5D_layout_tsx_d061e8ac._.js",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=*&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=*&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "https://github.com/showboyz/showboyz.github.io/raw/refs/heads/main/BHP_eng@3x.png",
+      "https://raw.githubusercontent.com/showboyz/showboyz.github.io/refs/heads/main/BHP_eng%403x.png",
+      "http://localhost:3001/favicon.ico?favicon.45db1c09.ico",
+      "http://localhost:3001/_next/static/chunks/src_29d4afcb._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_recharts_es6_b909d72c._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_d4bb41f9._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_org_%5Borg-id%5D_dashboard_page_tsx_6e7d9807._.js",
+      "https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/seniors?select=*&org_id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=id%2Cname%2Corg_type%2Cis_active&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/seniors?select=*&org_id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=id%2Cname%2Corg_type%2Cis_active&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "https://github.com/showboyz/showboyz.github.io/raw/refs/heads/main/BHP_eng@3x.png",
+      "https://raw.githubusercontent.com/showboyz/showboyz.github.io/refs/heads/main/BHP_eng%403x.png",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=licence_seats&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/organisations?select=licence_seats&id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/motor_results?select=senior_id%2Ccreated_at&created_at=gte.2025-07-30T01%3A15%3A42.880Z",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/motor_results?select=senior_id%2Ccreated_at&created_at=gte.2025-07-30T01%3A15%3A42.881Z",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/cognitive_results?select=senior_id%2Ccreated_at&created_at=gte.2025-07-30T01%3A15%3A42.880Z",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/cognitive_results?select=senior_id%2Ccreated_at&created_at=gte.2025-07-30T01%3A15%3A42.881Z",
+      "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+      "http://localhost:3001/_next/static/media/memvYaGs126MiZpBA_UvWbX2vVnXBbObj2OVTS_mu0SC55I-s.p.47b51c64.woff2",
+      "http://localhost:3001/_next/static/chunks/%5Broot-of-the-server%5D__3ad004d1._.css",
+      "http://localhost:3001/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_fd44f5a4._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_2ce9398a._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_next_dist_client_8f19e6fb._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_next_dist_2ecbf5fa._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_%40swc_helpers_cjs_00636ac3._.js",
+      "http://localhost:3001/_next/static/chunks/_e69f0d32._.js",
+      "http://localhost:3001/_next/static/chunks/_93808211._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_next_dist_1a6ee436._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_favicon_ico_mjs_8a7a8fdc._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_%40supabase_node-fetch_browser_6e09c5c2.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_2003025a._.js",
+      "http://localhost:3001/_next/static/chunks/src_76f7bf33._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_layout_tsx_c0237562._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_org_%5Borg-id%5D_layout_tsx_2829ef9d._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_org_%5Borg-id%5D_layout_tsx_d061e8ac._.js",
+      "http://localhost:3001/_next/static/chunks/src_29d4afcb._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_recharts_es6_b909d72c._.js",
+      "http://localhost:3001/_next/static/chunks/node_modules_d4bb41f9._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_org_%5Borg-id%5D_dashboard_page_tsx_6e7d9807._.js",
+      "http://localhost:3001/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_61dcf9ba._.js",
+      "http://localhost:3001/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_66796270._.js",
+      "https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true",
+      "https://github.com/showboyz/showboyz.github.io/raw/refs/heads/main/BHP_eng@3x.png",
+      "https://raw.githubusercontent.com/showboyz/showboyz.github.io/refs/heads/main/BHP_eng%403x.png",
+      "http://localhost:3001/favicon.ico?favicon.45db1c09.ico"
+    ],
+    "failedRequests": [
+      "302 https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true",
+      "302 https://github.com/showboyz/showboyz.github.io/raw/refs/heads/main/BHP_eng@3x.png",
+      "302 https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true",
+      "302 https://github.com/showboyz/showboyz.github.io/raw/refs/heads/main/BHP_eng@3x.png",
+      "302 https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true",
+      "302 https://github.com/showboyz/showboyz.github.io/raw/refs/heads/main/BHP_eng@3x.png",
+      "302 https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true",
+      "302 https://github.com/showboyz/showboyz.github.io/raw/refs/heads/main/BHP_eng@3x.png",
+      "302 https://github.com/showboyz/showboyz.github.io/blob/main/BHP_eng@3x.png?raw=true",
+      "302 https://github.com/showboyz/showboyz.github.io/raw/refs/heads/main/BHP_eng@3x.png"
+    ],
+    "dashboardDataCalls": [
+      "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard?_rsc=ak96a",
+      "http://localhost:3001/_next/static/chunks/src_app_org_%5Borg-id%5D_dashboard_page_tsx_6e7d9807._.js",
+      "http://localhost:3001/_next/static/chunks/src_app_org_%5Borg-id%5D_dashboard_page_tsx_6e7d9807._.js",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/seniors?select=*&org_id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "https://gtfostmllgjxosvvkauh.supabase.co/rest/v1/seniors?select=*&org_id=eq.bf579a76-e9c5-45be-8659-7e62664883c4",
+      "http://localhost:3001/org/bf579a76-e9c5-45be-8659-7e62664883c4/dashboard",
+      "http://localhost:3001/_next/static/chunks/src_app_org_%5Borg-id%5D_dashboard_page_tsx_6e7d9807._.js"
+    ]
+  },
+  "screenshots": [
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/health-status-comprehensive/01-login-page.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/health-status-comprehensive/02-login-filled.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/health-status-comprehensive/03-after-login.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/health-status-comprehensive/04-dashboard-initial.png",
+    "/Users/andrew/CascadeProjects/pdf.md/brain-health-admin/test-screenshots/health-status-comprehensive/07-final-comprehensive.png"
+  ],
+  "errors": []
+}

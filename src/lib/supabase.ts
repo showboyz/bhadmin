@@ -4,8 +4,8 @@ import { createMockSupabase } from './mock-supabase'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-// TEMPORARY: Force demo mode to prevent infinite loops
-const isDemoMode = false // Force demo mode temporarily to fix infinite loop issue
+// TEMPORARY: Force demo mode to prevent infinite loops while fixing Supabase connection
+const isDemoMode = false // Test real Supabase connection
 // const isDemoMode = supabaseUrl.includes('demo.supabase.co') || supabaseAnonKey === 'demo-anon-key'
 
 // Additional check for potentially invalid URLs

@@ -66,6 +66,25 @@ export default function OrganizationManagePage() {
   const params = useParams()
   const orgId = params.id as string
 
+  // 전역 에러 핸들러 (임시 디버깅용)
+  useEffect(() => {
+    const handleError = (event: ErrorEvent) => {
+      console.log('🐛 Global error caught in OrganizationManagePage:', event.error)
+    }
+    
+    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      console.log('🐛 Unhandled promise rejection in OrganizationManagePage:', event.reason)
+    }
+
+    window.addEventListener('error', handleError)
+    window.addEventListener('unhandledrejection', handleUnhandledRejection)
+    
+    return () => {
+      window.removeEventListener('error', handleError)
+      window.removeEventListener('unhandledrejection', handleUnhandledRejection)
+    }
+  }, [])
+
   const [organization, setOrganization] = useState<OrganizationData | null>(null)
   const [admins, setAdmins] = useState<AdminData[]>([])
   const [users, setUsers] = useState<UserData[]>([])
@@ -89,9 +108,22 @@ export default function OrganizationManagePage() {
 
   useEffect(() => {
     if (orgId) {
-      fetchOrganizationData()
-      fetchAdmins()
-      fetchUsers()
+      console.log('🔄 OrganizationManagePage useEffect triggered for orgId:', orgId)
+      
+      const fetchData = async () => {
+        try {
+          await Promise.all([
+            fetchOrganizationData(),
+            fetchAdmins(),
+            fetchUsers()
+          ])
+          console.log('✅ All data fetched successfully')
+        } catch (error) {
+          console.error('❌ Error in fetchData Promise.all:', error)
+        }
+      }
+      
+      fetchData()
     }
   }, [orgId])
 
@@ -131,11 +163,19 @@ export default function OrganizationManagePage() {
 
   const fetchUsers = async () => {
     try {
+      if (!orgId) {
+        console.warn('No orgId provided, skipping user fetch');
+        setUsers([])
+        return
+      }
+
       console.log('Fetching users for organization:', orgId);
       const response = await fetch(`/api/organizations/${orgId}/users`)
       
       if (!response.ok) {
         console.error('HTTP error:', response.status, response.statusText);
+        const errorText = await response.text()
+        console.error('Response body:', errorText)
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       
@@ -151,8 +191,17 @@ export default function OrganizationManagePage() {
       setUsers(result.data || [])
     } catch (error) {
       console.error('Error fetching users:', error)
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      toast.error(`사용자 정보를 불러오는데 실패했습니다: ${errorMessage}`)
+      
+      // 조용히 빈 배열로 설정하여 UI가 깨지지 않도록 함
+      setUsers([])
+      
+      // 네트워크 오류가 아닌 경우에만 toast 표시
+      if (error instanceof Error && !error.message.includes('Failed to fetch')) {
+        const errorMessage = error.message || 'Unknown error';
+        console.warn(`사용자 정보를 불러오는데 실패했습니다: ${errorMessage}`)
+        // toast.error는 주석 처리하여 오류 스팸 방지
+        // toast.error(`사용자 정보를 불러오는데 실패했습니다: ${errorMessage}`)
+      }
     }
   }
 
@@ -187,13 +236,37 @@ export default function OrganizationManagePage() {
         is_active: true
       }
 
-      const { error } = await supabase
+      // 1. Supabase에 저장
+      const { error: supabaseError } = await supabase
         .from('organization_admins')
         .insert([adminData])
 
-      if (error) throw error
+      if (supabaseError) throw supabaseError
 
-      toast.success('관리자가 성공적으로 생성되었습니다.')
+      // 2. DynamoDB에도 동기화 (기존 함수 활용)
+      try {
+        console.log('🔄 Syncing to DynamoDB using existing function...')
+        const { createOrganizationInDynamoDB } = await import('@/lib/dynamodb')
+        
+        const dynamoResult = await createOrganizationInDynamoDB({
+          admin_id: adminData.admin_id,
+          admin_password: adminData.admin_password,
+          name: organization?.name,
+        })
+        
+        console.log('✅ Successfully synced to DynamoDB:', dynamoResult)
+        
+        if (dynamoResult.mode?.includes('simulation')) {
+          toast.success('관리자가 생성되었습니다. (개발 모드: DynamoDB 시뮬레이션)')
+        } else {
+          toast.success('관리자가 성공적으로 생성되고 DynamoDB에 동기화되었습니다.')
+        }
+        
+      } catch (dynamoError) {
+        console.warn('⚠️ DynamoDB sync error:', dynamoError)
+        toast.success('관리자가 생성되었습니다. (DynamoDB 동기화 실패)')
+      }
+
       setShowCreateForm(false)
       setNewAdmin({
         admin_name: '',
@@ -314,6 +387,67 @@ export default function OrganizationManagePage() {
     } catch (error: any) {
       console.error('Error deleting user:', error)
       toast.error(error.message || '사용자 삭제에 실패했습니다.')
+    }
+  }
+
+  const syncAdminToDynamoDB = async (admin: AdminData) => {
+    try {
+      toast.info(`${admin.admin_id}를 DynamoDB에 동기화하는 중...`)
+      
+      // API 호출을 통해 서버사이드에서 DynamoDB 작업 수행
+      const response = await fetch('/api/test-dynamodb', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'put',
+          data: {
+            id: admin.admin_id,
+            password: admin.admin_password,
+            name: organization?.name,
+            accesspermission: "1",
+            timestamp: new Date().toISOString()
+          }
+        }),
+      })
+
+      const result = await response.json()
+      
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to sync to DynamoDB')
+      }
+
+      console.log('✅ DynamoDB sync result:', result)
+      toast.success(`${admin.admin_id}가 DynamoDB에 성공적으로 동기화되었습니다!`)
+      
+      // 동기화 후 확인을 위해 조회 테스트
+      setTimeout(async () => {
+        try {
+          const checkResponse = await fetch('/api/test-dynamodb', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              action: 'get',
+              data: { id: admin.admin_id }
+            })
+          })
+          const checkResult = await checkResponse.json()
+          console.log(`🔍 DynamoDB에서 ${admin.admin_id} 확인 결과:`, checkResult)
+          
+          if (checkResult.found) {
+            toast.success(`✅ ${admin.admin_id}가 DynamoDB에서 확인되었습니다!`)
+          } else {
+            toast.warning(`⚠️ ${admin.admin_id}가 DynamoDB에서 확인되지 않았습니다.`)
+          }
+        } catch (e) {
+          console.log('확인 중 오류:', e)
+        }
+      }, 1000)
+      
+    } catch (error: any) {
+      console.error('Error syncing to DynamoDB:', error)
+      toast.error(`DynamoDB 동기화 실패: ${error.message}`)
     }
   }
 
@@ -620,6 +754,14 @@ export default function OrganizationManagePage() {
                           onClick={() => toggleAdminStatus(admin.id, admin.is_active)}
                         >
                           {admin.is_active ? '비활성화' : '활성화'}
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => syncAdminToDynamoDB(admin)}
+                          title="DynamoDB에 동기화"
+                        >
+                          🔄
                         </Button>
                         <Button
                           variant="outline"

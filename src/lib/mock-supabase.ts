@@ -104,8 +104,8 @@ let mockSeniors: any[] = [
 
 // Mock Supabase client for demo mode
 export const createMockSupabase = () => {
-  // Create a mock user and session for demo purposes  
-  const mockUser = {
+  // Create mock users for demo purposes  
+  const mockAndrewUser = {
     id: 'andrew-user-456',
     email: 'andrew@youngandx.com',
     user_metadata: {
@@ -116,6 +116,21 @@ export const createMockSupabase = () => {
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
   };
+
+  const mockSuperAdminUser = {
+    id: 'super-admin-777',
+    email: 'todays777@gmail.com',
+    user_metadata: {
+      full_name: 'Super Admin'
+    },
+    aud: 'authenticated',
+    role: 'authenticated',
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  };
+
+  // Default to super admin for demo
+  const mockUser = mockSuperAdminUser;
 
   const mockSession = {
     access_token: 'demo-access-token',
@@ -129,10 +144,25 @@ export const createMockSupabase = () => {
       data: { session: mockSession },
       error: null
     }),
-    signInWithPassword: async (credentials: any) => ({
-      data: { user: mockUser, session: mockSession },
-      error: null
-    }),
+    signInWithPassword: async (credentials: any) => {
+      // Return appropriate user based on email
+      let user = mockUser; // Default to super admin
+      if (credentials.email === 'andrew@youngandx.com') {
+        user = mockAndrewUser;
+      } else if (credentials.email === 'todays777@gmail.com') {
+        user = mockSuperAdminUser;
+      }
+      
+      const session = {
+        ...mockSession,
+        user: user
+      };
+      
+      return {
+        data: { user: user, session: session },
+        error: null
+      }
+    },
     signInWithOtp: async (options: any) => ({
       data: null,
       error: { message: 'Demo mode - OTP disabled' }
@@ -210,6 +240,19 @@ export const createMockSupabase = () => {
                   error: null
                 }
               }
+              // Return super admin roles for todays777@gmail.com
+              if (column === 'user_id' && value === 'super-admin-777') {
+                return {
+                  data: {
+                    id: 'super-role-777',
+                    user_id: 'super-admin-777',
+                    org_id: null,
+                    role: 'super_admin',
+                    created_at: new Date().toISOString()
+                  },
+                  error: null
+                }
+              }
             }
             if (table === 'seniors') {
               const filtered = mockSeniors.filter((s: any) => s[column] === value)
@@ -239,6 +282,20 @@ export const createMockSupabase = () => {
                   user_id: 'andrew-user-456',
                   org_id: 'bf579a76-e9c5-45be-8659-7e62664883c4',
                   role: 'org_admin',
+                  created_at: new Date().toISOString(),
+                  updated_at: new Date().toISOString(),
+                  created_by: null
+                }],
+                error: null
+              })
+            }
+            if (table === 'user_roles' && column === 'user_id' && value === 'super-admin-777') {
+              return callback({
+                data: [{
+                  id: 'super-role-777',
+                  user_id: 'super-admin-777',
+                  org_id: null,
+                  role: 'super_admin',
                   created_at: new Date().toISOString(),
                   updated_at: new Date().toISOString(),
                   created_by: null

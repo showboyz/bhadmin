@@ -231,7 +231,7 @@ export function useDashboard(orgId?: string) {
         return {
           id: senior.id,
           name: senior.name,
-          currentWeek: `Week ${Math.max(1, currentWeek)}`,
+          currentWeek: `Session ${Math.max(1, currentWeek)}`,
           progress: `${completedThisWeek} sessions`,
           status: daysSinceLastActivity <= 1 ? 'Active' : daysSinceLastActivity <= 3 ? 'Recent' : 'Inactive',
           lastActivity: lastActivityText

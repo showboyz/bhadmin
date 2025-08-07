@@ -1,0 +1,84 @@
+{
+  "testStartTime": "2025-08-05T05:46:05.435Z",
+  "authenticationAttempts": [
+    {
+      "email": "admin@example.com",
+      "password": "password",
+      "success": false,
+      "redirect": "http://localhost:3000/login",
+      "error": "Redirected back to login or other page"
+    },
+    {
+      "email": "test@test.com",
+      "password": "test123",
+      "success": false,
+      "redirect": "http://localhost:3000/login",
+      "error": "Redirected back to login or other page"
+    },
+    {
+      "email": "admin@admin.com",
+      "password": "admin",
+      "success": false,
+      "redirect": "http://localhost:3000/login",
+      "error": "Redirected back to login or other page"
+    },
+    {
+      "email": "demo@demo.com",
+      "password": "demo",
+      "success": false,
+      "redirect": "http://localhost:3000/login",
+      "error": "Redirected back to login or other page"
+    },
+    {
+      "email": "admin@andrewclinic.com",
+      "password": "admin123",
+      "success": false,
+      "redirect": "http://localhost:3000/login",
+      "error": "Redirected back to login or other page"
+    },
+    {
+      "email": "admin@demo.com",
+      "password": "anypassword",
+      "success": false,
+      "redirect": "http://localhost:3000/login",
+      "error": "Redirected back to login or other page"
+    }
+  ],
+  "dashboardAccess": {
+    "successful": false,
+    "url": null,
+    "screenshot": null,
+    "kpiValues": {}
+  },
+  "credentials": [
+    {
+      "email": "admin@example.com",
+      "password": "password"
+    },
+    {
+      "email": "test@test.com",
+      "password": "test123"
+    },
+    {
+      "email": "admin@admin.com",
+      "password": "admin"
+    },
+    {
+      "email": "demo@demo.com",
+      "password": "demo"
+    },
+    {
+      "email": "admin@andrewclinic.com",
+      "password": "admin123"
+    },
+    {
+      "email": "admin@demo.com",
+      "password": "anypassword"
+    }
+  ],
+  "verification": {
+    "totalUsersCorrect": false,
+    "allUsersFound": false,
+    "overallSuccess": false
+  }
+}

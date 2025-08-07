@@ -18,59 +18,25 @@ interface OrganizationInfo {
   is_active: boolean
 }
 
-// 기관별 앱 사용자 데이터 (실제로는 API에서 가져와야 함)
-const dummyOrgUsers = [
-  {
-    id: 1,
-    name: '김영희',
-    phone: '+82-10-1234-5678',
-    age: 66,
-    currentWeek: 12,
-    progress: 65,
-    status: 'Active',
-    avatar: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=60&h=60&fit=crop&crop=face'
-  },
-  {
-    id: 2,
-    name: '박철수',
-    phone: '+82-10-2345-6789',
-    age: 72,
-    currentWeek: 8,
-    progress: 45,
-    status: 'Active',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face'
-  },
-  {
-    id: 3,
-    name: '이순자',
-    phone: '+82-10-3456-7890',
-    age: 68,
-    currentWeek: 24,
-    progress: 100,
-    status: 'Completed',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop&crop=face'
-  },
-  {
-    id: 4,
-    name: '최미영',
-    phone: '+82-10-4567-8901',
-    age: 58,
-    currentWeek: 2,
-    progress: 15,
-    status: 'Inactive',
-    avatar: 'https://images.unsplash.com/photo-1554151228-14d9def656e4?w=60&h=60&fit=crop&crop=face'
-  },
-  {
-    id: 5,
-    name: '정동현',
-    phone: '+82-10-5678-9012',
-    age: 76,
-    currentWeek: null,
-    progress: 0,
-    status: 'Pending',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face'
-  }
-]
+interface Senior {
+  id: string
+  name: string
+  phone: string | null
+  birth: string
+  gender_enum: 'M' | 'F'
+  created_at: string
+}
+
+interface OrgUser {
+  id: string
+  name: string
+  phone: string
+  age: number
+  currentWeek: string | null
+  progress: number
+  status: string
+  avatar: string
+}
 
 export default function OrgUsersPage() {
   const params = useParams()
@@ -83,6 +49,8 @@ export default function OrgUsersPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const [isCreateUserOpen, setIsCreateUserOpen] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
+  const [users, setUsers] = useState<OrgUser[]>([])
+  const [fetchingUsers, setFetchingUsers] = useState(false)
   const [formData, setFormData] = useState({
     // Step 1: Basic Information
     fullName: '',
@@ -109,6 +77,61 @@ export default function OrgUsersPage() {
     emergencyContact: ''
   })
 
+  const fetchUsers = async () => {
+    try {
+      setFetchingUsers(true)
+      const response = await fetch(`/api/seniors?org_id=${orgId}`)
+      const result = await response.json()
+      
+      if (response.ok && result.success) {
+        // Transform seniors data to OrgUser format
+        const transformedUsers: OrgUser[] = result.seniors.map((senior: Senior) => {
+          const birthDate = new Date(senior.birth)
+          const age = new Date().getFullYear() - birthDate.getFullYear()
+          
+          // Calculate session number based on registration order and activity
+          const createdDate = new Date(senior.created_at)
+          const daysSinceCreated = Math.floor((Date.now() - createdDate.getTime()) / (24 * 60 * 60 * 1000))
+          
+          // Calculate session number (simulate training sessions)
+          const sessionNumber = Math.max(1, Math.floor(daysSinceCreated / 3) + 1) // New session every 3 days
+          
+          // Determine status based on recent activity
+          let status = 'Active'
+          if (daysSinceCreated <= 1) status = 'Active'
+          else if (daysSinceCreated <= 7) status = 'Recent'
+          else status = 'Pending'
+          
+          // Generate consistent avatar based on gender
+          const avatar = senior.gender_enum === 'M' 
+            ? 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face'
+            : 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop&crop=face'
+          
+          return {
+            id: senior.id,
+            name: senior.name,
+            phone: senior.phone || 'N/A',
+            age: age,
+            currentWeek: `Session ${sessionNumber}`,
+            progress: Math.min(sessionNumber * 8, 100), // Progress based on sessions
+            status: status,
+            avatar: avatar
+          }
+        })
+        
+        setUsers(transformedUsers)
+      } else {
+        console.error('Failed to fetch users:', result)
+        setUsers([])
+      }
+    } catch (error) {
+      console.error('Error fetching users:', error)
+      setUsers([])
+    } finally {
+      setFetchingUsers(false)
+    }
+  }
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Active':
@@ -121,15 +144,30 @@ export default function OrgUsersPage() {
         return 'bg-blue-100 text-blue-800 hover:bg-blue-200'
       case 'Completed':
         return 'bg-purple-100 text-purple-800 hover:bg-purple-200'
+      case 'Recent':
+        return 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
       default:
         return 'bg-gray-100 text-gray-800 hover:bg-gray-200'
     }
   }
 
-  const filteredUsers = dummyOrgUsers.filter(user =>
+  const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.phone.includes(searchTerm)
   )
+
+  // Pagination logic
+  const USERS_PER_PAGE = 10
+  const totalPages = Math.ceil(filteredUsers.length / USERS_PER_PAGE)
+  const startIndex = (currentPage - 1) * USERS_PER_PAGE
+  const endIndex = startIndex + USERS_PER_PAGE
+  const paginatedUsers = filteredUsers.slice(startIndex, endIndex)
+
+  // Reset to page 1 when search changes
+  const handleSearchChange = (term: string) => {
+    setSearchTerm(term)
+    setCurrentPage(1)
+  }
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -150,32 +188,65 @@ export default function OrgUsersPage() {
     }
   }
 
-  const handleSubmit = () => {
-    console.log('Creating user with program setup:', formData)
-    // Here you would typically send the data to your backend
-    setIsCreateUserOpen(false)
-    setCurrentStep(1)
-    // Reset form
-    setFormData({
-      fullName: '',
-      gender: '',
-      birthDate: '',
-      phone: '',
-      grade: '',
-      guardian: '',
-      address: '',
-      healthStatus: '',
-      programType: '',
-      startDate: '',
-      sessionFrequency: '',
-      preferredTime: '',
-      specialRequirements: '',
-      cognitiveLevel: '',
-      physicalLevel: '',
-      primaryGoals: '',
-      medicalNotes: '',
-      emergencyContact: ''
-    })
+  const handleSubmit = async () => {
+    try {
+      setLoading(true)
+      
+      // Prepare the data for API call
+      const requestData = {
+        ...formData,
+        orgId: orgId
+      }
+      
+      const response = await fetch('/api/seniors', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData)
+      })
+      
+      const result = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to create user')
+      }
+      
+      console.log('✅ User created successfully:', result)
+      
+      // Refresh user list to show new user
+      await fetchUsers()
+      
+      // Close dialog and reset form
+      setIsCreateUserOpen(false)
+      setCurrentStep(1)
+      setFormData({
+        fullName: '',
+        gender: '',
+        birthDate: '',
+        phone: '',
+        grade: '',
+        guardian: '',
+        address: '',
+        healthStatus: '',
+        programType: '',
+        startDate: '',
+        sessionFrequency: '',
+        preferredTime: '',
+        specialRequirements: '',
+        cognitiveLevel: '',
+        physicalLevel: '',
+        primaryGoals: '',
+        medicalNotes: '',
+        emergencyContact: ''
+      })
+      
+    } catch (error) {
+      console.error('❌ Error creating user:', error)
+      alert(`Failed to create user: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const getStepTitle = () => {
@@ -213,6 +284,10 @@ export default function OrgUsersPage() {
         } else {
           setOrganization(orgData)
         }
+        
+        // Fetch users for this organization
+        await fetchUsers()
+        
       } catch (error) {
         console.error('Error fetching data:', error)
       } finally {
@@ -445,7 +520,7 @@ export default function OrgUsersPage() {
             <Input
               placeholder="Search"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               className="pl-10 bg-white border-gray-300"
             />
           </div>
@@ -470,7 +545,7 @@ export default function OrgUsersPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {filteredUsers.map((user) => (
+                {paginatedUsers.map((user) => (
                   <tr key={user.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => window.location.href = `/org/${orgId}/users/${user.id}`}>
                     <td className="py-4 px-6">
                       <div className="flex items-center">
@@ -491,10 +566,7 @@ export default function OrgUsersPage() {
                     <td className="py-4 px-6">
                       <div className="text-sm text-[#111]">
                         {user.currentWeek ? (
-                          <>
-                            <span className="font-medium">{user.currentWeek}</span>
-                            <span className="text-[#555] ml-1">week</span>
-                          </>
+                          <span className="font-medium">{user.currentWeek}</span>
                         ) : (
                           <span className="text-[#777]">N/A</span>
                         )}
@@ -575,37 +647,55 @@ export default function OrgUsersPage() {
           </div>
 
           {/* Pagination */}
-          <div className="flex items-center justify-center px-6 py-4 border-t border-gray-200">
-            <div className="flex items-center space-x-2">
-              <Button variant="ghost" size="sm" className="text-gray-500">
-                &lt;
-              </Button>
-              <Button variant="ghost" size="sm" className="bg-gray-900 text-white hover:bg-gray-800">
-                1
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
-                2
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
-                3
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
-                4
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
-                5
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
-                6
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
-                7
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-500">
-                &gt;
-              </Button>
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center px-6 py-4 border-t border-gray-200">
+              <div className="flex items-center space-x-2">
+                {/* Previous Button */}
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={`${currentPage === 1 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-500 hover:text-gray-700'}`}
+                  onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  &lt;
+                </Button>
+                
+                {/* Page Numbers */}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                  <Button
+                    key={pageNum}
+                    variant="ghost"
+                    size="sm"
+                    className={`${
+                      currentPage === pageNum
+                        ? 'bg-gray-900 text-white hover:bg-gray-800'
+                        : 'text-gray-500 hover:text-gray-700'
+                    }`}
+                    onClick={() => setCurrentPage(pageNum)}
+                  >
+                    {pageNum}
+                  </Button>
+                ))}
+                
+                {/* Next Button */}
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={`${currentPage === totalPages ? 'text-gray-300 cursor-not-allowed' : 'text-gray-500 hover:text-gray-700'}`}
+                  onClick={() => currentPage < totalPages && setCurrentPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  &gt;
+                </Button>
+              </div>
+              
+              {/* Page Info */}
+              <div className="ml-4 text-sm text-gray-500">
+                Showing {startIndex + 1}-{Math.min(endIndex, filteredUsers.length)} of {filteredUsers.length} users
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
